@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8">
+    <title>Hello World!</title>
+    <link rel="stylesheet" href="index.css">
+    <link rel="stylesheet" href="tailwind.css">
+  </head>
+  <body>
+    <div id="popup" class="text-center hidden border bg-white w-96 rounded shadow-lg fixed p-4 top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2">
+      <h1 class="text-4xl font-bold text-gray-900 mb-4">An error occured</h1>
+      <p id="site"></p>
+      <p id="desc" class="text-xs text-gray-500"></p>
+    </div>
+    <div class="flex flex-col h-full">
+      <div class="flex-none flex p-2 px-4 space-x-4 border-b items-center">
+        <button id="back"><img src="./icons/back.png"></button>
+        <button id="forward"><img src="./icons/forward.png"></button>
+        <button id="reload"><img id="reload-icon" src="./icons/reload.png"></button>
+        <input id="omnibox" type="text" class="rounded outline-none text-gray-700 px-4 py-0.5 flex-1 text-sm transition bg-white border box-border h-7 hover:shadow"/>
+        <button id="search"><img src="./icons/search.png"></button>
+        <button><img src="./icons/lock-closed.png" id="ssl" width="20" height="20"></button>
+      </div>
+      <webview id="view" src="https://google.com" class="flex-1"></webview>
+    </div>
+    <script src="./browser.js"></script>  
+  </body>
+</html>
