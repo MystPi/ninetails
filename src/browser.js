@@ -1,12 +1,14 @@
-const view = document.getElementById('view');
-const omnibox = document.getElementById('omnibox');
-const ssl = document.getElementById('ssl');
-const back = document.getElementById('back');
-const forward = document.getElementById('forward');
-const reload = document.getElementById('reload');
-const reloadIcon = document.getElementById('reload-icon');
-const search = document.getElementById('search');
-const popup = document.getElementById('popup');
+const byId = id => document.getElementById(id);
+
+const view = byId('view');
+const omnibox = byId('omnibox');
+const ssl = byId('ssl');
+const back = byId('back');
+const forward = byId('forward');
+const reload = byId('reload');
+const reloadIcon = byId('reload-icon');
+const search = byId('search');
+const popup = byId('popup');
 
 function checkSSL(string) {
   if (string.slice(0, 8) === 'https://') {
@@ -51,8 +53,12 @@ view.addEventListener('did-stop-loading', () => {
 
 view.addEventListener('did-fail-load', (e) => {
   popup.style.display = 'block';
-  document.getElementById('desc').innerText = e.errorDescription;
-  document.getElementById('site').innerText = e.validatedURL;
+  byId('desc').innerText = e.errorDescription;
+  byId('site').innerText = e.validatedURL;
+});
+
+byId('close').addEventListener('click', () => {
+  popup.style.display = 'none';
 });
 
 back.addEventListener('click', () => {
