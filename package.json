@@ -1,8 +1,8 @@
 {
   "name": "ninetails",
-  "productName": "ninetails",
+  "productName": "Ninetails",
   "version": "1.0.0",
-  "description": "My Electron application description",
+  "description": "A simple and fun web browser made with Electron",
   "main": "src/index.js",
   "scripts": {
     "start": "electron-forge start",
@@ -19,7 +19,11 @@
   "license": "MIT",
   "config": {
     "forge": {
-      "packagerConfig": {},
+      "packagerConfig": {
+        "icon": "./appicons/ninetails",
+        "name": "Ninetails",
+        "executableName": "ninetails"
+      },
       "makers": [
         {
           "name": "@electron-forge/maker-squirrel",
@@ -35,11 +39,9 @@
         },
         {
           "name": "@electron-forge/maker-deb",
-          "config": {}
-        },
-        {
-          "name": "@electron-forge/maker-rpm",
-          "config": {}
+          "config": {
+            "icon": "./appicons/ninetails.png"
+          }
         }
       ]
     }
