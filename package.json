@@ -2,7 +2,7 @@
   "name": "ninetails",
   "productName": "Ninetails",
   "version": "1.0.0",
-  "description": "A simple and fun web browser made with Electron",
+  "description": "A fun little web browser",
   "main": "src/index.js",
   "scripts": {
     "start": "electron-forge start",
