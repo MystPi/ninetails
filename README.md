@@ -4,7 +4,6 @@
 
 
 ## Development
-> Tailwind JiT mode might be a good idea for large changes
 ```bash
 # Clone the repo
 git clone https://github.com/MystPi/ninetails.git
@@ -15,6 +14,10 @@ npm install
 
 # Start the app
 npm start
+
+# Before making changes involving Tailwind CSS, you should run
+npm run tailwind
+# to make Tailwind watch for changes
 ```
 
 ## Building the app
