@@ -1,5 +1,7 @@
-# ninetails
-A fun and simple little web browser
+# Ninetails
+
+![Ninetails banner](https://user-images.githubusercontent.com/86574651/143719384-d3effe33-9f91-4da8-8a6a-01c7fb615062.png)
+
 
 ## Development
 ```bash
