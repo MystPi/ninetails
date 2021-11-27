@@ -4,6 +4,7 @@
 
 
 ## Development
+> Tailwind JiT mode might be a good idea for large changes
 ```bash
 # Clone the repo
 git clone https://github.com/MystPi/ninetails.git
