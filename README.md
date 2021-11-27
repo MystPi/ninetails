@@ -1,5 +1,5 @@
 # ninetails
-A fun and simple little web browser made with Electron
+A fun and simple little web browser
 
 ## Development
 ```bash
