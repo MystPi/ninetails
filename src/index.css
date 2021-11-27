@@ -4,6 +4,21 @@ body {
   height: 100vh;
 }
 
+*, *::after, *::before {
+	-webkit-user-select: none;
+	-webkit-user-drag: none;
+	-webkit-app-region: no-drag;
+}
+
 img {
-  opacity: 0.5;
+  opacity: 0.4;
+}
+
+.hoverable:hover {
+  background-color: rgb(229, 231, 235);
+}
+
+::selection {
+  color: white;
+  background: rgb(99, 102, 241);
 }

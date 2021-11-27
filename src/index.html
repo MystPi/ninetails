@@ -7,22 +7,30 @@
     <link rel="stylesheet" href="tailwind.css">
   </head>
   <body>
-    <div id="popup" class="text-center hidden border bg-white w-96 rounded shadow-lg fixed p-4 top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2">
-      <button id="close" class="absolute right-2 top-2"><img src="./icons/close.png"></button>
-      <h1 class="text-4xl font-bold text-gray-900 mb-4">An error occured</h1>
+    <div id="menu" class="hidden fixed flex flex-col bg-white py-2 rounded shadow border w-32 z-10">
+      <button onclick="view.openDevTools();" class="hover:bg-gray-100 w-full text-left p-1 pl-6 text-gray-700 text-sm">Inspect</button>
+      <hr class="m-1">
+      <button onclick="view.reload()" class="hover:bg-gray-100 w-full text-left p-1 pl-6 text-gray-700 text-sm">Reload</button>
+      <button onclick="view.goBack()" class="hover:bg-gray-100 w-full text-left p-1 pl-6 text-gray-700 text-sm">Back</button>
+      <button onclick="view.goForward()" class="hover:bg-gray-100 w-full text-left p-1 pl-6 text-gray-700 text-sm">Forward</button>
+    </div>
+    <div id="cover" class="hidden fixed w-full h-full"></div>
+    <div id="popup" class="text-center hidden border bg-white w-96 rounded fixed p-4 top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2">
+      <button id="close" class="absolute right-2 top-2"><img width="14" height="14" src="./icons/close.png"></button>
+      <h1 class="text-4xl font-bold text-indigo-500 mb-4">An error occured</h1>
       <p id="site"></p>
       <p id="desc" class="text-xs text-gray-500"></p>
     </div>
     <div class="flex flex-col h-full">
-      <div class="flex-none flex p-2 px-4 space-x-4 border-b items-center">
-        <button id="back"><img src="./icons/back.png"></button>
-        <button id="forward"><img src="./icons/forward.png"></button>
-        <button id="reload"><img id="reload-icon" src="./icons/reload.png"></button>
-        <input id="omnibox" type="text" class="rounded outline-none text-gray-700 px-4 py-0.5 flex-1 text-sm transition bg-white border box-border h-7 hover:shadow"/>
-        <button id="search"><img src="./icons/search.png"></button>
-        <button><img src="./icons/lock-closed.png" id="ssl" width="20" height="20"></button>
+      <div class="flex-none flex px-4 py-3 space-x-3 items-center">
+        <button onclick="view.goBack()" id="back" class="w-7 h-7 transition rounded-full cursor-default flex items-center justify-center"><img src="./icons/back-ios.png" width="20" height="20"></button>
+        <button onclick="view.goForward()" id="forward" class="w-7 h-7 transition rounded-full cursor-default flex items-center justify-center"><img src="./icons/forward-ios.png" width="20" height="20"></button>
+        <input id="omnibox" type="text" class="rounded outline-none text-gray-700 pl-4 pr-7 py-0.5 flex-1 text-sm transition bg-gray-100 box-border h-7 hover:bg-gray-200"/>
+        <button onclick="view.reload()" id="reload" class="w-7 h-7 cursor-default flex items-center justify-center" style="margin-left: -1.75rem;"><img id="reload-icon" src="./icons/reload.png" width="20" height="20"></button>
+        <button id="search" class="w-7 h-7 transition hover:bg-gray-200 rounded-full cursor-default flex items-center justify-center"><img src="./icons/search.png" width="20" height="20"></button>
+        <button class="w-7 h-7 cursor-default flex items-center justify-center"><img src="./icons/lock-closed.png" id="ssl" width="20" height="20"></button>
       </div>
-      <webview id="view" src="https://google.com" class="flex-1"></webview>
+      <webview id="view" src="https://ninetails.cf" class="flex-1"></webview>
     </div>
     <script src="./browser.js"></script>  
   </body>
