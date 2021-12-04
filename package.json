@@ -43,6 +43,10 @@
           "config": {
             "icon": "./appicons/ninetails.png"
           }
+        },
+        {
+          "name": "@electron-forge/maker-rpm",
+          "config": {}
         }
       ]
     }
