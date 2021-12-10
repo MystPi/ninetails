@@ -46,6 +46,16 @@ app.on('activate', () => {
   }
 });
 
+// Intercept new windows and make them do nothing (new windows are handled
+// in `browser.js` by opening new tabs)
+app.on('web-contents-created', function (event, contents) {
+  if (contents.getType() === 'webview') {
+    contents.on('new-window', function (newWindowEvent) {
+      newWindowEvent.preventDefault();
+    });
+  }
+});
+
 // In this file you can include the rest of your app's specific main process
 // code. You can also put them in separate files and import them here.
 

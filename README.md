@@ -1,7 +1,6 @@
 # Ninetails
 
-![Ninetails banner](https://user-images.githubusercontent.com/86574651/143719384-d3effe33-9f91-4da8-8a6a-01c7fb615062.png)
-
+<img alt="Ninetails' banner" src="https://user-images.githubusercontent.com/86574651/145640341-d8a01929-2b08-452e-b03a-60774c6c9158.png">
 
 ## Development
 ```bash

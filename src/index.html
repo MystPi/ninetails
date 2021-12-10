@@ -2,35 +2,43 @@
 <html>
   <head>
     <meta charset="UTF-8">
-    <title>Hello World!</title>
+    <title>Ninetails</title>
     <link rel="stylesheet" href="index.css">
     <link rel="stylesheet" href="tailwind.css">
   </head>
-  <body>
-    <div id="menu" class="hidden fixed flex flex-col bg-white py-2 rounded shadow border w-32 z-10">
-      <button onclick="view.openDevTools();" class="hover:bg-gray-100 w-full text-left p-1 pl-6 text-gray-700 text-sm">Inspect</button>
-      <hr class="m-1">
-      <button onclick="view.reload()" class="hover:bg-gray-100 w-full text-left p-1 pl-6 text-gray-700 text-sm">Reload</button>
-      <button onclick="view.goBack()" class="hover:bg-gray-100 w-full text-left p-1 pl-6 text-gray-700 text-sm">Back</button>
-      <button onclick="view.goForward()" class="hover:bg-gray-100 w-full text-left p-1 pl-6 text-gray-700 text-sm">Forward</button>
+  <body class="m-0 p-0 h-[100vh]">
+    <div id="menu" class="fixed z-20 flex flex-col hidden w-32 py-2 bg-white border rounded shadow">
+      <button onclick="view.openDevTools()" class="w-full p-1 pl-6 text-sm text-left text-gray-700 hover:bg-gray-100">Inspect</button>
+      <button onclick="view.reload()" class="w-full p-1 pl-6 text-sm text-left text-gray-700 hover:bg-gray-100">Reload</button>
+      <button onclick="view.goBack()" class="w-full p-1 pl-6 text-sm text-left text-gray-700 hover:bg-gray-100">Back</button>
+      <button onclick="view.goForward()" class="w-full p-1 pl-6 text-sm text-left text-gray-700 hover:bg-gray-100">Forward</button>
     </div>
-    <div id="cover" class="hidden fixed w-full h-full"></div>
-    <div id="popup" class="text-center hidden border bg-white w-96 rounded fixed p-4 top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2">
+    <div id="cover" class="fixed z-10 hidden w-full h-full"></div>
+    <div id="popup" class="fixed hidden p-4 text-center transform -translate-x-1/2 -translate-y-1/2 bg-white border rounded w-96 top-1/2 left-1/2">
       <button id="close" class="absolute right-2 top-2"><img width="14" height="14" src="./icons/close.png"></button>
-      <h1 class="text-4xl font-bold text-indigo-500 mb-4">An error occured</h1>
+      <h1 class="mb-4 text-4xl font-bold text-indigo-500">An error occured</h1>
       <p id="site"></p>
       <p id="desc" class="text-xs text-gray-500"></p>
     </div>
+    <div id="target" class="fixed bottom-0 max-w-md px-1 overflow-hidden text-sm text-gray-700 transition bg-gray-200 opacity-0 whitespace-nowrap text-ellipsis sm:max-w-[75%]"></div>
     <div class="flex flex-col h-full">
-      <div class="flex-none flex px-4 py-3 space-x-3 items-center">
-        <button onclick="view.goBack()" id="back" class="w-7 h-7 transition rounded-full cursor-default flex items-center justify-center"><img src="./icons/back-ios.png" width="20" height="20"></button>
-        <button onclick="view.goForward()" id="forward" class="w-7 h-7 transition rounded-full cursor-default flex items-center justify-center"><img src="./icons/forward-ios.png" width="20" height="20"></button>
-        <input id="omnibox" type="text" class="rounded outline-none text-gray-700 pl-4 pr-7 py-0.5 flex-1 text-sm transition bg-gray-100 box-border h-7 hover:bg-gray-200"/>
-        <button onclick="view.reload()" id="reload" class="w-7 h-7 cursor-default flex items-center justify-center" style="margin-left: -1.75rem;"><img id="reload-icon" src="./icons/reload.png" width="20" height="20"></button>
-        <button id="search" class="w-7 h-7 transition hover:bg-gray-200 rounded-full cursor-default flex items-center justify-center"><img src="./icons/search.png" width="20" height="20"></button>
-        <button class="w-7 h-7 cursor-default flex items-center justify-center"><img src="./icons/lock-closed.png" id="ssl" width="20" height="20"></button>
+      <div class="flex items-center px-4 mt-4">
+        <div id="tabbar" class="flex items-center flex-1 pr-2 space-x-2 overflow-auto">
+          <button onclick="switchTabs('0')" id="tab-0" class="active-tab"><img src="./icons/favicon.png"><span>New Tab</span></button>
+        </div>
+        <button onclick="createTab()" class="flex items-center justify-center transition rounded-full cursor-default w-7 h-7 hoverable"><img src="./icons/add.png" width="20" height="20"></button>
       </div>
-      <webview id="view" src="https://ninetails.cf" class="flex-1"></webview>
+      <div class="flex items-center flex-none px-4 py-2 space-x-3">
+        <button onclick="view.goBack()" id="back" class="flex items-center justify-center transition rounded-full cursor-default w-7 h-7"><img src="./icons/back-ios.png" width="20" height="20"></button>
+        <button onclick="view.goForward()" id="forward" class="flex items-center justify-center transition rounded-full cursor-default w-7 h-7"><img src="./icons/forward-ios.png" width="20" height="20"></button>
+        <input id="omnibox" type="text" class="rounded outline-none text-gray-700 pl-4 pr-7 py-0.5 flex-1 text-sm transition bg-gray-100 box-border h-7 hover:bg-gray-200"/>
+        <button onclick="view.reload()" id="reload" class="flex items-center justify-center cursor-default w-7 h-7" style="margin-left: -1.75rem;"><img id="reload-icon" src="./icons/reload.png" width="20" height="20"></button>
+        <button class="flex items-center justify-center cursor-default w-7 h-7"><img src="./icons/lock-closed.png" id="ssl" width="20" height="20"></button>
+        <button onclick="closeTab()" class="flex items-center justify-center transition rounded-full cursor-default w-7 h-7 hover:bg-gray-200"><img src="./icons/close.png" width="20" height="20"></button>
+      </div>
+      <div id="views" class="flex-1">
+        <webview id="view-0" src="https://ninetails.cf" class="view" allowpopups webpreferences="nativeWindowOpen=true"></webview>
+      </div>
     </div>
     <script src="./browser.js"></script>  
   </body>
