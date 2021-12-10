@@ -35,5 +35,4 @@ npm run make
 # Eg. `./out/make/deb/arm64/ninetails_1.0.0_arm64.deb`
 ```
 
-## Note about the Android version
-The mobile version of Ninetails is completely different from the normal version, and it's source code isn't even in this repo. However, the mobile version will still be released in this repo since it doesn't have anywhere else *to* be released.
+## The Android app has moved [here](https://github.com/MystPi/ninetails-android)
