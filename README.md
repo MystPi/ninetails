@@ -2,6 +2,13 @@
 
 <img alt="Ninetails' banner" src="https://user-images.githubusercontent.com/86574651/145640341-d8a01929-2b08-452e-b03a-60774c6c9158.png">
 
+<p align="center">
+  <img src="https://img.shields.io/github/v/release/mystpi/ninetails?style=for-the-badge">
+  <img src="https://img.shields.io/github/license/mystpi/ninetails?style=for-the-badge">
+  <img src="https://img.shields.io/github/languages/top/mystpi/ninetails?color=yellow&style=for-the-badge">
+  <img src="https://img.shields.io/github/downloads/mystpi/ninetails/total?style=for-the-badge">
+</p>
+
 ## Development
 ```bash
 # Clone the repo
