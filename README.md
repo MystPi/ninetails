@@ -11,6 +11,12 @@
   <a href="https://www.producthunt.com/posts/ninetails?utm_source=badge-featured&utm_medium=badge&utm_souce=badge-ninetails" target="_blank"><img src="https://api.producthunt.com/widgets/embed-image/v1/featured.svg?post_id=322567&theme=light" alt="Ninetails - A private, fast, and beautiful web browser | Product Hunt" style="width: 250px; height: 54px;" width="250" height="54" /></a>
 </p>
 
+Ninetails is a private, fast, and beautiful web browser that's created with Electron and styled with Tailwind CSS. Enjoy a clean and unique experience while surfing the web.
+
+In this age where many browsers track their users, it's nice to have a break from telemetry and browse privately. Ninetails never collects any data, and is 100% telemetry free!
+
+New things are constantly being added to Ninetails, so be on the lookout for new releases. You can view some features and fixes that are in the works on [this board](https://github.com/MystPi/ninetails/projects/1).
+
 ## Development
 ```bash
 # Clone the repo
