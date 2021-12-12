@@ -14,18 +14,10 @@
       <button onclick="view.goForward()" class="w-full p-1 pl-6 text-sm text-left text-gray-700 hover:bg-gray-100">Forward</button>
     </div>
     <div id="cover" class="fixed z-10 hidden w-full h-full"></div>
-    <div id="popup" class="fixed hidden p-4 text-center transform -translate-x-1/2 -translate-y-1/2 bg-white border rounded w-96 top-1/2 left-1/2">
-      <button id="close" class="absolute right-2 top-2"><img width="14" height="14" src="./icons/close.png"></button>
-      <h1 class="mb-4 text-4xl font-bold text-indigo-500">An error occured</h1>
-      <p id="site"></p>
-      <p id="desc" class="text-xs text-gray-500"></p>
-    </div>
     <div id="target" class="fixed bottom-0 max-w-md px-1 overflow-hidden text-sm text-gray-700 transition bg-gray-200 opacity-0 whitespace-nowrap text-ellipsis sm:max-w-[75%]"></div>
     <div class="flex flex-col h-full">
       <div class="flex items-center px-4 mt-4">
-        <div id="tabbar" class="flex items-center flex-1 pr-2 space-x-2 overflow-auto">
-          <button onclick="switchTabs('0')" id="tab-0" class="active-tab"><img src="./icons/favicon.png"><span>New Tab</span></button>
-        </div>
+        <div id="tabbar" class="flex items-center flex-1 pr-2 space-x-2 overflow-auto"></div>
         <button onclick="createTab()" class="flex items-center justify-center transition rounded-full cursor-default w-7 h-7 hoverable"><img src="./icons/add.png" width="20" height="20"></button>
       </div>
       <div class="flex items-center flex-none px-4 py-2 space-x-3">
@@ -36,9 +28,7 @@
         <button class="flex items-center justify-center cursor-default w-7 h-7"><img src="./icons/lock-closed.png" id="ssl" width="20" height="20"></button>
         <button onclick="closeTab()" class="flex items-center justify-center transition rounded-full cursor-default w-7 h-7 hover:bg-gray-200"><img src="./icons/close.png" width="20" height="20"></button>
       </div>
-      <div id="views" class="flex-1">
-        <webview id="view-0" src="https://ninetails.cf" class="view" allowpopups webpreferences="nativeWindowOpen=true"></webview>
-      </div>
+      <div id="views" class="flex-1"></div>
     </div>
     <script src="./browser.js"></script>  
   </body>

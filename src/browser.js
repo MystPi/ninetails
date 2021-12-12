@@ -1,13 +1,12 @@
 const byId = id => document.getElementById(id);
 
-let view = byId('view-0');
+let view;
 let activeHash = '0';
 
 const omnibox = byId('omnibox'),
       ssl = byId('ssl'),
       back = byId('back'),
       forward = byId('forward'),
-      popup = byId('popup'),
       menu = byId('menu'),
       cover = byId('cover'),
       target = byId('target');
@@ -20,8 +19,10 @@ function setTitle(tab, title) {
 
 function switchTabs(tab) {
   let currentTab = document.querySelector('.active-tab');
-  currentTab.classList.remove('active-tab');
-  currentTab.classList.add('tab');
+  if (currentTab) {
+    currentTab.classList.remove('active-tab');
+    currentTab.classList.add('tab');
+  }
 
   let activeTab = byId('tab-' + tab);
   activeTab.classList.add('active-tab');
@@ -73,9 +74,8 @@ function createTab(url) {
     view.src = 'https://ninetails.cf';
   }
 
-  addListenersToView(view, hash);
-
   byId('views').appendChild(view);
+  addListenersToView(view, hash);
   switchTabs(hash);
 }
 
@@ -174,13 +174,6 @@ function addListenersToView(view, hash) {
   });
 
 
-  view.addEventListener('did-fail-load', (e) => {
-    popup.style.display = 'block';
-    byId('desc').innerText = e.errorDescription;
-    byId('site').innerText = e.validatedURL;
-  });
-
-
   view.addEventListener('page-title-updated', (e) => {
     setTitle(tab, e.title);
   });
@@ -227,9 +220,8 @@ cover.addEventListener('click', () => {
 });
 
 
-byId('close').addEventListener('click', () => {
-  popup.style.display = 'none';
-});
-
-
-addListenersToView(view, '0');
+fetch('../package.json')
+  .then(res => res.json())
+  .then(res => {
+    createTab('https://ninetails.cf/?v=' + res.version);
+  });
