@@ -1,6 +1,6 @@
 const byId = id => document.getElementById(id);
 
-let view = byId('view-0');
+let view;
 let activeHash = '0';
 
 const omnibox = byId('omnibox'),
@@ -19,8 +19,10 @@ function setTitle(tab, title) {
 
 function switchTabs(tab) {
   let currentTab = document.querySelector('.active-tab');
-  currentTab.classList.remove('active-tab');
-  currentTab.classList.add('tab');
+  if (currentTab) {
+    currentTab.classList.remove('active-tab');
+    currentTab.classList.add('tab');
+  }
 
   let activeTab = byId('tab-' + tab);
   activeTab.classList.add('active-tab');
@@ -72,9 +74,8 @@ function createTab(url) {
     view.src = 'https://ninetails.cf';
   }
 
-  addListenersToView(view, hash);
-
   byId('views').appendChild(view);
+  addListenersToView(view, hash);
   switchTabs(hash);
 }
 
@@ -219,4 +220,4 @@ cover.addEventListener('click', () => {
 });
 
 
-addListenersToView(view, '0');
+createTab('https://ninetails.cf')
