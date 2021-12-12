@@ -137,7 +137,7 @@ omnibox.addEventListener('keydown', (e) => {
         view.loadURL('http://'+ val);
       }
     } else {
-      view.loadURL('https://www.google.com/search?q=' + val);
+      search(val);
     }
   }
 });
