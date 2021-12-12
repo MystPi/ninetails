@@ -7,7 +7,6 @@ const omnibox = byId('omnibox'),
       ssl = byId('ssl'),
       back = byId('back'),
       forward = byId('forward'),
-      popup = byId('popup'),
       menu = byId('menu'),
       cover = byId('cover'),
       target = byId('target');
@@ -174,13 +173,6 @@ function addListenersToView(view, hash) {
   });
 
 
-  view.addEventListener('did-fail-load', (e) => {
-    popup.style.display = 'block';
-    byId('desc').innerText = e.errorDescription;
-    byId('site').innerText = e.validatedURL;
-  });
-
-
   view.addEventListener('page-title-updated', (e) => {
     setTitle(tab, e.title);
   });
@@ -224,11 +216,6 @@ function addListenersToView(view, hash) {
 cover.addEventListener('click', () => {
   menu.style.display = 'none';
   cover.style.display = 'none';
-});
-
-
-byId('close').addEventListener('click', () => {
-  popup.style.display = 'none';
 });
 
 
