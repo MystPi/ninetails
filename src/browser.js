@@ -220,4 +220,8 @@ cover.addEventListener('click', () => {
 });
 
 
-createTab('https://ninetails.cf/');
+fetch('../package.json')
+  .then(res => res.json())
+  .then(res => {
+    createTab('https://ninetails.cf/?v=' + res.version);
+  });
