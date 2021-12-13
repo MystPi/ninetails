@@ -19,7 +19,26 @@
       <div class="flex items-center px-4 mt-4">
         <div id="tabbar" class="flex items-center flex-1 pr-2 space-x-2 overflow-auto"></div>
         <button onclick="createTab()" class="flex items-center justify-center transition rounded-full cursor-default w-7 h-7 hoverable"><img src="./icons/add.png" width="20" height="20"></button>
+        <button onclick="showMoreMenu()" class="flex items-center justify-center transition rounded-full cursor-default w-7 h-7 hoverable"><img src="./icons/more.png" widht="20" height="20"></button>
       </div>
+      <!-- Dropdown "more menu" -->
+      <div id="more-menu" class="hidden absolute right-0 top-8 bg-white text-base z-50 list-none divide-y divide-gray-100 rounded shadow my-4">
+        <ul class="py-1" aria-labelledby="dropdown">
+          <li>
+            <a href="#" class="text-sm hover:bg-gray-100 text-gray-700 block px-4 py-2">Placeholder Item</a>
+          </li>
+          <li>
+            <a href="#" class="text-sm hover:bg-gray-100 text-gray-700 block px-4 py-2">Placeholder Item</a>
+          </li>
+          <li>
+            <a href="#" class="text-sm hover:bg-gray-100 text-gray-700 block px-4 py-2">Placeholder Item</a>
+          </li>
+          <li>
+            <a href="#" class="text-sm hover:bg-gray-100 text-gray-700 block px-4 py-2">Placeholder Item</a>
+          </li>
+        </ul>
+      </div>
+      
       <div class="flex items-center flex-none px-4 py-2 space-x-3">
         <button onclick="view.goBack()" id="back" class="flex items-center justify-center transition rounded-full cursor-default w-7 h-7"><img src="./icons/back-ios.png" width="20" height="20"></button>
         <button onclick="view.goForward()" id="forward" class="flex items-center justify-center transition rounded-full cursor-default w-7 h-7"><img src="./icons/forward-ios.png" width="20" height="20"></button>

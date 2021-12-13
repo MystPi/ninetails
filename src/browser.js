@@ -79,6 +79,17 @@ function createTab(url) {
   switchTabs(hash);
 }
 
+function showMoreMenu() {
+  const menu = byId('more-menu');
+  if (menu.classList.contains('block')) {
+    menu.classList.remove('block')
+    menu.classList.add('hidden')
+  } else {
+    menu.classList.remove('hidden')
+    menu.classList.add('block')
+  }
+}
+
 
 function closeTab() {
   let tabs = document.querySelectorAll('[id^="tab-"]')
