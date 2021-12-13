@@ -4,7 +4,6 @@
 
 <p align="center">
   <img src="https://img.shields.io/github/v/release/mystpi/ninetails?style=for-the-badge">
-  <img src="https://img.shields.io/codefactor/grade/github/mystpi/ninetails?style=for-the-badge">
   <img src="https://img.shields.io/github/languages/top/mystpi/ninetails?color=yellow&style=for-the-badge">
   <img src="https://img.shields.io/github/downloads/mystpi/ninetails/total?style=for-the-badge">
   <br>
