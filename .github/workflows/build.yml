@@ -6,7 +6,13 @@ jobs:
     runs-on: ${{ matrix.os }}
     strategy:
       matrix:
-        os: [macos-latest, ubuntu-latest, windows-latest]
+        include:
+          - os: ubuntu-latest
+            dir: ./out/make/deb/
+          - os: windows-latest
+            dir: ./out/make/squirrel.windows/
+          - os: macos-latest
+            dir: ./out/make/darwin/
 
     steps:
     - uses: actions/checkout@v2
@@ -18,4 +24,4 @@ jobs:
     - name: build
       run: npm run make
     - name: list files
-      run: ls ./out/make/**/
+      run: ls ${{ matrix.dir }}
