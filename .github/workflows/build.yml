@@ -1,5 +1,5 @@
 name: Build
-on: workflow_dispatch
+on: [push, pull_request]
 
 jobs:
   build_on_linux:
