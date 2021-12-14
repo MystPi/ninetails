@@ -1,6 +1,6 @@
 const byId = id => document.getElementById(id);
-
 let view;
+let version;
 let activeHash = '0';
 
 const omnibox = byId('omnibox'),
@@ -16,6 +16,9 @@ function setTitle(tab, title) {
   tab.children[1].innerText = title;
 }
 
+fetch('../package.json')
+  .then(res => res.json())
+  .then(res => version = res.version);
 
 function switchTabs(tab) {
   let currentTab = document.querySelector('.active-tab');
@@ -71,7 +74,7 @@ function createTab(url) {
   if (url) {
     view.src = url;
   } else {
-    view.src = 'https://ninetails.cf';
+    view.src = 'https://ninetails.cf/?v=' + version;
   }
 
   byId('views').appendChild(view);
@@ -230,9 +233,4 @@ cover.addEventListener('click', () => {
   cover.style.display = 'none';
 });
 
-
-fetch('../package.json')
-  .then(res => res.json())
-  .then(res => {
-    createTab('https://ninetails.cf/?v=' + res.version);
-  });
+createTab('https://ninetails.cf/?v=' + version);
