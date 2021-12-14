@@ -67,6 +67,7 @@ function createTab(url) {
   view.classList.add('view');
   view.allowpopups = 'allowpopups';
   view.webpreferences = 'nativeWindowOpen=true';
+  view.enableblinkfeatures = "CSSVariables";
 
   if (url) {
     view.src = url;
@@ -141,7 +142,13 @@ omnibox.addEventListener('keydown', (e) => {
     }
   }
 });
-
+reload.addEventListener('onclick', (e) => {
+  if (e.ctrlKey) {
+    view.reloadIgnoringCache()
+  } else {
+    view.reload()
+  }
+});
 
 function addListenersToView(view, hash) {
   let tab = byId('tab-' + hash);
