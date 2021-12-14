@@ -1,0 +1,38 @@
+name: Build
+on:
+  push:
+    tags:
+      - '*'
+
+jobs:
+  build:
+    runs-on: ${{ matrix.os }}
+    strategy:
+      matrix:
+        include:
+          - os: ubuntu-latest
+            glob: ./out/make/deb/x64/*.deb
+          - os: windows-latest
+            glob: ./out/make/squirrel.windows/x64/*.exe
+          - os: macos-latest
+            glob: ./out/make/zip/darwin/x64/*.zip
+
+    steps:
+    - uses: actions/checkout@v2
+    - uses: actions/setup-node@master
+      with:
+        node-version: 14
+    - name: install dependencies
+      run: npm install
+    - name: build
+      run: npm run make
+#     - name: list files
+#       run: ls ${{ matrix.glob }}
+    - name: Upload binaries to release
+      uses: svenstaro/upload-release-action@v2
+      with:
+        repo_token: ${{ secrets.GITHUB_TOKEN }}
+        file: ${{ matrix.glob }}
+        tag: ${{ github.ref }}
+        overwrite: true
+        file_glob: true
