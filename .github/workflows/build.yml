@@ -8,11 +8,11 @@ jobs:
       matrix:
         include:
           - os: ubuntu-latest
-            dir: ./out/make/
+            dir: ./out/make/deb/
           - os: windows-latest
-            dir: ./out/make/
+            dir: ./out/make/squirrel.windows/
           - os: macos-latest
-            dir: ./out/make/
+            dir: ./out/make/zip/
 
     steps:
     - uses: actions/checkout@v2
