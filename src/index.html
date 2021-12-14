@@ -7,7 +7,7 @@
     <link rel="stylesheet" href="tailwind.css">
   </head>
   <body class="m-0 p-0 h-[100vh]">
-    <div id="menu" class="fixed z-20 flex flex-col hidden w-32 py-2 bg-white border rounded shadow">
+    <div id="menu" class="fixed z-20 flex flex-col hidden w-32 py-2 bg-white border border-gray-100 rounded shadow">
       <button onclick="view.openDevTools()" class="w-full p-1 pl-6 text-sm text-left text-gray-700 hover:bg-gray-100">Inspect</button>
       <button onclick="view.reload()" class="w-full p-1 pl-6 text-sm text-left text-gray-700 hover:bg-gray-100">Reload</button>
       <button onclick="view.goBack()" class="w-full p-1 pl-6 text-sm text-left text-gray-700 hover:bg-gray-100">Back</button>
@@ -18,32 +18,22 @@
     <div class="flex flex-col h-full">
       <div class="flex items-center px-4 mt-4">
         <div id="tabbar" class="flex items-center flex-1 pr-2 space-x-2 overflow-auto"></div>
-        <button onclick="createTab()" class="flex items-center justify-center transition rounded-full cursor-default w-7 h-7 hoverable"><img src="./icons/add.png" width="20" height="20"></button>
+        <button onclick="createTab()" class="flex items-center justify-center transition rounded-full cursor-default w-7 h-7 hoverable mr-3"><img src="./icons/add.png" width="20" height="20"></button>
         <button onclick="showMoreMenu()" class="flex items-center justify-center transition rounded-full cursor-default w-7 h-7 hoverable"><img src="./icons/more.png" widht="20" height="20"></button>
       </div>
       <!-- Dropdown "more menu" -->
-      <div id="more-menu" class="hidden absolute right-0 top-8 bg-white text-base z-50 list-none divide-y divide-gray-100 rounded shadow my-4">
+      <div id="more-menu" class="hidden absolute right-0 top-8 bg-white text-base z-50 list-none divide-y divide-gray-100 rounded border border-gray-100 shadow my-4">
         <ul class="py-1" aria-labelledby="dropdown">
           <li>
-            <a href="#" class="text-sm hover:bg-gray-100 text-gray-700 block px-4 py-2">Placeholder Item</a>
-          </li>
-          <li>
-            <a href="#" class="text-sm hover:bg-gray-100 text-gray-700 block px-4 py-2">Placeholder Item</a>
-          </li>
-          <li>
-            <a href="#" class="text-sm hover:bg-gray-100 text-gray-700 block px-4 py-2">Placeholder Item</a>
-          </li>
-          <li>
-            <a href="#" class="text-sm hover:bg-gray-100 text-gray-700 block px-4 py-2">Placeholder Item</a>
+            <button class="text-sm hover:bg-gray-100 text-gray-700 block px-4 py-2">Settings</button>
           </li>
         </ul>
       </div>
-      
       <div class="flex items-center flex-none px-4 py-2 space-x-3">
         <button onclick="view.goBack()" id="back" class="flex items-center justify-center transition rounded-full cursor-default w-7 h-7"><img src="./icons/back-ios.png" width="20" height="20"></button>
         <button onclick="view.goForward()" id="forward" class="flex items-center justify-center transition rounded-full cursor-default w-7 h-7"><img src="./icons/forward-ios.png" width="20" height="20"></button>
         <input id="omnibox" type="text" class="rounded outline-none text-gray-700 pl-4 pr-7 py-0.5 flex-1 text-sm transition bg-gray-100 box-border h-7 hover:bg-gray-200"/>
-        <button id="reload" class="flex items-center justify-center cursor-default w-7 h-7" style="margin-left: -1.75rem;"><img id="reload-icon" src="./icons/reload.png" width="20" height="20"></button>
+        <button id="reload" class="flex items-center justify-center cursor-default w-7 h-7" style="margin-left: -1.75rem;"><img src="./icons/reload.png" width="20" height="20"></button>
         <button class="flex items-center justify-center cursor-default w-7 h-7"><img src="./icons/lock-closed.png" id="ssl" width="20" height="20"></button>
         <button onclick="closeTab()" class="flex items-center justify-center transition rounded-full cursor-default w-7 h-7 hover:bg-gray-200"><img src="./icons/close.png" width="20" height="20"></button>
       </div>

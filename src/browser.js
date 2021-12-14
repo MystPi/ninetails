@@ -1,4 +1,5 @@
 const byId = id => document.getElementById(id);
+
 let view;
 let version;
 let activeHash = '0';
@@ -9,12 +10,14 @@ const omnibox = byId('omnibox'),
       forward = byId('forward'),
       menu = byId('menu'),
       cover = byId('cover'),
+      reload = byId('reload'),
       target = byId('target');
 
 
 function setTitle(tab, title) {
   tab.children[1].innerText = title;
 }
+
 
 function switchTabs(tab) {
   let currentTab = document.querySelector('.active-tab');
@@ -78,6 +81,7 @@ function createTab(url) {
   addListenersToView(view, hash);
   switchTabs(hash);
 }
+
 
 function showMoreMenu() {
   const menu = byId('more-menu');
@@ -152,13 +156,16 @@ omnibox.addEventListener('keydown', (e) => {
     }
   }
 });
-reload.addEventListener('onclick', (e) => {
+
+
+reload.addEventListener('click', (e) => {
   if (e.ctrlKey) {
-    view.reloadIgnoringCache()
+    view.reloadIgnoringCache();
   } else {
-    view.reload()
+    view.reload();
   }
 });
+
 
 function addListenersToView(view, hash) {
   let tab = byId('tab-' + hash);
@@ -235,6 +242,8 @@ cover.addEventListener('click', () => {
   menu.style.display = 'none';
   cover.style.display = 'none';
 });
+
+
 fetch('../package.json')
   .then(res => res.json())
   .then(res => {
