@@ -24,18 +24,7 @@
       "packagerConfig": {
         "icon": "./appicons/ninetails",
         "name": "Ninetails",
-        "executableName": "ninetails",
-        "publishers": [
-          {
-            "name": "@electron-forge/publisher-github",
-            "config": {
-              "repository": {
-                "owner": "MystPi",
-                "name": "ninetails"
-              }
-            }
-          }
-        ]
+        "executableName": "ninetails"
       },
       "makers": [
         {
@@ -72,7 +61,6 @@
     "@electron-forge/maker-rpm": "^6.0.0-beta.61",
     "@electron-forge/maker-squirrel": "^6.0.0-beta.61",
     "@electron-forge/maker-zip": "^6.0.0-beta.61",
-    "@electron-forge/publisher-github": "^6.0.0-beta.61",
     "concurrently": "^6.4.0",
     "electron": "16.0.0",
     "electron-reloader": "^1.2.1",
