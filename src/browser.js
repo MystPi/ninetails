@@ -16,10 +16,6 @@ function setTitle(tab, title) {
   tab.children[1].innerText = title;
 }
 
-fetch('../package.json')
-  .then(res => res.json())
-  .then(res => version = res.version);
-
 function switchTabs(tab) {
   let currentTab = document.querySelector('.active-tab');
   if (currentTab) {
@@ -232,5 +228,9 @@ cover.addEventListener('click', () => {
   menu.style.display = 'none';
   cover.style.display = 'none';
 });
-
-createTab('https://ninetails.cf/?v=' + version);
+fetch('../package.json')
+  .then(res => res.json())
+  .then(res => {
+    version = res.version;
+    createTab('https://ninetails.cf/?v=' + res.version);
+  });
