@@ -1,5 +1,8 @@
 name: Build
-on: [push, pull_request]
+on:
+  push:
+    tags:
+      - '*'
 
 jobs:
   build:
@@ -12,7 +15,7 @@ jobs:
           - os: windows-latest
             glob: ./out/make/squirrel.windows/x64/*.exe
           - os: macos-latest
-            glob: ./out/make/zip/darwin/x64/
+            glob: ./out/make/zip/darwin/x64/*.zip
 
     steps:
     - uses: actions/checkout@v2
@@ -23,5 +26,13 @@ jobs:
       run: npm install
     - name: build
       run: npm run make
-    - name: list files
-      run: ls ${{ matrix.glob }}
+#     - name: list files
+#       run: ls ${{ matrix.glob }}
+    - name: Upload binaries to release
+      uses: svenstaro/upload-release-action@v2
+      with:
+        repo_token: ${{ secrets.GITHUB_TOKEN }}
+        file: ${{ matrix.glob }}
+        tag: ${{ github.ref }}
+        overwrite: true
+        file_glob: true
