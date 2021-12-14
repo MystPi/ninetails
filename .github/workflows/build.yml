@@ -17,5 +17,3 @@ jobs:
       run: npm install
     - name: build
       run: npm run make
-    - name: tree
-      run: cd ./out && tree
