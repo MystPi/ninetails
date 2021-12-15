@@ -287,4 +287,20 @@ fetch('../package.json')
     } else {
       createTab('https://ninetails.cf/?v=' + version);
     }
-  });
+  }); 
+document.getElementById("inspect").addEventListener("click", () => {
+  view.openDevTools();
+  menu.style.display="none";
+});
+document.getElementById("reload").addEventListener("click", () => {
+  view.reload();
+  menu.style.display="none";
+});
+document.getElementById("goBack").addEventListener("click", () => {
+  view.goBack();
+  menu.style.display="none";
+});
+document.getElementById("goForward").addEventListener("click", () => {
+  view.goForward();
+  menu.style.display="none";
+});
