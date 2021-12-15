@@ -7,7 +7,7 @@
   <img src="https://img.shields.io/github/languages/top/mystpi/ninetails?color=yellow&style=for-the-badge">
   <img src="https://img.shields.io/github/downloads/mystpi/ninetails/total?style=for-the-badge">
   <br>
-  <a href="https://www.producthunt.com/posts/ninetails?utm_source=badge-featured&utm_medium=badge&utm_souce=badge-ninetails" target="_blank"><img src="https://api.producthunt.com/widgets/embed-image/v1/featured.svg?post_id=322567&theme=light" alt="Ninetails - A private, fast, and beautiful web browser | Product Hunt" style="width: 250px; height: 54px;" width="250" height="54" /></a>
+  <a href="https://www.producthunt.com/posts/ninetails?utm_source=badge-featured&utm_medium=badge&utm_souce=badge-ninetails" target="_blank"><img alt="Featured on ProductHunt" src="https://api.producthunt.com/widgets/embed-image/v1/featured.svg?post_id=322567&theme=light" alt="Ninetails - A private, fast, and beautiful web browser | Product Hunt" style="width: 250px; height: 54px;" width="250" height="54" /></a>
 </p>
 
 Ninetails is a private, fast, and beautiful web browser that's created with Electron and styled with Tailwind CSS. Enjoy a clean and unique experience while surfing the web.
