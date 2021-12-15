@@ -70,6 +70,9 @@ function createTab(url) {
   view.classList.add('view');
   view.allowpopups = 'allowpopups';
   view.webpreferences = 'nativeWindowOpen=true';
+  if (localStorage.getItem('customuseragent')) {
+    view.userAgent = new String(localStorage.getItem('customuseragent'))
+  }
 
   if (url) {
     view.src = url;
@@ -103,10 +106,16 @@ function showMoreMenu() {
 function openSettings(e) {
   showMoreMenu();
   const searchurl = byId('settings-searchurl');
-  const item = localStorage.getItem('searchurl');
+  const suitem = localStorage.getItem('searchurl');
   settings.style.display = 'block';
-  if (item) {
-    searchurl.value = item;
+  if (suitem) {
+    searchurl.value = suitem;
+  }
+  const cuseragent = byId('settings-useragent');
+  const uaitem = localStorage.getItem('customagent');
+  settings.style.display = 'block';
+  if (uaitem) {
+    cuseragent.value = uaitem;
   }
 }
 
@@ -120,6 +129,8 @@ function saveSettings() {
   hideSettings();
   const searchurl = byId('settings-searchurl');
   localStorage.setItem('searchurl', searchurl.value);
+  const useragent = byId('settings-useragent');
+  localStorage.setItem('customuseragent', useragent.value);
 }
 
 
