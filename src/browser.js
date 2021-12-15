@@ -11,7 +11,8 @@ const omnibox = byId('omnibox'),
       menu = byId('menu'),
       cover = byId('cover'),
       reload = byId('reload'),
-      target = byId('target');
+      target = byId('target'),
+      settings = byId('settings');
 
 
 function setTitle(tab, title) {
@@ -69,12 +70,16 @@ function createTab(url) {
   view.classList.add('view');
   view.allowpopups = 'allowpopups';
   view.webpreferences = 'nativeWindowOpen=true';
-  view.enableblinkfeatures = "CSSVariables";
 
   if (url) {
     view.src = url;
   } else {
-    view.src = 'https://ninetails.cf/?v=' + version;
+    const item = localStorage.getItem('searchurl');
+    if (item) {
+      view.src = 'https://ninetails.cf/?v=' + version + '&e=' + item;
+    } else {
+      view.src = 'https://ninetails.cf/?v=' + version;
+    }
   }
 
   byId('views').appendChild(view);
@@ -92,6 +97,29 @@ function showMoreMenu() {
     menu.classList.remove('hidden')
     menu.classList.add('block')
   }
+}
+
+
+function openSettings(e) {
+  showMoreMenu();
+  const searchurl = byId('settings-searchurl');
+  const item = localStorage.getItem('searchurl');
+  settings.style.display = 'block';
+  if (item) {
+    searchurl.value = item;
+  }
+}
+
+
+function hideSettings() {
+  settings.style.display = 'none';
+}
+
+
+function saveSettings() {
+  hideSettings();
+  const searchurl = byId('settings-searchurl');
+  localStorage.setItem('searchurl', searchurl.value);
 }
 
 
@@ -152,7 +180,12 @@ omnibox.addEventListener('keydown', (e) => {
         view.loadURL('http://'+ val);
       }
     } else {
-      view.loadURL('https://www.google.com/search?q=' + val);
+      const item = localStorage.getItem('searchurl');
+      if (item) {
+        view.loadURL(item + val);
+      } else {
+        view.loadURL('https://www.google.com/search?q=' + val);
+      }
     }
   }
 });
@@ -248,5 +281,10 @@ fetch('../package.json')
   .then(res => res.json())
   .then(res => {
     version = res.version;
-    createTab('https://ninetails.cf/?v=' + res.version);
+    const item = localStorage.getItem('searchurl');
+    if (item) {
+      createTab('https://ninetails.cf/?v=' + version + '&e=' + item);
+    } else {
+      createTab('https://ninetails.cf/?v=' + version);
+    }
   });
