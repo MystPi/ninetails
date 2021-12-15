@@ -1,6 +1,7 @@
 const byId = id => document.getElementById(id);
 
 let view;
+let version;
 let activeHash = '0';
 
 const omnibox = byId('omnibox'),
@@ -9,7 +10,9 @@ const omnibox = byId('omnibox'),
       forward = byId('forward'),
       menu = byId('menu'),
       cover = byId('cover'),
-      target = byId('target');
+      reload = byId('reload'),
+      target = byId('target'),
+      settings = byId('settings');
 
 
 function setTitle(tab, title) {
@@ -71,12 +74,52 @@ function createTab(url) {
   if (url) {
     view.src = url;
   } else {
-    view.src = 'https://ninetails.cf';
+    const item = localStorage.getItem('searchurl');
+    if (item) {
+      view.src = 'https://ninetails.cf/?v=' + version + '&e=' + item;
+    } else {
+      view.src = 'https://ninetails.cf/?v=' + version;
+    }
   }
 
   byId('views').appendChild(view);
   addListenersToView(view, hash);
   switchTabs(hash);
+}
+
+
+function showMoreMenu() {
+  const menu = byId('more-menu');
+  if (menu.classList.contains('block')) {
+    menu.classList.remove('block')
+    menu.classList.add('hidden')
+  } else {
+    menu.classList.remove('hidden')
+    menu.classList.add('block')
+  }
+}
+
+
+function openSettings(e) {
+  showMoreMenu();
+  const searchurl = byId('settings-searchurl');
+  const item = localStorage.getItem('searchurl');
+  settings.style.display = 'block';
+  if (item) {
+    searchurl.value = item;
+  }
+}
+
+
+function hideSettings() {
+  settings.style.display = 'none';
+}
+
+
+function saveSettings() {
+  hideSettings();
+  const searchurl = byId('settings-searchurl');
+  localStorage.setItem('searchurl', searchurl.value);
 }
 
 
@@ -137,8 +180,22 @@ omnibox.addEventListener('keydown', (e) => {
         view.loadURL('http://'+ val);
       }
     } else {
-      view.loadURL('https://www.google.com/search?q=' + val);
+      const item = localStorage.getItem('searchurl');
+      if (item) {
+        view.loadURL(item + val);
+      } else {
+        view.loadURL('https://www.google.com/search?q=' + val);
+      }
     }
+  }
+});
+
+
+reload.addEventListener('click', (e) => {
+  if (e.ctrlKey) {
+    view.reloadIgnoringCache();
+  } else {
+    view.reload();
   }
 });
 
@@ -223,5 +280,11 @@ cover.addEventListener('click', () => {
 fetch('../package.json')
   .then(res => res.json())
   .then(res => {
-    createTab('https://ninetails.cf/?v=' + res.version);
+    version = res.version;
+    const item = localStorage.getItem('searchurl');
+    if (item) {
+      createTab('https://ninetails.cf/?v=' + version + '&e=' + item);
+    } else {
+      createTab('https://ninetails.cf/?v=' + version);
+    }
   });
