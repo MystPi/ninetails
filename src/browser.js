@@ -77,11 +77,16 @@ function createTab(url) {
   if (url) {
     view.src = url;
   } else {
-    const item = localStorage.getItem('searchurl');
-    if (item) {
-      view.src = 'https://ninetails.cf/?v=' + version + '&e=' + item;
+    const homepageValue = localStorage.getItem('homepage');
+    if (homepageValue) {
+      view.src = homepageValue;
     } else {
-      view.src = 'https://ninetails.cf/?v=' + version;
+      const searchurlValue = localStorage.getItem('searchurl');
+      if (searchurlValue) { 
+        view.src = 'https://ninetails.cf/?v=' + version + '&e=' + searchurlValue;
+      } else { 
+        view.src = 'https://ninetails.cf/?v=' + version;
+      }
     }
   }
 
@@ -105,14 +110,14 @@ function showMoreMenu() {
 
 function openSettings(e) {
   showMoreMenu();
-  const searchurl = byId('settings-searchurl');
-  const suitem = localStorage.getItem('searchurl');
+  const searchurlElement = byId('settings-searchurl');
+  const suitemValue = localStorage.getItem('searchurl');
   settings.style.display = 'block';
   if (suitem) {
     searchurl.value = suitem;
   }
-  const cuseragent = byId('settings-useragent');
-  const uaitem = localStorage.getItem('customagent');
+  const cuseragentElement = byId('settings-useragent');
+  const uaitemValue = localStorage.getItem('customagent');
   settings.style.display = 'block';
   if (uaitem) {
     cuseragent.value = uaitem;
@@ -127,10 +132,20 @@ function hideSettings() {
 
 function saveSettings() {
   hideSettings();
-  const searchurl = byId('settings-searchurl');
-  localStorage.setItem('searchurl', searchurl.value);
-  const useragent = byId('settings-useragent');
+  
+  const searchurlElement = byId('settings-searchurl');
+  const homepageElement = byId('settings-homepage');
+  const useragentElement = byId('settings-useragent');
+  
+  localStorage.setItem('searchurl', searchurlElement.value || '');
   localStorage.setItem('customuseragent', useragent.value);
+  localStorage.setItem('homepage', homepageElement.value);
+}
+
+
+function hideMenu() {
+  menu.style.display = 'none';
+  cover.style.display = 'none';
 }
 
 
@@ -191,9 +206,9 @@ omnibox.addEventListener('keydown', (e) => {
         view.loadURL('http://'+ val);
       }
     } else {
-      const item = localStorage.getItem('searchurl');
-      if (item) {
-        view.loadURL(item + val);
+      const searchurlValue = localStorage.getItem('searchurl');
+      if (searchurlValue) {
+        view.loadURL(searchurlValue + val);
       } else {
         view.loadURL('https://www.google.com/search?q=' + val);
       }
@@ -282,20 +297,19 @@ function addListenersToView(view, hash) {
 }
 
 
-cover.addEventListener('click', () => {
-  menu.style.display = 'none';
-  cover.style.display = 'none';
-});
-
-
 fetch('../package.json')
   .then(res => res.json())
   .then(res => {
     version = res.version;
-    const item = localStorage.getItem('searchurl');
-    if (item) {
-      createTab('https://ninetails.cf/?v=' + version + '&e=' + item);
+    const homepageValue = localStorage.getItem('homepage');
+    if (homepageValue) {
+      createTab(homepageValue);
     } else {
-      createTab('https://ninetails.cf/?v=' + version);
+      const searchurlValue = localStorage.getItem('searchurl');
+      if (searchurlValue) { 
+        createTab('https://ninetails.cf/?v=' + version + '&e=' + searchurlValue); 
+      } else { 
+        createTab('https://ninetails.cf/?v=' + version); 
+      }
     }
   });
