@@ -21,4 +21,4 @@ jobs:
         run: npm install -g prettier
 
       - name: Check prettier
-        run: npm run check
+        run: npm run lint
