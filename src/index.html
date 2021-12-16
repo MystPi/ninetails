@@ -19,7 +19,7 @@
     <div id="cover" class="fixed z-10 hidden w-full h-full"></div>
 
     <!-- URL target -->
-    <div id="target" class="fixed bottom-0 max-w-md px-1 overflow-hidden text-sm text-gray-700 transition bg-gray-200 opacity-0 whitespace-nowrap text-ellipsis sm:max-w-[75%]"></div>
+    <div id="target" class="fixed bottom-0 max-w-md px-1 overflow-hidden text-sm text-gray-500 transition bg-gray-200 rounded-tr opacity-0 whitespace-nowrap text-ellipsis sm:max-w-[75%]"></div>
 
     <!-- Settings menu -->
     <div id="settings" class="hidden w-full h-full bg-black/10 fixed z-[110]">
@@ -49,10 +49,10 @@
       </div>
 
       <!-- Dropdown "more menu" -->
-      <div id="more-menu" class="absolute right-2 z-50 hidden my-4 text-base list-none bg-white border border-gray-100 divide-y divide-gray-100 rounded shadow top-8">
+      <div id="more-menu" class="absolute z-50 hidden my-4 text-base list-none bg-white border border-gray-100 divide-y divide-gray-100 rounded shadow right-2 top-8">
         <ul class="py-1" aria-labelledby="dropdown">
           <li>
-            <button onclick="openSettings()" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 cursor-default">Settings</button>
+            <button onclick="openSettings()" class="block px-4 py-2 text-sm text-gray-700 cursor-default hover:bg-gray-100">Settings</button>
           </li>
         </ul>
       </div>
