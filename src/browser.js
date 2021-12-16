@@ -70,6 +70,12 @@ function createTab(url) {
   view.classList.add('view');
   view.allowpopups = 'allowpopups';
   view.webpreferences = 'nativeWindowOpen=true';
+  const uaValue = localStorage.getItem('ua');
+  if (uaValue) {
+    view.useragent = uaValue;
+  } else {
+    view.useragent = 'Ninetails/2.2.1';
+  }
 
   if (url) {
     view.src = url;
@@ -109,11 +115,15 @@ function openSettings(e) {
   showMoreMenu();
   const searchurlElement = byId('settings-searchurl');
   const homepageElement = byId('settings-homepage');
+  const uaElement = byId('settings-ua');
   const searchUrlValue = localStorage.getItem('searchurl');
   const homePageValue = localStorage.getItem('homepage');
+  const uaValue = localStorage.getItem('ua');
 
   searchurlElement.value = searchUrlValue;
   homepageElement.value = homePageValue;
+  uaElement.value = uaValue;
+  uaElement.placeholder = 'Ninetails/' + version;
   
   settings.style.display = 'block';
 }
@@ -129,9 +139,11 @@ function saveSettings() {
   
   const searchurlElement = byId('settings-searchurl');
   const homepageElement = byId('settings-homepage');
+  const uaElement = byId('settings-ua');
 
-  localStorage.setItem('searchurl', searchurlElement.value || '');
+  localStorage.setItem('searchurl', searchurlElement.value);
   localStorage.setItem('homepage', homepageElement.value);
+  localStorage.setItem('ua', uaElement.value);
 }
 
 
