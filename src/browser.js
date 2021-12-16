@@ -74,11 +74,11 @@ function createTab(url) {
   if (url) {
     view.src = url;
   } else {
-    const item = localStorage.getItem('searchurl');
-    if (item) {
-      view.src = 'https://ninetails.cf/?v=' + version + '&e=' + item;
+    const homepageValue = localStorage.getItem('homepage');
+    if (homepageValue) {
+      view.src = homepageValue;
     } else {
-      view.src = 'https://ninetails.cf/?v=' + version;
+      view.src = 'https://ninetails.cf/?v=';
     }
   }
 
@@ -102,12 +102,15 @@ function showMoreMenu() {
 
 function openSettings(e) {
   showMoreMenu();
-  const searchurl = byId('settings-searchurl');
-  const item = localStorage.getItem('searchurl');
+  const searchurlElement = byId('settings-searchurl');
+  const homepageElement = byId('settings-homepage');
+  const searchUrlValue = localStorage.getItem('searchurl');
+  const homePageValue = localStorage.getItem('homepage');
+
+  searchurlElement.value = searchUrlValue;
+  homepageElement.value = homePageValue;
+  
   settings.style.display = 'block';
-  if (item) {
-    searchurl.value = item;
-  }
 }
 
 
@@ -118,8 +121,12 @@ function hideSettings() {
 
 function saveSettings() {
   hideSettings();
-  const searchurl = byId('settings-searchurl');
-  localStorage.setItem('searchurl', searchurl.value);
+  
+  const searchurlElement = byId('settings-searchurl');
+  const homepageElement = byId('settings-homepage');
+
+  localStorage.setItem('searchurl', searchurlElement.value || '');
+  localStorage.setItem('homepage', homepageElement.value);
 }
 
 
@@ -180,9 +187,9 @@ omnibox.addEventListener('keydown', (e) => {
         view.loadURL('http://'+ val);
       }
     } else {
-      const item = localStorage.getItem('searchurl');
-      if (item) {
-        view.loadURL(item + val);
+      const searchurlValue = localStorage.getItem('searchurl');
+      if (searchurlValue) {
+        view.loadURL(searchurlValue + val);
       } else {
         view.loadURL('https://www.google.com/search?q=' + val);
       }
@@ -281,9 +288,9 @@ fetch('../package.json')
   .then(res => res.json())
   .then(res => {
     version = res.version;
-    const item = localStorage.getItem('searchurl');
-    if (item) {
-      createTab('https://ninetails.cf/?v=' + version + '&e=' + item);
+    const homepageValue = localStorage.getItem('homepage');
+    if (homepageValue) {
+      createTab(homepageValue);
     } else {
       createTab('https://ninetails.cf/?v=' + version);
     }
