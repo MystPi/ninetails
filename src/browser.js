@@ -74,7 +74,7 @@ function createTab(url) {
   if (uaValue) {
     view.useragent = uaValue;
   } else {
-    view.useragent = 'Ninetails/2.2.1';
+    view.useragent = 'Ninetails/' + version;
   }
 
   if (url) {
