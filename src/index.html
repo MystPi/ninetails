@@ -9,14 +9,14 @@
 
     <!-- Right-click menu -->
     <div id="menu" class="fixed z-20 flex flex-col hidden w-32 py-2 bg-white border border-gray-100 rounded shadow">
-      <button onclick="view.openDevTools()" class="w-full p-1 pl-6 text-sm text-left text-gray-700 hover:bg-gray-100">Inspect</button>
-      <button onclick="view.reload()" class="w-full p-1 pl-6 text-sm text-left text-gray-700 hover:bg-gray-100">Reload</button>
-      <button onclick="view.goBack()" class="w-full p-1 pl-6 text-sm text-left text-gray-700 hover:bg-gray-100">Back</button>
-      <button onclick="view.goForward()" class="w-full p-1 pl-6 text-sm text-left text-gray-700 hover:bg-gray-100">Forward</button>
+      <button onclick="view.openDevTools(); hideMenu()" class="w-full p-1 pl-6 text-sm text-left text-gray-700 cursor-default hover:bg-gray-100">Inspect</button>
+      <button onclick="view.reload(); hideMenu()" class="w-full p-1 pl-6 text-sm text-left text-gray-700 cursor-default hover:bg-gray-100">Reload</button>
+      <button onclick="view.goBack(); hideMenu()" class="w-full p-1 pl-6 text-sm text-left text-gray-700 cursor-default hover:bg-gray-100">Back</button>
+      <button onclick="view.goForward(); hideMenu()" class="w-full p-1 pl-6 text-sm text-left text-gray-700 cursor-default hover:bg-gray-100">Forward</button>
     </div>
 
     <!-- Right-click menu screen cover -->
-    <div id="cover" class="fixed z-10 hidden w-full h-full"></div>
+    <div onclick="hideMenu()" id="cover" class="fixed z-10 hidden w-full h-full"></div>
 
     <!-- URL target -->
     <div id="target" class="fixed bottom-0 max-w-md px-1 overflow-hidden text-sm text-gray-500 transition bg-gray-200 rounded-tr opacity-0 whitespace-nowrap text-ellipsis sm:max-w-[75%]"></div>

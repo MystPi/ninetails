@@ -135,6 +135,12 @@ function saveSettings() {
 }
 
 
+function hideMenu() {
+  menu.style.display = 'none';
+  cover.style.display = 'none';
+}
+
+
 function closeTab() {
   let tabs = document.querySelectorAll('[id^="tab-"]')
   if (tabs.length > 1) {
@@ -281,12 +287,6 @@ function addListenersToView(view, hash) {
     }
   });
 }
-
-
-cover.addEventListener('click', () => {
-  menu.style.display = 'none';
-  cover.style.display = 'none';
-});
 
 
 fetch('../package.json')
