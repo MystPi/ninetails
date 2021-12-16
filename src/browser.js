@@ -78,7 +78,12 @@ function createTab(url) {
     if (homepageValue) {
       view.src = homepageValue;
     } else {
-      view.src = 'https://ninetails.cf/?v=';
+      const searchurlValue = localStorage.getItem('searchurl');
+      if (searchurlValue) { 
+        createTab('https://ninetails.cf/?v=' + version + '&e=' + searchurlValue); 
+      } else { 
+        createTab('https://ninetails.cf/?v=' + version); 
+      }
     }
   }
 
@@ -292,6 +297,11 @@ fetch('../package.json')
     if (homepageValue) {
       createTab(homepageValue);
     } else {
-      createTab('https://ninetails.cf/?v=' + version);
+      const searchurlValue = localStorage.getItem('searchurl');
+      if (searchurlValue) { 
+        createTab('https://ninetails.cf/?v=' + version + '&e=' + searchurlValue); 
+      } else { 
+        createTab('https://ninetails.cf/?v=' + version); 
+      }
     }
   });
