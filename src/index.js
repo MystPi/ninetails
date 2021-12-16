@@ -1,8 +1,9 @@
-const { app, BrowserWindow } = require('electron');
-const path = require('path');
+const { app, BrowserWindow } = require("electron");
+const path = require("path");
 
 // Handle creating/removing shortcuts on Windows when installing/uninstalling.
-if (require('electron-squirrel-startup')) { // eslint-disable-line global-require
+if (require("electron-squirrel-startup")) {
+  // eslint-disable-line global-require
   app.quit();
 }
 
@@ -13,32 +14,32 @@ const createWindow = () => {
     height: 600,
     minHeight: 450,
     minWidth: 450,
-    icon: path.join(__dirname, '../appicons/ninetails.png'),
+    icon: path.join(__dirname, "../appicons/ninetails.png"),
     webPreferences: {
-      webviewTag: true
-    }
+      webviewTag: true,
+    },
   });
 
   // and load the index.html of the app.
-  mainWindow.loadFile(path.join(__dirname, 'index.html'));
+  mainWindow.loadFile(path.join(__dirname, "index.html"));
   mainWindow.setMenuBarVisibility(false);
 };
 
 // This method will be called when Electron has finished
 // initialization and is ready to create browser windows.
 // Some APIs can only be used after this event occurs.
-app.on('ready', createWindow);
+app.on("ready", createWindow);
 
 // Quit when all windows are closed, except on macOS. There, it's common
 // for applications and their menu bar to stay active until the user quits
 // explicitly with Cmd + Q.
-app.on('window-all-closed', () => {
-  if (process.platform !== 'darwin') {
+app.on("window-all-closed", () => {
+  if (process.platform !== "darwin") {
     app.quit();
   }
 });
 
-app.on('activate', () => {
+app.on("activate", () => {
   // On OS X it's common to re-create a window in the app when the
   // dock icon is clicked and there are no other windows open.
   if (BrowserWindow.getAllWindows().length === 0) {
@@ -48,9 +49,9 @@ app.on('activate', () => {
 
 // Intercept new windows and make them do nothing (new windows are handled
 // in `browser.js` by opening new tabs)
-app.on('web-contents-created', function (event, contents) {
-  if (contents.getType() === 'webview') {
-    contents.on('new-window', function (newWindowEvent) {
+app.on("web-contents-created", function (event, contents) {
+  if (contents.getType() === "webview") {
+    contents.on("new-window", function (newWindowEvent) {
       newWindowEvent.preventDefault();
     });
   }
@@ -61,5 +62,5 @@ app.on('web-contents-created', function (event, contents) {
 
 // Auto reload the app on files changes
 try {
-  require('electron-reloader')(module)
+  require("electron-reloader")(module);
 } catch (_) {}

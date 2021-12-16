@@ -17,6 +17,7 @@ In this age where many browsers track their users, it's nice to have a break fro
 New things are constantly being added to Ninetails, so be on the lookout for new releases. You can view some features and fixes that are in the works on [this board](https://github.com/MystPi/ninetails/projects/1).
 
 ## Development
+
 ```bash
 # Clone the repo
 git clone https://github.com/MystPi/ninetails.git
@@ -31,6 +32,7 @@ npm run dev
 ```
 
 ## Building the app
+
 ```bash
 # Clone the repo
 git clone https://github.com/MystPi/ninetails.git

@@ -3,7 +3,9 @@
 @tailwind utilities;
 
 @layer base {
-  *, *::after, *::before {
+  *,
+  *::after,
+  *::before {
     @apply select-none;
     -webkit-user-drag: none;
     -webkit-app-region: no-drag;
@@ -13,7 +15,7 @@
     @apply opacity-40;
   }
 
-  [id^='tab']>img {
+  [id^="tab"] > img {
     @apply opacity-100 inline w-4 h-4 mr-2;
   }
 
@@ -26,11 +28,11 @@
   .tab {
     @apply flex items-center flex-1 max-w-xs px-2 py-1 overflow-hidden text-sm text-gray-700 bg-gray-100 rounded cursor-default whitespace-nowrap;
   }
-  
+
   .active-tab {
     @apply flex items-center flex-1 max-w-xs min-w-max px-2 py-1 overflow-hidden text-sm text-white bg-indigo-500 rounded cursor-default whitespace-nowrap;
   }
-  
+
   .view {
     @apply w-full h-full;
   }
