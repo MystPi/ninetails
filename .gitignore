@@ -91,3 +91,4 @@ out/
 # IDE
 .history
 .idea
+.replit
