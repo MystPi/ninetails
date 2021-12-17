@@ -53,6 +53,7 @@
     }
   },
   "dependencies": {
+    "@seald-io/nedb": "^2.2.0",
     "electron-squirrel-startup": "^1.0.0"
   },
   "devDependencies": {
