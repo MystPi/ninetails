@@ -257,7 +257,6 @@ function addListenersToView(view, hash) {
 
   view.addEventListener('did-start-loading', () => {
     tab.classList.add('animate-pulse')
-    popup.style.display = 'none';
   });
 
 
