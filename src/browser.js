@@ -55,8 +55,9 @@ function createTab(url) {
 
   tab.classList.add('tab');
   tab.id = 'tab-' + hash;
-  tab.onclick = () => {
+  tab.onclick = (e) => {
     switchTabs(hash);
+    checkForDelTab(e, hash);
   };
   span.innerText = 'New Tab';
   icon.src = './icons/favicon.png';
@@ -220,6 +221,10 @@ omnibox.addEventListener('keydown', (e) => {
   }
 });
 
+function checkForDelTab(e, hash) {
+  if (e.ctrlKey) {
+    closeTab(hash)
+});
 
 reload.addEventListener('click', (e) => {
   if (e.ctrlKey) {
