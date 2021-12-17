@@ -1,160 +1,129 @@
-const byId = id => document.getElementById(id);
+/* == GLOBALS == */
+
 
 let view;
 let version;
 let activeHash = '0';
 
-const omnibox = byId('omnibox'),
-      ssl = byId('ssl'),
-      back = byId('back'),
-      forward = byId('forward'),
-      menu = byId('menu'),
-      cover = byId('cover'),
-      reload = byId('reload'),
-      target = byId('target'),
-      settings = byId('settings');
+
+/* == FUNCTIONS == */
 
 
+/**
+ * Set the title of a tab
+ * @param {jQuery} tab
+ * @param {string} title
+ */
 function setTitle(tab, title) {
-  tab.children[1].innerText = title;
+  tab.children('span').text(title);
 }
 
 
+/**
+ * Switch the active tab
+ * @param {string} tab - The hash of the tab to switch to
+ */ 
 function switchTabs(tab) {
-  let currentTab = document.querySelector('.active-tab');
-  if (currentTab) {
-    currentTab.classList.remove('active-tab');
-    currentTab.classList.add('tab');
-  }
+  $('.active-tab').removeClass('active-tab').addClass('tab');
+  $('#tab-' + tab).addClass('active-tab').removeClass('tab');
+  $('.view').hide();
+  $('#view-' + tab).css('display', 'flex');
 
-  let activeTab = byId('tab-' + tab);
-  activeTab.classList.add('active-tab');
-  activeTab.classList.remove('tab');
-
-  let views = document.querySelectorAll('.view');
-  views.forEach(x => {
-    x.style.display = 'none';
-  });
-
-  byId('view-' + tab).style.display = 'flex';
-
-  view = byId('view-' + tab);
+  view = $('#view-' + tab);
   activeHash = tab;
 
-  omnibox.value = view.getURL();
-  checkSSL(view.getURL());
+  omnibox.value = view[0].getURL();
+  checkSSL(view[0].getURL());
   grayOut();
 }
 
 
+/**
+ * Create a tab and append it to the tabbar
+ * @param {string} [url] - If present, the new tab's URL will be set to this, otherwise it will be set to the default homepage
+ */
 function createTab(url) {
-  let tab = document.createElement('button');
-  let span = document.createElement('span');
-  let icon = document.createElement('img');
-  let hash = Math.random().toString(36).substring(2, 15) + Math.random().toString(36).substring(2, 15);
-
-  tab.classList.add('tab');
-  tab.id = 'tab-' + hash;
-  tab.onclick = () => {
-    switchTabs(hash);
-  };
-  span.innerText = 'New Tab';
-  icon.src = './icons/favicon.png';
-  tab.appendChild(icon);
-  tab.appendChild(span);
-
-  byId('tabbar').appendChild(tab);
-
-  let view = document.createElement('webview');
-  view.id = 'view-' + hash;
-  view.classList.add('view');
-  view.allowpopups = 'allowpopups';
-  view.webpreferences = 'nativeWindowOpen=true';
+  const hash = Math.random().toString(36).substring(2, 15) + Math.random().toString(36).substring(2, 15);
   const uaValue = localStorage.getItem('ua');
-  if (uaValue) {
-    view.useragent = uaValue;
-  } else {
-    view.useragent = 'Ninetails/' + version;
-  }
+
+  $(`<button class="tab" id="tab-${hash}"><img src="./icons/favicon.png"><span>New Tab</span></button>`)
+    .click(function() {
+      switchTabs(hash);
+    })
+    .appendTo('#tabbar');
+
+  let view = $(`
+    <webview
+      class="view"
+      id="view-${hash}"
+      allowpopups
+      webpreferences="nativeWindowOpen=true"
+      useragent="${uaValue ? uaValue : 'Ninetails/' + version}">
+    </webview>
+  `);
 
   if (url) {
-    view.src = url;
+    view.attr('src', url);
   } else {
     const homepageValue = localStorage.getItem('homepage');
     if (homepageValue) {
-      view.src = homepageValue;
+      view.attr('src', homepageValue);
     } else {
       const searchurlValue = localStorage.getItem('searchurl');
       if (searchurlValue) { 
-        view.src = 'https://ninetails.cf/?v=' + version + '&e=' + searchurlValue;
+        view.attr('src', 'https://ninetails.cf/?v=' + version + '&e=' + searchurlValue);
       } else { 
-        view.src = 'https://ninetails.cf/?v=' + version;
+        view.attr('src', 'https://ninetails.cf/?v=' + version);
       }
     }
   }
 
-  byId('views').appendChild(view);
+  view.appendTo('#views')
   addListenersToView(view, hash);
   switchTabs(hash);
 }
 
 
-function showMoreMenu() {
-  const menu = byId('more-menu');
-  if (menu.classList.contains('block')) {
-    menu.classList.remove('block')
-    menu.classList.add('hidden')
-  } else {
-    menu.classList.remove('hidden')
-    menu.classList.add('block')
-  }
+/** Toggle the visibility of the 'more' menu */
+function toggleMoreMenu() {
+  $('#more').fadeToggle(75);
 }
 
 
-function openSettings(e) {
-  showMoreMenu();
-  const searchurlElement = byId('settings-searchurl');
-  const homepageElement = byId('settings-homepage');
-  const uaElement = byId('settings-ua');
-  const searchUrlValue = localStorage.getItem('searchurl');
-  const homePageValue = localStorage.getItem('homepage');
-  const uaValue = localStorage.getItem('ua');
-
-  searchurlElement.value = searchUrlValue;
-  homepageElement.value = homePageValue;
-  uaElement.value = uaValue;
-  uaElement.placeholder = 'Ninetails/' + version;
-  
-  settings.style.display = 'block';
+/** Open the settings menu */
+function openSettings() {
+  $('#settings-searchurl').val(localStorage.getItem('searchurl'));
+  $('#settings-homepage').val(localStorage.getItem('homepage'));
+  $('#settings-ua').val(localStorage.getItem('ua')).attr('placeholder', 'Ninetails/' + version);
+  $('#settings').fadeIn(75);
 }
 
 
+/** Hide the settings menu */
 function hideSettings() {
-  settings.style.display = 'none';
+  $('#settings').fadeOut(75);
 }
 
 
+/** Save any changed settings to localStorage */
 function saveSettings() {
   hideSettings();
-  
-  const searchurlElement = byId('settings-searchurl');
-  const homepageElement = byId('settings-homepage');
-  const uaElement = byId('settings-ua');
 
-  localStorage.setItem('searchurl', searchurlElement.value);
-  localStorage.setItem('homepage', homepageElement.value);
-  localStorage.setItem('ua', uaElement.value);
+  localStorage.setItem('searchurl', $('#settings-searchurl').val());
+  localStorage.setItem('homepage', $('#settings-homepage').val());
+  localStorage.setItem('ua', $('#settings-ua').val());
 }
 
 
+/** Hide the right-click menu */
 function hideMenu() {
-  menu.style.display = 'none';
-  cover.style.display = 'none';
+  $('#menu, #cover').fadeOut(75);
 }
 
 
+/** Close the active tab and switch to a new one */
 function closeTab() {
-  let tabs = document.querySelectorAll('[id^="tab-"]')
+  let tabs = $('[id^="tab-"]');
   if (tabs.length > 1) {
     let temp = activeHash;
     if (temp !== tabs[0].id.slice(4)) {
@@ -162,157 +131,248 @@ function closeTab() {
     } else {
       switchTabs(tabs[1].id.slice(4));
     }
-    byId('tab-' + temp).remove();
-    byId('view-' + temp).remove();
+    $('#tab-' + temp).remove();
+    $('#view-' + temp).remove();
   }
 }
 
 
-function checkSSL(string) {
-  if (string.slice(0, 8) === 'https://') {
-    ssl.setAttribute('src', './icons/lock-closed.png');
+/**
+ * Check the security of a URL
+ * @param {string} url - The URL to be checked
+ */
+function checkSSL(url) {
+  if (url.slice(0, 8) === 'https://') {
+    $('#ssl').attr('src', './icons/lock-closed.png');
     return true;
-  } else if (string.slice(0, 7) === 'http://') {
-    ssl.setAttribute('src', './icons/lock-open.png');
+  } else if (url.slice(0, 7) === 'http://') {
+    $('#ssl').attr('src', './icons/lock-open.png');
     return false;
   }
 }
 
 
+/** Gray out the back/forward buttons if the user can't go back/forward */
 function grayOut() {
-  let backImage = back.getElementsByTagName('img')[0];
-  let forwardImage = forward.getElementsByTagName('img')[0];
-  if (view.canGoBack()) {
-    backImage.style.opacity = 0.4;
-    back.classList.add('hoverable');
+  $('#back').children('img').css('opacity', view[0].canGoBack() ? '0.4' : '0.2');
+  $('#forward').children('img').css('opacity', view[0].canGoForward() ? '0.4' : '0.2');
+
+  if (view[0].canGoBack()) {
+    $('#back').addClass('hoverable');
   } else {
-    backImage.style.opacity = 0.2;
-    back.classList.remove('hoverable');
+    $('#back').removeClass('hoverable');
   }
-  if (view.canGoForward()) {
-    forwardImage.style.opacity = 0.4;
-    forward.classList.add('hoverable');
+  if (view[0].canGoForward()) {
+    $('#forward').addClass('hoverable');
   } else {
-    forwardImage.style.opacity = 0.2;
-    forward.classList.remove('hoverable');
+    $('#forward').removeClass('hoverable');
   }
 }
 
 
-omnibox.addEventListener('keydown', (e) => {
-  if (e.keyCode === 13) {
-    omnibox.blur();
-    let val = omnibox.value;
+/* == EVENT LISTENERS == */
+
+
+$('#omnibox').keypress(function(e) {
+  if (e.which === 13) {
+    $(this).blur();
+    let val = $(this).val();
     if (/((https?:\/\/)?(?:www\.|(?!www))[a-zA-Z0-9][a-zA-Z0-9-]+[a-zA-Z0-9]\.[^\s]{2,}|www\.[a-zA-Z0-9][a-zA-Z0-9-]+[a-zA-Z0-9]\.[^\s]{2,}|https?:\/\/(?:www\.|(?!www))[a-zA-Z0-9]+\.[^\s]{2,}|www\.[a-zA-Z0-9]+\.[^\s]{2,})/.exec(val)) {
       if (val.startsWith('http://') || val.startsWith('https://')) {
-        view.loadURL(val);
+        view[0].loadURL(val);
       } else {
-        view.loadURL('http://'+ val);
+        view[0].loadURL('http://'+ val);
       }
     } else {
       const searchurlValue = localStorage.getItem('searchurl');
       if (searchurlValue) {
-        view.loadURL(searchurlValue + val);
+        view[0].loadURL(searchurlValue + val);
       } else {
-        view.loadURL('https://www.google.com/search?q=' + val);
+        view[0].loadURL('https://www.google.com/search?q=' + val);
       }
     }
   }
 });
 
 
-reload.addEventListener('click', (e) => {
+$('#newtab-button').click(function() {
+  createTab();
+});
+
+
+$('#more-button').click(function() {
+  toggleMoreMenu();
+});
+
+
+$('#reload').click(function(e) {
   if (e.ctrlKey) {
-    view.reloadIgnoringCache();
+    view[0].reloadIgnoringCache();
   } else {
-    view.reload();
+    view[0].reload();
   }
 });
 
 
+$('#back').click(function() {
+  view[0].goBack();
+});
+
+
+$('#forward').click(function() {
+  view[0].goForward();
+});
+
+
+$('#close').click(function() {
+  closeTab();
+});
+
+
+$('#menu').children().click(function () {
+  hideMenu();
+});
+
+
+$('#menu-inspect').click(function() {
+  view[0].openDevTools();
+});
+
+
+$('#menu-reload').click(function() {
+  view[0].reload();
+});
+
+
+$('#menu-back').click(function() {
+  view[0].goBack();
+});
+
+
+$('#menu-forward').click(function() {
+  view[0].goForward();
+});
+
+
+$('#cover').click(function() {
+  hideMenu();
+});
+
+
+$('#more').children().click(function() {
+  toggleMoreMenu();
+});
+
+
+$('#more-settings').click(function() {
+  openSettings();
+});
+
+
+$('#more-github').click(function() {
+  createTab('https://github.com/mystpi/ninetails');
+});
+
+
+$('#settings-done').click(function() {
+  saveSettings();
+});
+
+
+$('#settings-cancel').click(function() {
+  hideSettings();
+});
+
+
+/**
+ * Add event listeners to a webview
+ * @param {jQuery} view - The webview the event listeners will be added to
+ * @param {string} hash - The hash of the webview
+ */
 function addListenersToView(view, hash) {
-  let tab = byId('tab-' + hash);
+  let tab = $('#tab-' + hash);
   
-  view.addEventListener('did-stop-loading', () => {
+  view.on('did-stop-loading', function() {
     if (hash === activeHash) {
-      omnibox.value = view.getURL();
-      checkSSL(view.getURL());
+      $('#omnibox').val(view[0].getURL());
+      checkSSL(view[0].getURL());
       grayOut();
     }
-    tab.classList.remove('animate-pulse');
-    setTitle(tab, view.getTitle());
-    view.insertCSS(`::selection {
+    tab.removeClass('animate-pulse');
+    setTitle(tab, view[0].getTitle());
+    view[0].insertCSS(`::selection {
       color: white !important;
       background: rgb(99, 102, 241) !important;
     }`);
   });
 
 
-  view.addEventListener('load-commit', (e) => {
-    if (hash === activeHash && e.isMainFrame) {
-      omnibox.value = e.url;
+  view.on('load-commit', function(e) {
+    if (hash === activeHash && e.originalEvent.isMainFrame) {
+      $('#omnibox').val(e.originalEvent.url);
     }
   });
 
 
-  view.addEventListener('did-start-loading', () => {
-    tab.classList.add('animate-pulse')
+  view.on('did-start-loading', function() {
+    tab.addClass('animate-pulse');
   });
 
 
-  view.addEventListener('page-title-updated', (e) => {
-    setTitle(tab, e.title);
+  view.on('page-title-updated', function(e) {
+    setTitle(tab, e.originalEvent.title);
   });
 
 
-  view.addEventListener('context-menu', (e) => {
-    menu.style.display = 'block';
-    menu.style.left = e.params.x + 'px';
-    menu.style.top = e.params.y + 'px';
-    cover.style.display = 'block';
+  view.on('context-menu', function(e) {
+    $('#menu').fadeIn(75).css({
+      'left': e.originalEvent.params.x + 'px',
+      'top': e.originalEvent.params.y + 'px'
+    });
+    $('#cover').fadeIn(75);
   });
 
 
-  view.addEventListener('new-window', (e) => {
-    createTab(e.url);
+  view.on('new-window', (e) => {
+    createTab(e.originalEvent.url);
   });
   
 
-  view.addEventListener('update-target-url', (e) => {
-    if (e.url) {
-      target.innerText = e.url;
-      target.style.opacity = '1';
+  view.on('update-target-url', (e) => {
+    if (e.originalEvent.url) {
+      $('#target').text(e.originalEvent.url).css('opacity', '1');
     } else {
-      if (target.style.opacity) {
-        target.style.opacity = '0';
+      if ($('#target').css('opacity')) {
+        $('#target').css('opacity', '0');
       }
     }
   });
 
   
-  view.addEventListener('page-favicon-updated', (e) => {
-    if (e.favicons.length > 0) {
-      let icon = e.favicons[0];
-      let img = tab.getElementsByTagName('img')[0];
-      img.src = icon;
+  view.on('page-favicon-updated', (e) => {
+    if (e.originalEvent.favicons.length > 0) {
+      let icon = e.originalEvent.favicons[0];
+      let img = tab.children('img');
+      img.attr('src', icon);
     }
   });
 }
 
 
-fetch('../package.json')
-  .then(res => res.json())
-  .then(res => {
-    version = res.version;
-    const homepageValue = localStorage.getItem('homepage');
-    if (homepageValue) {
-      createTab(homepageValue);
-    } else {
-      const searchurlValue = localStorage.getItem('searchurl');
-      if (searchurlValue) { 
-        createTab('https://ninetails.cf/?v=' + version + '&e=' + searchurlValue); 
-      } else { 
-        createTab('https://ninetails.cf/?v=' + version); 
-      }
+/* == STARTUP == */
+
+
+$.getJSON('../package.json', function(res) {
+  version = res.version;
+  const homepageValue = localStorage.getItem('homepage');
+  if (homepageValue) {
+    createTab(homepageValue);
+  } else {
+    const searchurlValue = localStorage.getItem('searchurl');
+    if (searchurlValue) { 
+      createTab('https://ninetails.cf/?v=' + version + '&e=' + searchurlValue); 
+    } else { 
+      createTab('https://ninetails.cf/?v=' + version); 
     }
-  });
+  }
+});
