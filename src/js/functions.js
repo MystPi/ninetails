@@ -33,9 +33,11 @@ function switchTabs(tab) {
   view = byId('view-' + tab);
   activeHash = tab;
 
-  omnibox.value = view.getURL();
-  checkSSL(view.getURL());
-  grayOut();
+  view.addEventListener('dom-ready', () => {
+    omnibox.value = view.getURL();
+    checkSSL(view.getURL());
+    grayOut();
+  });
 }
 
 
