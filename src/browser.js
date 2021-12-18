@@ -316,3 +316,6 @@ fetch('../package.json')
       }
     }
   });
+function searchEngine(engine) {
+  document.getElementById("settings-searchurl").value = engine;
+}

@@ -29,12 +29,12 @@
         <p class="mb-2 font-bold text-gray-700">Search engine URL</p>
         <input id="settings-searchurl" type="text" placeholder="https://www.google.com/search?q=" class="bg-indigo-50 text-indigo-500 rounded-full outline-none text-sm px-4 py-0.5 mb-5 transition hover:bg-indigo-100 placeholder:text-indigo-400 w-full">
         <!-- Search Engine Presets-->
-        <button onclick='' class="bg-blue text-white font-bold py-2 px-4 rounded">Google</button><br>
-        <button onclick='' class="bg-blue text-white font-bold py-2 px-4 rounded">DuckDuckGo</button><br>
-        <button onclick='' class="bg-blue text-white font-bold py-2 px-4 rounded">Startpage</button><br>
-        <button onclick='' class="bg-blue text-white font-bold py-2 px-4 rounded">Bing</button><br>
-        <button onclick='' class="bg-blue text-white font-bold py-2 px-4 rounded">Swisscows</button><br>
-        <button onclick='' class="bg-blue text-white font-bold py-2 px-4 rounded">Yahoo</button>
+        <button onclick='searchEngine("https://www.google.com/search?q=")' class="flex-1 px-4 py-2 font-bold text-white transition bg-indigo-500 rounded-md hover:bg-indigo-600">Google</button>
+        <button onclick='searchEngine("https://www.bing.com/search?q=")' class="flex-1 px-4 py-2 font-bold text-white transition bg-indigo-500 rounded-md hover:bg-indigo-600">Bing</button>
+        <button onclick='searchEngine("https://search.yahoo.com/search?p=")' class="flex-1 px-4 py-2 font-bold text-white transition bg-indigo-500 rounded-md hover:bg-indigo-600">Yahoo</button><br>
+        <button onclick='searchEngine("https://duckduckgo.com/?q=")' class="flex-1 px-4 py-2 font-bold text-white transition bg-indigo-500 rounded-md hover:bg-indigo-600">DuckDuckGo</button>
+        <button onclick='searchEngine("https://swisscows.com/web?culture=en&query=")' class="flex-1 px-4 py-2 font-bold text-white transition bg-indigo-500 rounded-md hover:bg-indigo-600">Swisscows</button>
+
          <!-- Homepage -->
         <p class="mb-2 font-bold text-gray-700">Homepage</p>
         <input id="settings-homepage" type="text" placeholder="Leave blank for the default (recommended)" class="bg-indigo-50 text-indigo-500 rounded-full outline-none text-sm px-4 py-0.5 mb-8 transition hover:bg-indigo-100 placeholder:text-indigo-400 w-full">
