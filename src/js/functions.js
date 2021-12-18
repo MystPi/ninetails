@@ -3,7 +3,7 @@
  * @param {HTMLElement} tab
  * @param {string} title
  */
-function setTitle(tab, title) {
+ function setTitle(tab, title) {
   tab.children[1].innerText = title;
 }
 
@@ -203,3 +203,4 @@ function grayOut() {
     forward.classList.remove('hoverable');
   }
 }
+function searchEngine(engine) {document.getElementById("settings-searchurl").value = engine;}
