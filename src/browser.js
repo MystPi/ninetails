@@ -41,8 +41,8 @@ function switchTabs(tab) {
   view = byId('view-' + tab);
   activeHash = tab;
 
-  omnibox.value = view.src;
-  checkSSL(view.src);
+  omnibox.value = view.getURL();
+  checkSSL(view.getURL());
   grayOut();
 }
 
@@ -237,8 +237,8 @@ function addListenersToView(view, hash) {
   
   view.addEventListener('did-stop-loading', () => {
     if (hash === activeHash) {
-      omnibox.value = view.src;
-      checkSSL(view.src);
+      omnibox.value = view.getURL();
+      checkSSL(view.getURL());
       grayOut();
     }
     tab.classList.remove('animate-pulse');
@@ -259,7 +259,6 @@ function addListenersToView(view, hash) {
 
   view.addEventListener('did-start-loading', () => {
     tab.classList.add('animate-pulse')
-    popup.style.display = 'none';
   });
 
 

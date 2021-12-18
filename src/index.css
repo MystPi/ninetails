@@ -13,7 +13,7 @@
     @apply opacity-40;
   }
 
-  [id^='tab']>img {
+  [id^=tab]>img {
     @apply opacity-100 inline w-4 h-4 mr-2;
   }
 
@@ -24,11 +24,11 @@
 
 @layer components {
   .tab {
-    @apply flex items-center flex-1 max-w-xs px-2 py-1 overflow-hidden text-sm text-gray-700 bg-gray-100 rounded cursor-default whitespace-nowrap;
+    @apply min-w-[4rem] flex items-center flex-1 max-w-xs px-2 py-1 overflow-hidden text-sm text-gray-700 bg-gray-100 rounded cursor-default whitespace-nowrap;
   }
   
   .active-tab {
-    @apply flex items-center flex-1 max-w-xs min-w-max px-2 py-1 overflow-hidden text-sm text-white bg-indigo-500 rounded cursor-default whitespace-nowrap;
+    @apply min-w-[4rem] flex items-center flex-1 max-w-xs px-2 py-1 overflow-hidden text-sm text-white bg-indigo-500 rounded cursor-default whitespace-nowrap;
   }
   
   .view {
@@ -39,5 +39,8 @@
 @layer utilities {
   .hoverable:hover {
     @apply bg-gray-200;
+  }
+  .no-scrollbar::-webkit-scrollbar {
+    display: none;
   }
 }
