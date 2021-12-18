@@ -1,25 +1,17 @@
-const byId = id => document.getElementById(id);
-
-let view;
-let version;
-let activeHash = '0';
-
-const omnibox = byId('omnibox'),
-      ssl = byId('ssl'),
-      back = byId('back'),
-      forward = byId('forward'),
-      menu = byId('menu'),
-      cover = byId('cover'),
-      reload = byId('reload'),
-      target = byId('target'),
-      settings = byId('settings');
-
-
+/**
+ * Set the title of a tab
+ * @param {HTMLElement} tab
+ * @param {string} title
+ */
 function setTitle(tab, title) {
   tab.children[1].innerText = title;
 }
 
 
+/**
+ * Switch the active tab
+ * @param {string} tab - The hash of the tab to switch to
+ */ 
 function switchTabs(tab) {
   let currentTab = document.querySelector('.active-tab');
   if (currentTab) {
@@ -47,6 +39,10 @@ function switchTabs(tab) {
 }
 
 
+/**
+ * Create a tab and append it to the tabbar
+ * @param {string} [url] - If present, the new tab's URL will be set to this, otherwise it will be set to the default homepage
+ */
 function createTab(url) {
   let tab = document.createElement('button');
   let span = document.createElement('span');
@@ -99,7 +95,8 @@ function createTab(url) {
 }
 
 
-function showMoreMenu() {
+/** Toggle the visibility of the 'more' menu */
+function toggleMoreMenu() {
   const menu = byId('more-menu');
   if (menu.classList.contains('block')) {
     menu.classList.remove('block')
@@ -111,8 +108,8 @@ function showMoreMenu() {
 }
 
 
+/** Open the settings menu */
 function openSettings(e) {
-  showMoreMenu();
   const searchurlElement = byId('settings-searchurl');
   const homepageElement = byId('settings-homepage');
   const uaElement = byId('settings-ua');
@@ -129,11 +126,13 @@ function openSettings(e) {
 }
 
 
+/** Hide the settings menu */
 function hideSettings() {
   settings.style.display = 'none';
 }
 
 
+/** Save any changed settings to localStorage */
 function saveSettings() {
   hideSettings();
   
@@ -147,12 +146,14 @@ function saveSettings() {
 }
 
 
+/** Hide the right-click menu */
 function hideMenu() {
   menu.style.display = 'none';
   cover.style.display = 'none';
 }
 
 
+/** Close the active tab and switch to a new one */
 function closeTab() {
   let tabs = document.querySelectorAll('[id^="tab-"]')
   if (tabs.length > 1) {
@@ -168,17 +169,22 @@ function closeTab() {
 }
 
 
-function checkSSL(string) {
-  if (string.slice(0, 8) === 'https://') {
+/**
+ * Check if a URL is https or http
+ * @param {string} url - The URL to be checked
+ */
+function checkSSL(url) {
+  if (url.slice(0, 8) === 'https://') {
     ssl.setAttribute('src', './icons/lock-closed.png');
     return true;
-  } else if (string.slice(0, 7) === 'http://') {
+  } else if (url.slice(0, 7) === 'http://') {
     ssl.setAttribute('src', './icons/lock-open.png');
     return false;
   }
 }
 
 
+/** Gray out the back/forward buttons if the user can't go back/forward */
 function grayOut() {
   let backImage = back.getElementsByTagName('img')[0];
   let forwardImage = forward.getElementsByTagName('img')[0];
@@ -197,122 +203,3 @@ function grayOut() {
     forward.classList.remove('hoverable');
   }
 }
-
-
-omnibox.addEventListener('keydown', (e) => {
-  if (e.keyCode === 13) {
-    omnibox.blur();
-    let val = omnibox.value;
-    if (/((https?:\/\/)?(?:www\.|(?!www))[a-zA-Z0-9][a-zA-Z0-9-]+[a-zA-Z0-9]\.[^\s]{2,}|www\.[a-zA-Z0-9][a-zA-Z0-9-]+[a-zA-Z0-9]\.[^\s]{2,}|https?:\/\/(?:www\.|(?!www))[a-zA-Z0-9]+\.[^\s]{2,}|www\.[a-zA-Z0-9]+\.[^\s]{2,})/.exec(val)) {
-      if (val.startsWith('http://') || val.startsWith('https://')) {
-        view.loadURL(val);
-      } else {
-        view.loadURL('http://'+ val);
-      }
-    } else {
-      const searchurlValue = localStorage.getItem('searchurl');
-      if (searchurlValue) {
-        view.loadURL(searchurlValue + val);
-      } else {
-        view.loadURL('https://www.google.com/search?q=' + val);
-      }
-    }
-  }
-});
-
-
-reload.addEventListener('click', (e) => {
-  if (e.ctrlKey) {
-    view.reloadIgnoringCache();
-  } else {
-    view.reload();
-  }
-});
-
-
-function addListenersToView(view, hash) {
-  let tab = byId('tab-' + hash);
-  
-  view.addEventListener('did-stop-loading', () => {
-    if (hash === activeHash) {
-      omnibox.value = view.getURL();
-      checkSSL(view.getURL());
-      grayOut();
-    }
-    tab.classList.remove('animate-pulse');
-    setTitle(tab, view.getTitle());
-    view.insertCSS(`::selection {
-      color: white !important;
-      background: rgb(99, 102, 241) !important;
-    }`);
-  });
-
-
-  view.addEventListener('load-commit', (e) => {
-    if (hash === activeHash && e.isMainFrame) {
-      omnibox.value = e.url;
-    }
-  });
-
-
-  view.addEventListener('did-start-loading', () => {
-    tab.classList.add('animate-pulse')
-  });
-
-
-  view.addEventListener('page-title-updated', (e) => {
-    setTitle(tab, e.title);
-  });
-
-
-  view.addEventListener('context-menu', (e) => {
-    menu.style.display = 'block';
-    menu.style.left = e.params.x + 'px';
-    menu.style.top = e.params.y + 'px';
-    cover.style.display = 'block';
-  });
-
-
-  view.addEventListener('new-window', (e) => {
-    createTab(e.url);
-  });
-  
-
-  view.addEventListener('update-target-url', (e) => {
-    if (e.url) {
-      target.innerText = e.url;
-      target.style.opacity = '1';
-    } else {
-      if (target.style.opacity) {
-        target.style.opacity = '0';
-      }
-    }
-  });
-
-  
-  view.addEventListener('page-favicon-updated', (e) => {
-    if (e.favicons.length > 0) {
-      let icon = e.favicons[0];
-      let img = tab.getElementsByTagName('img')[0];
-      img.src = icon;
-    }
-  });
-}
-
-
-fetch('../package.json')
-  .then(res => res.json())
-  .then(res => {
-    version = res.version;
-    const homepageValue = localStorage.getItem('homepage');
-    if (homepageValue) {
-      createTab(homepageValue);
-    } else {
-      const searchurlValue = localStorage.getItem('searchurl');
-      if (searchurlValue) { 
-        createTab('https://ninetails.cf/?v=' + version + '&e=' + searchurlValue); 
-      } else { 
-        createTab('https://ninetails.cf/?v=' + version); 
-      }
-    }
-  });
