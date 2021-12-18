@@ -51,8 +51,9 @@ function createTab(url) {
 
   tab.classList.add('tab');
   tab.id = 'tab-' + hash;
-  tab.onclick = () => {
+  tab.onclick = (e) => {
     switchTabs(hash);
+    checkForDelTab(e, hash);
   };
   span.innerText = 'New Tab';
   icon.src = './icons/favicon.png';
@@ -165,6 +166,18 @@ function closeTab() {
     }
     byId('tab-' + temp).remove();
     byId('view-' + temp).remove();
+  }
+}
+
+
+/**
+ * Check if a tab is ctrl-clicked upon, and, if so, delete it
+ * @param {MouseEvent} e
+ * @param {string} hash - The hash of the tab
+ */
+function checkForDelTab(e, hash) {
+  if (e.ctrlKey) {
+    closeTab(hash)
   }
 }
 
