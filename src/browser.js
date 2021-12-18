@@ -47,7 +47,7 @@ function switchTabs(tab) {
 }
 
 
-function createTab(url) {
+async function createTab(url) {
   let tab = document.createElement('button');
   let span = document.createElement('span');
   let icon = document.createElement('img');
@@ -70,7 +70,7 @@ function createTab(url) {
   view.classList.add('view');
   view.allowpopups = 'allowpopups';
   view.webpreferences = 'nativeWindowOpen=true';
-  const uaValue = localStorage.getItem('ua');
+  const uaValue = await window.userConfig.load('ua');
   if (uaValue) {
     view.useragent = uaValue;
   } else {
@@ -80,11 +80,11 @@ function createTab(url) {
   if (url) {
     view.src = url;
   } else {
-    const homepageValue = localStorage.getItem('homepage');
+    const homepageValue = await window.userConfig.load('homepage');
     if (homepageValue) {
       view.src = homepageValue;
     } else {
-      const searchurlValue = localStorage.getItem('searchurl');
+      const searchurlValue = await window.userConfig.load('searchurl');
       if (searchurlValue) { 
         view.src = 'https://ninetails.cf/?v=' + version + '&e=' + searchurlValue;
       } else { 
@@ -111,14 +111,16 @@ function showMoreMenu() {
 }
 
 
-function openSettings(e) {
+async function openSettings(e) {
   showMoreMenu();
+
   const searchurlElement = byId('settings-searchurl');
   const homepageElement = byId('settings-homepage');
   const uaElement = byId('settings-ua');
-  const searchUrlValue = localStorage.getItem('searchurl');
-  const homePageValue = localStorage.getItem('homepage');
-  const uaValue = localStorage.getItem('ua');
+
+  const searchUrlValue = await window.userConfig.load('searchurl');
+  const homePageValue = await window.userConfig.load('homepage');
+  const uaValue = await window.userConfig.load('ua');
 
   searchurlElement.value = searchUrlValue;
   homepageElement.value = homePageValue;
@@ -141,9 +143,9 @@ function saveSettings() {
   const homepageElement = byId('settings-homepage');
   const uaElement = byId('settings-ua');
 
-  localStorage.setItem('searchurl', searchurlElement.value);
-  localStorage.setItem('homepage', homepageElement.value);
-  localStorage.setItem('ua', uaElement.value);
+  window.userConfig.save({ key: 'searchurl', value: searchurlElement.value })
+  window.userConfig.save({ key: 'homepage', value: homepageElement.value })
+  window.userConfig.save({ key: 'ua', value: uaElement.value })
 }
 
 
@@ -199,7 +201,7 @@ function grayOut() {
 }
 
 
-omnibox.addEventListener('keydown', (e) => {
+omnibox.addEventListener('keydown', async (e) => {
   if (e.keyCode === 13) {
     omnibox.blur();
     let val = omnibox.value;
@@ -210,7 +212,7 @@ omnibox.addEventListener('keydown', (e) => {
         view.loadURL('http://'+ val);
       }
     } else {
-      const searchurlValue = localStorage.getItem('searchurl');
+      const searchurlValue = await window.userConfig.load('searchurl');
       if (searchurlValue) {
         view.loadURL(searchurlValue + val);
       } else {
@@ -303,13 +305,13 @@ function addListenersToView(view, hash) {
 
 fetch('../package.json')
   .then(res => res.json())
-  .then(res => {
+  .then(async (res) => {
     version = res.version;
-    const homepageValue = localStorage.getItem('homepage');
+    const homepageValue = await window.userConfig.load('homepage');
     if (homepageValue) {
       createTab(homepageValue);
     } else {
-      const searchurlValue = localStorage.getItem('searchurl');
+      const searchurlValue = await window.userConfig.load('searchurl');
       if (searchurlValue) { 
         createTab('https://ninetails.cf/?v=' + version + '&e=' + searchurlValue); 
       } else { 
