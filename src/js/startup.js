@@ -8,9 +8,9 @@ fetch('../package.json')
     } else {
       const searchurlValue = localStorage.getItem('searchurl');
       if (searchurlValue) { 
-        createTab('https://ninetails.cf/?v=' + version + '&e=' + searchurlValue); 
+        createTab(defaultHome + '?v=' + version + '&e=' + searchurlValue); 
       } else { 
-        createTab('https://ninetails.cf/?v=' + version); 
+        createTab(defaultHome + '?v=' + version); 
       }
     }
   });

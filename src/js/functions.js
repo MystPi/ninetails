@@ -83,9 +83,9 @@ function createTab(url) {
     } else {
       const searchurlValue = localStorage.getItem('searchurl');
       if (searchurlValue) { 
-        view.src = 'https://ninetails.cf/?v=' + version + '&e=' + searchurlValue;
+        view.src = defaultHome + '?v=' + version + '&e=' + searchurlValue;
       } else { 
-        view.src = 'https://ninetails.cf/?v=' + version;
+        view.src = defaultHome + '?v=' + version;
       }
     }
   }

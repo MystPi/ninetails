@@ -13,6 +13,9 @@ const click = (id, cb) => byId(id).addEventListener('click', (e) => {
   cb(e);
 });
 
+/** The default home page for Ninetails */
+const defaultHome = 'https://mystpi.github.io/ninetails/'
+
 /** The current webview element */
 let view;
 
