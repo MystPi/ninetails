@@ -1,12 +1,12 @@
 fetch('../package.json')
   .then(res => res.json())
-  .then(res => {
+  .then(async (res) => {
     version = res.version;
-    const homepageValue = localStorage.getItem('homepage');
+    const homepageValue = await window.userConfig.load('homepage');
     if (homepageValue) {
       createTab(homepageValue);
     } else {
-      const searchurlValue = localStorage.getItem('searchurl');
+      const searchurlValue = await window.userConfig.load('searchurl');
       if (searchurlValue) { 
         createTab(defaultHome + '?v=' + version + '&e=' + searchurlValue); 
       } else { 
