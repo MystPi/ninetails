@@ -2,6 +2,8 @@ const { app, BrowserWindow, ipcMain } = require('electron');
 const Datastore = require('@seald-io/nedb');
 const path = require('path');
 
+const userConfigDb = new Datastore({ filename: path.join(process.cwd(), './config/user-config.db'), autoload: true });
+
 // Handle creating/removing shortcuts on Windows when installing/uninstalling.
 if (require('electron-squirrel-startup')) { // eslint-disable-line global-require
   app.quit();
@@ -45,7 +47,8 @@ const createWindow = () => {
     minWidth: 450,
     icon: path.join(__dirname, '../appicons/ninetails.png'),
     webPreferences: {
-      webviewTag: true
+      webviewTag: true,
+      preload: path.join(__dirname, 'preload.js')
     }
   });
 
