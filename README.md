@@ -29,7 +29,7 @@ npm install
 npm run dev
 # This runs `npm start` and `npm run tailwind` concurrently
 ```
-
+If you can't install NodeJS and just want to make minor changes, you can always use <a href="https://github.dev/MystPi/ninetails">GitHub's VSCode Web instance</a>.
 ## Building the app
 ```bash
 # Clone the repo
