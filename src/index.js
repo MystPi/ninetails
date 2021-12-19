@@ -29,7 +29,7 @@ ipcMain.handle('load-user-config', async (event, arg) => {
           reject()
         }
         if (result) {
-          resolve(value)
+          resolve(result.value)
         } else {
           resolve(null)
         }
