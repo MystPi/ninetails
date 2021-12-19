@@ -47,8 +47,7 @@ const createWindow = () => {
     minWidth: 450,
     icon: path.join(__dirname, '../appicons/ninetails.png'),
     webPreferences: {
-      webviewTag: true,
-      preload: path.join(__dirname, 'preload.js')
+      webviewTag: true
     }
   });
 
