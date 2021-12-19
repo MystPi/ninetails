@@ -1,38 +1,10 @@
-const { app, BrowserWindow, ipcMain } = require('electron');
-const Datastore = require('@seald-io/nedb');
+const { app, BrowserWindow } = require('electron');
 const path = require('path');
-
-const userConfigDb = new Datastore({ filename: path.join(process.cwd(), './config/user-config.db'), autoload: true });
 
 // Handle creating/removing shortcuts on Windows when installing/uninstalling.
 if (require('electron-squirrel-startup')) { // eslint-disable-line global-require
   app.quit();
 }
-
-ipcMain.handle('save-user-config', async (event, arg) => {
-  if (typeof arg === 'object' && arg !== null && arg.hasOwnProperty('key') && arg.hasOwnProperty('value')) {
-    const { key, value } = arg
-    userConfigDb.update({ key }, {
-      key,
-      value
-    }, { upsert: true }, (err, numReplaced, upsert) => {
-      // TODO: handle errors
-    })
-  }
-})
-
-ipcMain.handle('load-user-config', async (event, arg) => {
-  if (typeof arg === 'string') {
-    return new Promise((resolve, reject) => {
-      userConfigDb.findOne({ key: arg }, (err, { value }) => {
-        if (err) {
-          reject()
-        }
-        resolve(value)
-      })
-    });
-  }
-})
 
 const createWindow = () => {
   // Create the browser window.
@@ -43,8 +15,7 @@ const createWindow = () => {
     minWidth: 450,
     icon: path.join(__dirname, '../appicons/ninetails.png'),
     webPreferences: {
-      webviewTag: true,
-      preload: path.join(__dirname, 'preload.js')
+      webviewTag: true
     }
   });
 
