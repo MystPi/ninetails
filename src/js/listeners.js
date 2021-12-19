@@ -1,4 +1,4 @@
-omnibox.addEventListener('keydown', async (e) => {
+omnibox.addEventListener('keydown', (e) => {
   if (e.keyCode === 13) {
     omnibox.blur();
     let val = omnibox.value;
@@ -9,7 +9,7 @@ omnibox.addEventListener('keydown', async (e) => {
         view.loadURL('http://'+ val);
       }
     } else {
-      const searchurlValue = await window.userConfig.load('searchurl');
+      const searchurlValue = localStorage.getItem('searchurl');
       if (searchurlValue) {
         view.loadURL(searchurlValue + val);
       } else {
