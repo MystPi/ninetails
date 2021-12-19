@@ -45,7 +45,7 @@ function switchTabs(tab) {
  * Create a tab and append it to the tabbar
  * @param {string} [url] - If present, the new tab's URL will be set to this, otherwise it will be set to the default homepage
  */
-function createTab(url) {
+async function createTab(url) {
   let tab = document.createElement('button');
   let span = document.createElement('span');
   let icon = document.createElement('img');
@@ -112,7 +112,7 @@ function toggleMoreMenu() {
 
 
 /** Open the settings menu */
-function openSettings(e) {
+async function openSettings(e) {
   const searchurlElement = byId('settings-searchurl');
   const homepageElement = byId('settings-homepage');
   const uaElement = byId('settings-ua');
