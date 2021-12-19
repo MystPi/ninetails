@@ -168,3 +168,4 @@ function addListenersToView(view, hash) {
     }
   });
 }
+byId('settings-presets').addEventListener('change', (e) => {document.getElementById("settings-searchurl").value = document.getElementById("settings-presets").value;});
