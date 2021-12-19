@@ -91,3 +91,7 @@ out/
 # IDE
 .history
 .idea
+
+# APP
+config/*
+!config/.gitkeep
