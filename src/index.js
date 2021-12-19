@@ -24,11 +24,15 @@ ipcMain.handle('save-user-config', async (event, arg) => {
 ipcMain.handle('load-user-config', async (event, arg) => {
   if (typeof arg === 'string') {
     return new Promise((resolve, reject) => {
-      userConfigDb.findOne({ key: arg }, (err, { value }) => {
+      userConfigDb.findOne({ key: arg }, (err, result) => {
         if (err) {
           reject()
         }
-        resolve(value)
+        if (result) {
+          resolve(result.value)
+        } else {
+          resolve(null)
+        }
       })
     });
   }
