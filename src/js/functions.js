@@ -96,6 +96,7 @@ function createTab(url) {
   byId('views').appendChild(view);
   addListenersToView(view, hash);
   switchTabs(hash);
+  omnibox.focus();
 }
 
 
