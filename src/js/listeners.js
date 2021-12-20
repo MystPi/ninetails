@@ -20,6 +20,11 @@ omnibox.addEventListener('keydown', (e) => {
 });
 
 
+byId('settings-presets').addEventListener('change', () => {
+  byId('settings-searchurl').value = byId('settings-presets').value;
+});
+
+
 click('newtab-button', () => {
   createTab();
 });
@@ -168,4 +173,3 @@ function addListenersToView(view, hash) {
     }
   });
 }
-byId('settings-presets').addEventListener('change', (e) => {document.getElementById("settings-searchurl").value = document.getElementById("settings-presets").value;});
