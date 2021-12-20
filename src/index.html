@@ -27,7 +27,16 @@
         <h2 class="mb-8 text-4xl font-black text-gray-700">Ninetails <span class="text-indigo-500">Settings</span></h2>
         <!-- Search Engine -->
         <p class="mb-2 font-bold text-gray-700">Search engine URL</p>
-        <input id="settings-searchurl" type="text" placeholder="https://www.google.com/search?q=" class="bg-indigo-50 text-indigo-500 rounded-full outline-none text-sm px-4 py-0.5 mb-8 transition hover:bg-indigo-100 placeholder:text-indigo-400 w-full">
+        <div class="flex items-center space-x-2 mb-8">
+          <input id="settings-searchurl" type="text" placeholder="https://www.google.com/search?q= (default)" class="bg-indigo-50 text-indigo-500 rounded-full outline-none text-sm px-4 py-0.5 transition hover:bg-indigo-100 placeholder:text-indigo-400 w-full">
+          <select id="settings-presets" class="appearance-none px-4 py-0.5 rounded-full bg-indigo-500 text-white font-bold outline-none text-sm" name="" id="">
+            <option class="bg-white text-gray-700 text-sm" value="">Custom</option>
+            <option class="bg-white text-gray-700 text-sm" value="https://duckduckgo.com?q=">DuckDuckGo</option>
+            <option class="bg-white text-gray-700 text-sm" value="https://www.bing.com/search?q=">Bing</option>
+            <option class="bg-white text-gray-700 text-sm" value="https://search.yahoo.com/search?p=">Yahoo</option>
+            <option class="bg-white text-gray-700 text-sm" value="https://www.startpage.com/sp/search?q=">Startpage</option>
+          </select>
+        </div>
         <!-- Homepage -->
         <p class="mb-2 font-bold text-gray-700">Homepage</p>
         <input id="settings-homepage" type="text" placeholder="Leave blank for the default (recommended)" class="bg-indigo-50 text-indigo-500 rounded-full outline-none text-sm px-4 py-0.5 mb-8 transition hover:bg-indigo-100 placeholder:text-indigo-400 w-full">

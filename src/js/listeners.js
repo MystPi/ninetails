@@ -20,6 +20,11 @@ omnibox.addEventListener('keydown', (e) => {
 });
 
 
+byId('settings-presets').addEventListener('change', () => {
+  byId('settings-searchurl').value = byId('settings-presets').value;
+});
+
+
 click('newtab-button', () => {
   createTab();
 });

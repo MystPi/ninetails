@@ -33,6 +33,7 @@ function switchTabs(tab) {
   view = byId('view-' + tab);
   activeHash = tab;
 
+  omnibox.value = view.src;
   view.addEventListener('dom-ready', () => {
     omnibox.value = view.getURL();
     checkSSL(view.getURL());
