@@ -13,6 +13,12 @@ const click = (id, cb) => byId(id).addEventListener('click', (e) => {
   cb(e);
 });
 
+/** The default home page for Ninetails */
+const defaultHome = 'https://mystpi.github.io/ninetails/';
+
+/** The default search engine. Also make a PR in the gh-pages (https://github.com/MystPi/ninetails/tree/gh-pages) branch if you're changing the default */
+const defaultEngine = 'https://www.startpage.com/sp/search?q=';
+
 /** The current webview element */
 let view;
 

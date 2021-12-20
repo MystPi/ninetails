@@ -13,10 +13,15 @@ omnibox.addEventListener('keydown', (e) => {
       if (searchurlValue) {
         view.loadURL(searchurlValue + val);
       } else {
-        view.loadURL('https://www.google.com/search?q=' + val);
+        view.loadURL(defaultEngine + val);
       }
     }
   }
+});
+
+
+byId('settings-presets').addEventListener('change', () => {
+  byId('settings-searchurl').value = byId('settings-presets').value;
 });
 
 

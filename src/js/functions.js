@@ -33,9 +33,12 @@ function switchTabs(tab) {
   view = byId('view-' + tab);
   activeHash = tab;
 
-  omnibox.value = view.getURL();
-  checkSSL(view.getURL());
-  grayOut();
+  omnibox.value = view.src;
+  view.addEventListener('dom-ready', () => {
+    omnibox.value = view.getURL();
+    checkSSL(view.getURL());
+    grayOut();
+  });
 }
 
 
@@ -51,8 +54,9 @@ function createTab(url) {
 
   tab.classList.add('tab');
   tab.id = 'tab-' + hash;
-  tab.onclick = () => {
+  tab.onclick = (e) => {
     switchTabs(hash);
+    checkForDelTab(e, hash);
   };
   span.innerText = 'New Tab';
   icon.src = './icons/favicon.png';
@@ -82,9 +86,9 @@ function createTab(url) {
     } else {
       const searchurlValue = localStorage.getItem('searchurl');
       if (searchurlValue) { 
-        view.src = 'https://ninetails.cf/?v=' + version + '&e=' + searchurlValue;
+        view.src = defaultHome + '?v=' + version + '&e=' + searchurlValue;
       } else { 
-        view.src = 'https://ninetails.cf/?v=' + version;
+        view.src = defaultHome + '?v=' + version;
       }
     }
   }
@@ -92,6 +96,7 @@ function createTab(url) {
   byId('views').appendChild(view);
   addListenersToView(view, hash);
   switchTabs(hash);
+  omnibox.focus();
 }
 
 
@@ -165,6 +170,18 @@ function closeTab() {
     }
     byId('tab-' + temp).remove();
     byId('view-' + temp).remove();
+  }
+}
+
+
+/**
+ * Check if a tab is ctrl-clicked upon, and, if so, delete it
+ * @param {MouseEvent} e
+ * @param {string} hash - The hash of the tab
+ */
+function checkForDelTab(e, hash) {
+  if (e.ctrlKey) {
+    closeTab(hash)
   }
 }
 
