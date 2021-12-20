@@ -203,8 +203,3 @@ function grayOut() {
     forward.classList.remove('hoverable');
   }
 }
-
-
-function searchEngine(engine) {
- document.getElementById("settings-searchurl").value = engine;
-}
