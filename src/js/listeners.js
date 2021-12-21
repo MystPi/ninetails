@@ -25,6 +25,15 @@ byId('settings-presets').addEventListener('change', () => {
 });
 
 
+addEventListener('keydown', (e) => {     
+  if (e.ctrlKey && e.key == 't') {
+    createTab();
+  } else if (e.ctrlKey && e.key == 'y') {
+    closeTab();
+  }
+});
+
+
 click('newtab-button', () => {
   createTab();
 });
