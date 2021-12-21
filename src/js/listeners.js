@@ -173,3 +173,8 @@ function addListenersToView(view, hash) {
     }
   });
 }
+//Define HotKeys
+document.getElementById("tabbarmain").addEventListener('keydown', (e) => {     
+  if(e.ctrlKey && e.key =='t'){createTab()}
+  if(e.ctrlKey && e.key =='y'){closeTab()}
+});
