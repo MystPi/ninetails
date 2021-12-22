@@ -9,6 +9,23 @@ function setTitle(tab, title) {
 
 
 /**
+ * Set the omnibox's value
+ * @param {string} text
+ */
+function setOmnibox(text) {
+  let home = localStorage.getItem('homepage');
+  if (!home) {
+    home = defaultHome;
+  }
+  if (text.startsWith(home)) {
+    omnibox.value = '';
+  } else {
+    omnibox.value = text;
+  }
+}
+
+
+/**
  * Switch the active tab
  * @param {string} tab - The hash of the tab to switch to
  */ 
@@ -33,9 +50,9 @@ function switchTabs(tab) {
   view = byId('view-' + tab);
   activeHash = tab;
 
-  omnibox.value = view.src;
+  setOmnibox(view.src);
   view.addEventListener('dom-ready', () => {
-    omnibox.value = view.getURL();
+    setOmnibox(view.getURL());
     checkSSL(view.getURL());
     grayOut();
   });

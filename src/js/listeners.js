@@ -119,7 +119,7 @@ function addListenersToView(view, hash) {
   
   view.addEventListener('did-stop-loading', () => {
     if (hash === activeHash) {
-      omnibox.value = view.getURL();
+      setOmnibox(view.getURL());
       checkSSL(view.getURL());
       grayOut();
     }
@@ -134,7 +134,7 @@ function addListenersToView(view, hash) {
 
   view.addEventListener('load-commit', (e) => {
     if (hash === activeHash && e.isMainFrame) {
-      omnibox.value = e.url;
+      setOmnibox(e.url);
     }
   });
 
