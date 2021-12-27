@@ -1,7 +1,7 @@
 {
   "name": "ninetails",
   "productName": "Ninetails",
-  "version": "2.2.4",
+  "version": "2.2.5",
   "description": "A private, fast, and beautiful web browser.",
   "main": "src/index.js",
   "scripts": {
