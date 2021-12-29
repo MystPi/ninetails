@@ -16,15 +16,6 @@ jobs:
             glob: ./out/make/squirrel.windows/x64/*.exe
           - os: macos-latest
             glob: ./out/make/zip/darwin/x64/*.zip
-  build-32bit:
-    runs-on: ${{ matrix.os }}
-    strategy:
-      matrix:
-        include:
-          - os: ubuntu-latest
-            glob: ./out/make/{deb,rpm}/ia32/*
-          - os: windows-latest
-            glob: ./out/make/squirrel.windows/ia32/*.exe
 
     steps:
     - uses: actions/checkout@v2
@@ -35,8 +26,6 @@ jobs:
       run: npm install
     - name: build
       run: npm run make
-    - name: build-32bit
-      run: npm run make -- --arch=ia32
     - name: Upload binaries to release
       uses: svenstaro/upload-release-action@v2
       with:
@@ -45,3 +34,4 @@ jobs:
         tag: ${{ github.ref }}
         overwrite: true
         file_glob: true
+        
