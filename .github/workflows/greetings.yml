@@ -1,0 +1,12 @@
+on:
+  issues:
+    types: [opened]
+
+jobs:
+  comment:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Send greeting message
+        uses: hello-smile6/greetings-action@v1.0
+        with:
+          percentage: 100
