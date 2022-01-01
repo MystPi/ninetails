@@ -1,4 +1,4 @@
-name: Build
+name: Build 32-bit
 on:
   push:
     tags:
