@@ -1,6 +1,4 @@
-# Ninetails
-
-<img alt="Ninetails' banner" src="https://user-images.githubusercontent.com/86574651/145640341-d8a01929-2b08-452e-b03a-60774c6c9158.png">
+<img width="1500" alt="Ninetails' banner" src="https://user-images.githubusercontent.com/86574651/147876286-e0f179a9-b456-4c82-b672-380c0a30da3f.png">
 
 <p align="center">
   <img src="https://img.shields.io/github/v/release/mystpi/ninetails?style=for-the-badge">
