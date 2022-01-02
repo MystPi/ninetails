@@ -28,7 +28,7 @@
 
 @layer components {
   .tab {
-    @apply min-w-[4rem] flex items-center flex-1 max-w-xs px-2 py-1 overflow-hidden text-sm text-gray-700 bg-gray-100 rounded cursor-default whitespace-nowrap;
+    @apply min-w-[4rem] flex items-center flex-1 max-w-xs px-2 py-1 overflow-hidden text-sm text-gray-700 bg-gray-100 hover:bg-gray-200 hover:transition rounded cursor-default whitespace-nowrap;
   }
 
   .active-tab {
