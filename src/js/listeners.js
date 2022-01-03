@@ -103,6 +103,12 @@ click('more-github', () => {
 });
 
 
+click('more-feedback', () => {
+  toggleMoreMenu();
+  createTab('https://github.com/mystpi/ninetails/issues/new');
+});
+
+
 click('settings-done', saveSettings);
 
 
