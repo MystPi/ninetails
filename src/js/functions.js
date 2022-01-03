@@ -51,11 +51,21 @@ function switchTabs(tab) {
   activeHash = tab;
 
   setOmnibox(view.src);
-  view.addEventListener('dom-ready', () => {
+  // Hacky, but it works (until I find a better way)
+  try {
+    // First, execute the functions assuming the DOM is ready
     setOmnibox(view.getURL());
     checkSSL(view.getURL());
     grayOut();
-  });
+  } catch (e) {
+    // If the DOM isn't ready, wait for it
+    // console.log(e);
+    view.addEventListener('dom-ready', () => {
+      setOmnibox(view.getURL());
+      checkSSL(view.getURL());
+      grayOut();
+    });
+  }
 }
 
 
@@ -222,15 +232,16 @@ function checkSSL(url) {
 function grayOut() {
   let backImage = back.getElementsByTagName('img')[0];
   let forwardImage = forward.getElementsByTagName('img')[0];
+
   if (view.canGoBack()) {
-    backImage.style.opacity = 0.4;
+    backImage.style.opacity = 0.5;
     back.classList.add('hoverable');
   } else {
     backImage.style.opacity = 0.2;
     back.classList.remove('hoverable');
   }
   if (view.canGoForward()) {
-    forwardImage.style.opacity = 0.4;
+    forwardImage.style.opacity = 0.5;
     forward.classList.add('hoverable');
   } else {
     forwardImage.style.opacity = 0.2;
