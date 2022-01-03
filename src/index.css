@@ -3,10 +3,6 @@
 @tailwind utilities;
 
 @layer base {
-  body {
-    font-family: Roboto, sans-serif;
-  }
-
   *, *::after, *::before {
     @apply select-none;
     -webkit-user-drag: none;
