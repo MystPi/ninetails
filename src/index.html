@@ -26,6 +26,7 @@
     <div id="settings" class="hidden w-full h-full bg-black/10 fixed z-[110]">
       <div class="relative px-8 py-8 mx-8 -translate-y-1/2 bg-white rounded-lg sm:max-w-xl sm:mx-auto top-1/2 max-h-[calc(100vh-4rem)] overflow-auto no-scrollbar">
         <h2 class="mb-8 text-4xl font-black text-gray-700">Ninetails <span class="text-indigo-500">Settings</span></h2>
+
         <!-- Search Engine -->
         <p class="mb-2 font-bold text-gray-700">Search engine URL</p>
         <div class="flex items-center mb-8 space-x-2">
@@ -38,9 +39,11 @@
             <option class="text-sm text-gray-700 bg-white" value="https://www.google.com/search?q=">Google</option>
           </select>
         </div>
+
         <!-- Homepage -->
         <p class="mb-2 font-bold text-gray-700">Homepage</p>
         <input id="settings-homepage" type="text" placeholder="Leave blank for the default (recommended)" class="bg-indigo-50 text-indigo-500 rounded-full outline-none text-sm px-4 py-0.5 mb-8 transition hover:bg-indigo-100 placeholder:text-indigo-400 w-full">
+        
         <!-- Custom UA -->
         <p class="mb-2 font-bold text-gray-700">User agent</p>
         <input id="settings-ua" type="text" placeholder="" class="bg-indigo-50 text-indigo-500 rounded-full outline-none text-sm px-4 py-0.5 mb-8 transition hover:bg-indigo-100 placeholder:text-indigo-400 w-full">
@@ -65,8 +68,9 @@
       <div id="more-menu" class="absolute z-50 hidden my-4 text-base list-none bg-white border border-gray-100 divide-y divide-gray-100 rounded shadow right-2 top-8">
         <ul class="py-1" aria-labelledby="dropdown">
           <li>
-            <button id="more-settings" class="block px-4 py-2 text-sm text-gray-700 cursor-default hover:bg-gray-100">Settings</button>
+            <button id="more-settings" class="block w-full px-4 py-2 text-sm text-left text-gray-700 cursor-default hover:bg-gray-100">Settings</button>
             <button id="more-github" class="block w-full px-4 py-2 text-sm text-left text-gray-700 cursor-default hover:bg-gray-100">GitHub</button>
+            <button id="more-feedback" class="block w-full px-4 py-2 text-sm text-left text-gray-700 cursor-default hover:bg-gray-100">Give feedback</button>
           </li>
         </ul>
       </div>
