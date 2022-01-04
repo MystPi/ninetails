@@ -97,15 +97,11 @@ click('more-settings', () => {
 });
 
 
-click('more-github', () => {
-  toggleMoreMenu();
-  createTab('https://github.com/mystpi/ninetails');
-});
-
-
-click('more-feedback', () => {
-  toggleMoreMenu();
-  createTab('https://github.com/mystpi/ninetails/issues/new');
+document.querySelectorAll('[data-link]').forEach((link) => {
+  link.addEventListener('click', (e) => {
+    toggleMoreMenu();
+    createTab(e.target.dataset.link);
+  });
 });
 
 
