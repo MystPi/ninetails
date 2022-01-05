@@ -28,6 +28,9 @@ let version;
 /** The active tab's hash */
 let activeHash = '0';
 
+/** The current tab's favicon */
+let favicon = '';
+
 const omnibox = byId('omnibox'),
       ssl = byId('ssl'),
       back = byId('back'),
