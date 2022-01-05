@@ -55,13 +55,24 @@
       </div>
     </div>
 
+    <!-- Bookmarks menu -->
+    <div id="bookmarks" class="hidden w-full h-full bg-black/10 fixed z-[110]">
+      <div class="relative px-8 py-8 mx-8 -translate-y-1/2 bg-white rounded-lg sm:max-w-xl sm:mx-auto top-1/2 max-h-[calc(100vh-4rem)] overflow-auto no-scrollbar">
+        <h2 class="mb-8 text-4xl font-black text-gray-700">Your <span class="text-indigo-500">Bookmarks</span></h2>
+        <div class="mb-6" id="bookmarks-container"></div>
+        <div class="flex space-x-4">
+          <button id="bookmarks-close" class="flex-1 px-4 py-2 font-bold text-white transition bg-indigo-500 rounded-md hover:bg-indigo-600">Close</button>
+        </div>
+      </div>
+    </div>
+
     <div class="flex flex-col h-full">
 
       <!-- Tab bar with the "create tab" and "more menu" buttons -->
       <div class="flex items-center px-4 mt-4">
         <div id="tabbar" class="flex items-center flex-1 space-x-2 overflow-auto no-scrollbar"></div>
-        <button id="newtab-button" class="flex items-center justify-center ml-3 mr-3 transition rounded-full cursor-default w-7 h-7 hoverable"><img src="./icons/add.png" width="20" height="20"></button>
-        <button id="more-button" class="flex items-center justify-center transition rounded-full cursor-default w-7 h-7 hoverable"><img src="./icons/more.png" width="20" height="20"></button>
+        <button id="newtab-button" class="flex items-center justify-center ml-3 mr-3 transition rounded-full cursor-default w-7 h-7 hoverable"><img class="light-img" src="./icons/add.png" width="20" height="20"></button>
+        <button id="more-button" class="flex items-center justify-center transition rounded-full cursor-default w-7 h-7 hoverable"><img class="light-img" src="./icons/more.png" width="20" height="20"></button>
       </div>
 
       <!-- Dropdown "more menu" -->
@@ -69,20 +80,22 @@
         <ul class="py-1" aria-labelledby="dropdown">
           <li>
             <button id="more-settings" class="block w-full px-4 py-2 text-sm text-left text-gray-700 cursor-default hover:bg-gray-100">Settings</button>
-            <button id="more-github" class="block w-full px-4 py-2 text-sm text-left text-gray-700 cursor-default hover:bg-gray-100">GitHub</button>
-            <button id="more-feedback" class="block w-full px-4 py-2 text-sm text-left text-gray-700 cursor-default hover:bg-gray-100">Give feedback</button>
+            <button id="more-bookmarks" class="block w-full px-4 py-2 text-sm text-left text-gray-700 cursor-default hover:bg-gray-100">Bookmarks</button>
+            <button data-link="https://github.com/mystpi/ninetails" class="block w-full px-4 py-2 text-sm text-left text-gray-700 cursor-default hover:bg-gray-100">GitHub</button>
+            <button data-link="https://github.com/mystpi/ninetails/issues/new" class="block w-full px-4 py-2 text-sm text-left text-gray-700 cursor-default hover:bg-gray-100">Give feedback</button>
           </li>
         </ul>
       </div>
 
       <!-- Utility bar (omnibox, back/forward buttons, etc.) -->
       <div class="flex items-center flex-none px-4 py-2 space-x-3">
-        <button id="back" class="flex items-center justify-center transition rounded-full cursor-default w-7 h-7"><img src="./icons/back-ios.png" width="20" height="20"></button>
-        <button id="forward" class="flex items-center justify-center transition rounded-full cursor-default w-7 h-7"><img src="./icons/forward-ios.png" width="20" height="20"></button>
+        <button id="back" class="flex items-center justify-center transition rounded-full cursor-default w-7 h-7"><img class="light-img" src="./icons/back-ios.png" width="20" height="20"></button>
+        <button id="forward" class="flex items-center justify-center transition rounded-full cursor-default w-7 h-7"><img class="light-img" src="./icons/forward-ios.png" width="20" height="20"></button>
         <input id="omnibox" type="text" class="rounded outline-none text-gray-700 pl-4 pr-7 py-0.5 flex-1 text-sm hover:transition bg-gray-100 box-border h-7 hover:bg-gray-200 focus:transition-none focus:outline focus:outline-gray-200 focus:outline-1 focus:outline-offset-[-1px] focus:bg-white" onfocus="this.select()"/>
-        <button id="reload" class="flex items-center justify-center cursor-default w-7 h-7" style="margin-left: -1.75rem;"><img src="./icons/reload.png" width="20" height="20"></button>
-        <button class="flex items-center justify-center cursor-default w-7 h-7"><img src="./icons/lock-closed.png" id="ssl" width="20" height="20"></button>
-        <button id="close" class="flex items-center justify-center transition rounded-full cursor-default w-7 h-7 hover:bg-gray-200"><img src="./icons/close.png" width="20" height="20"></button>
+        <button id="reload" class="flex items-center justify-center cursor-default w-7 h-7" style="margin-left: -1.75rem;"><img class="light-img" src="./icons/reload.png" width="20" height="20"></button>
+        <button class="flex items-center justify-center cursor-default w-7 h-7"><img class="light-img" src="./icons/lock-closed.png" id="ssl" width="20" height="20"></button>
+        <button id="bookmark" class="flex items-center justify-center transition rounded-full cursor-default w-7 h-7 hoverable"><img class="light-img" src="./icons/heart_empty.png" width="20" height="20"></button>
+        <button id="close" class="flex items-center justify-center transition rounded-full cursor-default w-7 h-7 hoverable"><img class="light-img" src="./icons/close.png" width="20" height="20"></button>
       </div>
 
       <!-- View container -->

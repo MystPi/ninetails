@@ -57,6 +57,7 @@ function switchTabs(tab) {
     setOmnibox(view.getURL());
     checkSSL(view.getURL());
     grayOut();
+    fillHeart(view.getURL());
   } catch (e) {
     // If the DOM isn't ready, wait for it
     // console.log(e);
@@ -64,6 +65,7 @@ function switchTabs(tab) {
       setOmnibox(view.getURL());
       checkSSL(view.getURL());
       grayOut();
+      fillHeart(view.getURL());
     });
   }
 }
@@ -175,6 +177,60 @@ function saveSettings() {
   localStorage.setItem('searchurl', searchurlElement.value);
   localStorage.setItem('homepage', homepageElement.value);
   localStorage.setItem('ua', uaElement.value);
+}
+
+
+/** Open the bookmarks menu and load the bookmarks */
+function openBookmarks() {
+  let el = byId('bookmarks-container');
+  while (el.firstChild) {
+    el.removeChild(el.firstChild);
+  }
+  let bookmarks = JSON.parse(localStorage.getItem('bookmarks'));
+  if (bookmarks) {
+    bookmarks.forEach((bookmark) => {
+      let p = document.createElement('p');
+      p.className = 'mb-2 font-mono text-gray-700';
+      let img = document.createElement('img');
+      img.src = bookmark[0];
+      img.className = 'inline w-4 h-4 mr-4';
+      let a = document.createElement('a');
+      a.setAttribute('data-link', bookmark[1]);
+      a.innerText = bookmark[1];
+      a.className = 'underline cursor-pointer';
+      a.onclick = (e) => {
+        createTab(e.target.dataset.link);
+        byId('bookmarks').style.display = 'none';
+      }
+      p.appendChild(img);
+      p.appendChild(a);
+      el.appendChild(p);
+    });
+  }
+  byId('bookmarks').style.display = 'block';
+}
+
+
+/**
+ * Set the heart icon to the correct state
+ * @param {string} url - The URL to check
+ */
+function fillHeart(url) {
+  let bookmarks = JSON.parse(localStorage.getItem('bookmarks'));
+  let inBookmarks = false;
+  let el = byId('bookmark');
+  if (bookmarks) {
+    bookmarks.forEach((bookmark) => {
+      if (bookmark[1] === url) {
+        el.children[0].src = './icons/heart_filled.png';
+        inBookmarks = true;
+        return;
+      }
+    });
+  }
+  if (!inBookmarks) {
+    el.children[0].src = './icons/heart_empty.png';
+  }
 }
 
 
