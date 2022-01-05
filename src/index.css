@@ -9,12 +9,12 @@
     -webkit-app-region: no-drag;
   }
 
-  img {
+  .light-img {
     @apply opacity-50;
   }
 
   [id^=tab]>img {
-    @apply opacity-100 inline w-4 h-4 mr-2;
+    @apply inline w-4 h-4 mr-2;
   }
 
   ::selection {
