@@ -14,7 +14,7 @@ jobs:
             glob: ./out/make/{deb,rpm}/x64/*
           - os: windows-latest
             glob: ./out/make/squirrel.windows/x64/*.exe
-          - os: macos-latest
+          - os: macos-11
             glob: ./out/make/zip/darwin/x64/*.zip
 
     steps:
