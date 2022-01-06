@@ -14,3 +14,8 @@ fetch('../package.json')
       }
     }
   });
+
+
+if (!window.navigator.onLine) {
+  byId('offline').style.display = 'block';
+}
