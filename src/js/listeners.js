@@ -118,6 +118,13 @@ click('settings-done', saveSettings);
 click('settings-cancel', hideSettings);
 
 
+click('offline-retry', () => {
+  if (window.navigator.onLine) {
+    byId('offline').style.display = 'none';
+  }
+})
+
+
 click('bookmarks-close', () => {
   byId('bookmarks').style.display = 'none';
 });

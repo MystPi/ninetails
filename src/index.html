@@ -60,9 +60,15 @@
       <div class="relative px-8 py-8 mx-8 -translate-y-1/2 bg-white rounded-lg sm:max-w-xl sm:mx-auto top-1/2 max-h-[calc(100vh-4rem)] overflow-auto no-scrollbar">
         <h2 class="mb-8 text-4xl font-black text-gray-700">Your <span class="text-indigo-500">Bookmarks</span></h2>
         <div class="mb-6" id="bookmarks-container"></div>
-        <div class="flex space-x-4">
-          <button id="bookmarks-close" class="flex-1 px-4 py-2 font-bold text-white transition bg-indigo-500 rounded-md hover:bg-indigo-600">Close</button>
-        </div>
+        <button id="bookmarks-close" class="flex-1 w-full px-4 py-2 font-bold text-white transition bg-indigo-500 rounded-md hover:bg-indigo-600">Close</button>
+      </div>
+    </div>
+
+    <!-- No internet popup -->
+    <div id="offline" class="hidden w-full h-full bg-black/10 fixed z-[110]">
+      <div class="relative px-8 py-8 mx-8 -translate-y-1/2 bg-white rounded-lg sm:max-w-xl sm:mx-auto top-1/2 max-h-[calc(100vh-4rem)] overflow-auto no-scrollbar">
+        <h2 class="mb-8 text-4xl font-black text-gray-700">No <span class="text-indigo-500">internet</span> :(</h2>
+        <button id="offline-retry" class="flex-1 w-full px-4 py-2 font-bold text-white transition bg-indigo-500 rounded-md hover:bg-indigo-600">Retry</button>
       </div>
     </div>
 
