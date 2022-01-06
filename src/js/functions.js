@@ -243,17 +243,11 @@ function hideMenu() {
 
 /** Close the active tab and switch to a new one */
 function closeTab() {
-  let tabs = document.querySelectorAll('[id^="tab-"]')
-  if (tabs.length > 1) {
-    let temp = activeHash;
-    if (temp !== tabs[0].id.slice(4)) {
-      switchTabs(tabs[0].id.slice(4));
-    } else {
-      switchTabs(tabs[1].id.slice(4));
-    }
-    byId('tab-' + temp).remove();
-    byId('view-' + temp).remove();
-  }
+  let tabbar = byId('tabbar');
+  if (tabbar.children.length === 1) return;
+  byId('view-' + activeHash).remove();
+  byId('tab-' + activeHash).remove();
+  switchTabs(tabbar.lastChild.id.slice(4));
 }
 
 
