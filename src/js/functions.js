@@ -83,7 +83,7 @@ function createTab(url) {
 
   tab.classList.add('tab');
   tab.id = 'tab-' + hash;
-  tab.onclick = (e) => {
+  tab.onmousedown = (e) => {
     switchTabs(hash);
     checkForDelTab(e, hash);
   };
