@@ -1,5 +1,8 @@
 # Don't format the tailwind.css file, no need
 tailwind.css
+# No formatting fonts
+*.ttf
+src/roboto/
 
 # This extends the gitignore file
 # Logs
