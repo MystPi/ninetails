@@ -14,9 +14,9 @@ jobs:
       # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
       - uses: actions/checkout@v2
 
-      # Install Prettier
-      - name: Install Prettier
-        run: npm install -g prettier
+      # Install
+      - name: Install dependencies
+        run: npm install
 
       - name: Check prettier
         run: npm run lint
