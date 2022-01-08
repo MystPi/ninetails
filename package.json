@@ -9,8 +9,8 @@
     "package": "electron-forge package",
     "make": "electron-forge make",
     "publish": "electron-forge publish",
-    "lint": "prettier --check --plugin-search-dir=. .",
-    "format": "prettier --write --plugin-search-dir=. .",
+    "lint": "prettier --check .",
+    "format": "prettier --write .",
     "dev": "concurrently -k npm:start npm:tailwind",
     "tailwind": "npx tailwindcss -i ./src/index.css -o ./src/tailwind.css --minify --watch"
   },
