@@ -20,6 +20,16 @@ omnibox.addEventListener('keydown', (e) => {
 });
 
 
+window.addEventListener('offline', () => {
+  byId('offline').style.display = 'block';
+});
+
+
+window.addEventListener('online', () => {
+  byId('offline').style.display = 'none';
+});
+
+
 byId('settings-presets').addEventListener('change', () => {
   byId('settings-searchurl').value = byId('settings-presets').value;
 });
