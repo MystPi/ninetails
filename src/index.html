@@ -3,161 +3,111 @@
   <head>
     <meta charset="UTF-8" />
     <title>Ninetails</title>
-    <link rel="stylesheet" href="tailwind.css" />
+    <link rel="stylesheet" href="roboto/roboto.css">
+    <link rel="stylesheet" href="tailwind.css">
   </head>
   <body class="m-0 p-0 h-[100vh]">
     <!-- Right-click menu -->
-    <div
-      id="menu"
-      class="fixed z-20 flex flex-col hidden w-32 py-2 bg-white border border-gray-100 rounded shadow"
-    >
-      <button
-        onclick="view.openDevTools()"
-        class="w-full p-1 pl-6 text-sm text-left text-gray-700 hover:bg-gray-100"
-      >
-        Inspect
-      </button>
-      <button
-        onclick="view.reload()"
-        class="w-full p-1 pl-6 text-sm text-left text-gray-700 hover:bg-gray-100"
-      >
-        Reload
-      </button>
-      <button
-        onclick="view.goBack()"
-        class="w-full p-1 pl-6 text-sm text-left text-gray-700 hover:bg-gray-100"
-      >
-        Back
-      </button>
-      <button
-        onclick="view.goForward()"
-        class="w-full p-1 pl-6 text-sm text-left text-gray-700 hover:bg-gray-100"
-      >
-        Forward
-      </button>
+    <div id="menu" class="fixed z-20 flex flex-col hidden w-32 py-2 bg-white border border-gray-100 rounded shadow">
+      <button id="menu-inspect" class="w-full p-1 pl-6 text-sm text-left text-gray-700 cursor-default hover:bg-gray-100">Inspect</button>
+      <button id="menu-reload" class="w-full p-1 pl-6 text-sm text-left text-gray-700 cursor-default hover:bg-gray-100">Reload</button>
+      <button id="menu-back" class="w-full p-1 pl-6 text-sm text-left text-gray-700 cursor-default hover:bg-gray-100">Back</button>
+      <button id="menu-forward" class="w-full p-1 pl-6 text-sm text-left text-gray-700 cursor-default hover:bg-gray-100">Forward</button>
     </div>
 
     <!-- Right-click menu screen cover -->
     <div id="cover" class="fixed z-10 hidden w-full h-full"></div>
 
     <!-- URL target -->
-    <div
-      id="target"
-      class="fixed bottom-0 max-w-md px-1 overflow-hidden text-sm text-gray-700 transition bg-gray-200 opacity-0 whitespace-nowrap text-ellipsis sm:max-w-[75%]"
-    ></div>
+    <div id="target" class="fixed bottom-0 max-w-md px-1 overflow-hidden text-sm text-gray-500 transition bg-gray-200 rounded-tr opacity-0 whitespace-nowrap text-ellipsis sm:max-w-[75%]"></div>
 
     <!-- Settings menu -->
     <div id="settings" class="hidden w-full h-full bg-black/10 fixed z-[110]">
-      <div
-        class="relative px-8 py-8 mx-8 -translate-y-1/2 bg-white rounded-lg sm:max-w-xl sm:mx-auto top-1/2"
-      >
-        <h2 class="mb-8 text-4xl font-black text-gray-700">
-          Ninetails <span class="text-indigo-500">Settings</span>
-        </h2>
+      <div class="relative px-8 py-8 mx-8 -translate-y-1/2 bg-white rounded-lg sm:max-w-xl sm:mx-auto top-1/2 max-h-[calc(100vh-4rem)] overflow-auto no-scrollbar">
+        <h2 class="mb-8 text-4xl font-black text-gray-700">Ninetails <span class="text-indigo-500">Settings</span></h2>
+
+        <!-- Search Engine -->
         <p class="mb-2 font-bold text-gray-700">Search engine URL</p>
-        <input
-          id="settings-searchurl"
-          type="text"
-          placeholder="https://www.google.com/search?q="
-          class="bg-indigo-50 text-indigo-500 rounded-full outline-none text-sm px-4 py-0.5 mb-8 transition hover:bg-indigo-100 placeholder:text-indigo-400 w-full"
-        />
-        <div class="flex space-x-4">
-          <button
-            onclick="saveSettings()"
-            class="flex-1 px-4 py-2 font-bold text-white transition bg-indigo-500 rounded-md hover:bg-indigo-600"
-          >
-            Done
-          </button>
-          <button
-            onclick="hideSettings()"
-            class="flex-1 px-4 py-2 font-bold text-indigo-500 transition rounded-md bg-indigo-50 hover:bg-indigo-100"
-          >
-            Cancel
-          </button>
+        <div class="flex items-center mb-8 space-x-2">
+          <input id="settings-searchurl" type="text" placeholder="https://www.startpage.com/sp/search?q= (default)" class="bg-indigo-50 text-indigo-500 rounded-full outline-none text-sm px-4 py-0.5 transition hover:bg-indigo-100 placeholder:text-indigo-400 w-full">
+          <select id="settings-presets" class="appearance-none px-4 py-0.5 rounded-full bg-indigo-500 text-white font-bold outline-none text-sm" name="" id="">
+            <option class="text-sm text-gray-700 bg-white" value="">Custom</option>
+            <option class="text-sm text-gray-700 bg-white" value="https://duckduckgo.com?q=">DuckDuckGo</option>
+            <option class="text-sm text-gray-700 bg-white" value="https://www.bing.com/search?q=">Bing</option>
+            <option class="text-sm text-gray-700 bg-white" value="https://search.yahoo.com/search?p=">Yahoo</option>
+            <option class="text-sm text-gray-700 bg-white" value="https://www.google.com/search?q=">Google</option>
+          </select>
         </div>
+
+        <!-- Homepage -->
+        <p class="mb-2 font-bold text-gray-700">Homepage</p>
+        <input id="settings-homepage" type="text" placeholder="Leave blank for the default (recommended)" class="bg-indigo-50 text-indigo-500 rounded-full outline-none text-sm px-4 py-0.5 mb-8 transition hover:bg-indigo-100 placeholder:text-indigo-400 w-full">
+        
+        <!-- Custom UA -->
+        <p class="mb-2 font-bold text-gray-700">User agent</p>
+        <input id="settings-ua" type="text" placeholder="" class="bg-indigo-50 text-indigo-500 rounded-full outline-none text-sm px-4 py-0.5 mb-8 transition hover:bg-indigo-100 placeholder:text-indigo-400 w-full">
+
+        <div class="flex space-x-4">
+          <button id="settings-done" class="flex-1 px-4 py-2 font-bold text-white transition bg-indigo-500 rounded-md hover:bg-indigo-600">Done</button>
+          <button id="settings-cancel" class="flex-1 px-4 py-2 font-bold text-indigo-500 transition rounded-md bg-indigo-50 hover:bg-indigo-100">Cancel</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Bookmarks menu -->
+    <div id="bookmarks" class="hidden w-full h-full bg-black/10 fixed z-[110]">
+      <div class="relative px-8 py-8 mx-8 -translate-y-1/2 bg-white rounded-lg sm:max-w-xl sm:mx-auto top-1/2 max-h-[calc(100vh-4rem)] overflow-auto no-scrollbar">
+        <h2 class="mb-8 text-4xl font-black text-gray-700">Your <span class="text-indigo-500">Bookmarks</span></h2>
+        <div class="mb-6" id="bookmarks-container"></div>
+        <button id="bookmarks-close" class="flex-1 w-full px-4 py-2 font-bold text-white transition bg-indigo-500 rounded-md hover:bg-indigo-600">Close</button>
+      </div>
+    </div>
+
+    <!-- No internet popup -->
+    <div id="offline" class="hidden w-full h-full bg-black/10 fixed z-[110]">
+      <div class="relative px-8 py-8 mx-8 -translate-y-1/2 bg-white rounded-lg sm:max-w-xl sm:mx-auto top-1/2 max-h-[calc(100vh-4rem)] overflow-auto no-scrollbar">
+        <h2 class="mb-8 text-4xl font-black text-gray-700">No <span class="text-indigo-500">internet</span> :(</h2>
+        <button id="offline-retry" class="flex-1 w-full px-4 py-2 font-bold text-white transition bg-indigo-500 rounded-md hover:bg-indigo-600">Retry</button>
       </div>
     </div>
 
     <div class="flex flex-col h-full">
       <!-- Tab bar with the "create tab" and "more menu" buttons -->
       <div class="flex items-center px-4 mt-4">
-        <div
-          id="tabbar"
-          class="flex items-center flex-1 pr-2 space-x-2 overflow-auto"
-        ></div>
-        <button
-          onclick="createTab()"
-          class="flex items-center justify-center mr-3 transition rounded-full cursor-default w-7 h-7 hoverable"
-        >
-          <img src="./icons/add.png" width="20" height="20" />
-        </button>
-        <button
-          onclick="showMoreMenu()"
-          class="flex items-center justify-center transition rounded-full cursor-default w-7 h-7 hoverable"
-        >
-          <img src="./icons/more.png" width="20" height="20" />
-        </button>
+        <div id="tabbar" class="flex items-center flex-1 space-x-2 overflow-auto no-scrollbar"></div>
+        <button id="newtab-button" class="flex items-center justify-center ml-3 mr-3 transition rounded-full cursor-default w-7 h-7 hoverable"><img class="light-img" src="./icons/add.png" width="20" height="20"></button>
+        <button id="more-button" class="flex items-center justify-center transition rounded-full cursor-default w-7 h-7 hoverable"><img class="light-img" src="./icons/more.png" width="20" height="20"></button>
       </div>
 
       <!-- Dropdown "more menu" -->
-      <div
-        id="more-menu"
-        class="absolute right-2 z-50 hidden my-4 text-base list-none bg-white border border-gray-100 divide-y divide-gray-100 rounded shadow top-8"
-      >
+      <div id="more-menu" class="absolute z-50 hidden my-4 text-base list-none bg-white border border-gray-100 divide-y divide-gray-100 rounded shadow right-2 top-8">
         <ul class="py-1" aria-labelledby="dropdown">
           <li>
-            <button
-              onclick="openSettings()"
-              class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 cursor-default"
-            >
-              Settings
-            </button>
+            <button id="more-settings" class="block w-full px-4 py-2 text-sm text-left text-gray-700 cursor-default hover:bg-gray-100">Settings</button>
+            <button id="more-bookmarks" class="block w-full px-4 py-2 text-sm text-left text-gray-700 cursor-default hover:bg-gray-100">Bookmarks</button>
+            <button data-link="https://github.com/mystpi/ninetails" class="block w-full px-4 py-2 text-sm text-left text-gray-700 cursor-default hover:bg-gray-100">GitHub</button>
+            <button data-link="https://github.com/mystpi/ninetails/issues/new" class="block w-full px-4 py-2 text-sm text-left text-gray-700 cursor-default hover:bg-gray-100">Give feedback</button>
           </li>
         </ul>
       </div>
 
       <!-- Utility bar (omnibox, back/forward buttons, etc.) -->
       <div class="flex items-center flex-none px-4 py-2 space-x-3">
-        <button
-          onclick="view.goBack()"
-          id="back"
-          class="flex items-center justify-center transition rounded-full cursor-default w-7 h-7"
-        >
-          <img src="./icons/back-ios.png" width="20" height="20" />
-        </button>
-        <button
-          onclick="view.goForward()"
-          id="forward"
-          class="flex items-center justify-center transition rounded-full cursor-default w-7 h-7"
-        >
-          <img src="./icons/forward-ios.png" width="20" height="20" />
-        </button>
-        <input
-          id="omnibox"
-          type="text"
-          class="rounded outline-none text-gray-700 pl-4 pr-7 py-0.5 flex-1 text-sm transition bg-gray-100 box-border h-7 hover:bg-gray-200"
-        />
-        <button
-          id="reload"
-          class="flex items-center justify-center cursor-default w-7 h-7"
-          style="margin-left: -1.75rem"
-        >
-          <img src="./icons/reload.png" width="20" height="20" />
-        </button>
-        <button class="flex items-center justify-center cursor-default w-7 h-7">
-          <img src="./icons/lock-closed.png" id="ssl" width="20" height="20" />
-        </button>
-        <button
-          onclick="closeTab()"
-          class="flex items-center justify-center transition rounded-full cursor-default w-7 h-7 hover:bg-gray-200"
-        >
-          <img src="./icons/close.png" width="20" height="20" />
-        </button>
+        <button id="back" class="flex items-center justify-center transition rounded-full cursor-default w-7 h-7"><img class="light-img" src="./icons/back-ios.png" width="20" height="20"></button>
+        <button id="forward" class="flex items-center justify-center transition rounded-full cursor-default w-7 h-7"><img class="light-img" src="./icons/forward-ios.png" width="20" height="20"></button>
+        <input id="omnibox" type="text" class="rounded outline-none text-gray-700 pl-4 pr-7 py-0.5 flex-1 text-sm hover:transition bg-gray-100 box-border h-7 hover:bg-gray-200 focus:transition-none focus:outline focus:outline-gray-200 focus:outline-1 focus:outline-offset-[-1px] focus:bg-white" onfocus="this.select()"/>
+        <button id="reload" class="flex items-center justify-center cursor-default w-7 h-7" style="margin-left: -1.75rem;"><img class="light-img" src="./icons/reload.png" width="20" height="20"></button>
+        <button class="flex items-center justify-center cursor-default w-7 h-7"><img class="light-img" src="./icons/lock-closed.png" id="ssl" width="20" height="20"></button>
+        <button id="bookmark" class="flex items-center justify-center transition rounded-full cursor-default w-7 h-7 hoverable"><img class="light-img" src="./icons/heart_empty.png" width="20" height="20"></button>
+        <button id="close" class="flex items-center justify-center transition rounded-full cursor-default w-7 h-7 hoverable"><img class="light-img" src="./icons/close.png" width="20" height="20"></button>
       </div>
 
       <!-- View container -->
       <div id="views" class="flex-1"></div>
     </div>
-    <script src="./browser.js"></script>
+    <script src="./js/globals.js"></script>
+    <script src="./js/functions.js"></script>
+    <script src="./js/listeners.js"></script>
+    <script src="./js/startup.js"></script>
   </body>
 </html>
