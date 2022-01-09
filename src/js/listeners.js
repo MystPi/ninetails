@@ -114,8 +114,6 @@ document.querySelectorAll('#more-menu>ul>li>button').forEach((button) => {
 
 document.querySelectorAll('[data-link]').forEach((link) => {
   link.addEventListener('click', (e) => {
-    if (byId('more-menu').style.display === 'block')
-      toggleMoreMenu();
     createTab(e.target.dataset.link);
   });
 });
