@@ -190,7 +190,7 @@ function openBookmarks() {
   if (bookmarks) {
     bookmarks.forEach((bookmark) => {
       let p = document.createElement('p');
-      p.className = 'mb-2 font-mono text-gray-700 whitespace-nowrap overflow-hidden text-ellipsis';
+      p.className = 'mb-2 overflow-hidden font-mono text-gray-700 whitespace-nowrap text-ellipsis';
       let img = document.createElement('img');
       img.src = bookmark[0];
       img.className = 'inline w-4 h-4 mr-4';
