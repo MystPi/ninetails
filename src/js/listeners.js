@@ -101,22 +101,19 @@ click('menu-forward', () => {
 click('cover', hideMenu);
 
 
-click('more-settings', () => {
-  openSettings();
-  toggleMoreMenu();
+click('more-settings', openSettings);
+
+
+click('more-bookmarks', openBookmarks);
+
+
+document.querySelectorAll('#more-menu>ul>li>button').forEach((button) => {
+  button.addEventListener('click', toggleMoreMenu);
 });
-
-
-click('more-bookmarks', () => {
-  openBookmarks();
-  toggleMoreMenu();
-})
 
 
 document.querySelectorAll('[data-link]').forEach((link) => {
   link.addEventListener('click', (e) => {
-    if (byId('more-menu').style.display === 'block')
-      toggleMoreMenu();
     createTab(e.target.dataset.link);
   });
 });
