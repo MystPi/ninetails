@@ -13,6 +13,7 @@ function setTitle(tab, title) {
  * @param {string} text
  */
 function setOmnibox(text) {
+  if (document.activeElement === omnibox) return;
   let home = localStorage.getItem('homepage');
   if (!home) {
     home = defaultHome;
