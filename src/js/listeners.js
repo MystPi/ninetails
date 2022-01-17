@@ -197,6 +197,7 @@ function addListenersToView(view, hash) {
 
   view.addEventListener('page-title-updated', (e) => {
     setTitle(tab, e.title);
+    tab.title = e.title;
   });
 
 
