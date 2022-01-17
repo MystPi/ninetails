@@ -148,14 +148,17 @@ function openSettings(e) {
   const searchurlElement = byId('settings-searchurl');
   const homepageElement = byId('settings-homepage');
   const uaElement = byId('settings-ua');
+  const openInNewTabElement = byId('settings-open-in-new-tab');
   const searchUrlValue = localStorage.getItem('searchurl');
   const homePageValue = localStorage.getItem('homepage');
   const uaValue = localStorage.getItem('ua');
+  const openInNewTab = localStorage.getItem('openInNewTab');
 
   searchurlElement.value = searchUrlValue;
   homepageElement.value = homePageValue;
   uaElement.value = uaValue;
   uaElement.placeholder = 'Ninetails/' + version;
+  openInNewTabElement.checked = openInNewTab === 'true';
   
   settings.style.display = 'block';
 }
@@ -174,10 +177,12 @@ function saveSettings() {
   const searchurlElement = byId('settings-searchurl');
   const homepageElement = byId('settings-homepage');
   const uaElement = byId('settings-ua');
+  const openInNewTabElement = byId('settings-open-in-new-tab');
 
   localStorage.setItem('searchurl', searchurlElement.value);
   localStorage.setItem('homepage', homepageElement.value);
   localStorage.setItem('ua', uaElement.value);
+  localStorage.setItem('openInNewTab', openInNewTabElement.checked);
 }
 
 
@@ -188,6 +193,7 @@ function openBookmarks() {
     el.removeChild(el.firstChild);
   }
   let bookmarks = JSON.parse(localStorage.getItem('bookmarks'));
+  let openInNewTab = localStorage.getItem('openInNewTab');
   if (bookmarks) {
     bookmarks.forEach((bookmark) => {
       let p = document.createElement('p');
@@ -200,7 +206,11 @@ function openBookmarks() {
       a.innerText = bookmark[1];
       a.className = 'underline cursor-pointer';
       a.onclick = (e) => {
-        createTab(e.target.dataset.link);
+        if (openInNewTab === 'true') {
+          createTab(e.target.dataset.link);
+        } else {
+          view.loadURL(e.target.dataset.link);
+        }
         byId('bookmarks').style.display = 'none';
       }
       p.appendChild(img);
