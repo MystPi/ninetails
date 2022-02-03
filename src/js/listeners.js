@@ -98,7 +98,16 @@ click('menu-forward', () => {
 });
 
 
-click('cover', hideMenu);
+click('cover', () => {
+  const moreMenu = byId('more-menu');
+  cover.style.display = 'none';
+  if (menu.style.display === 'block') {
+    hideMenu();
+  }
+  if (moreMenu.style.display === 'block') {
+    toggleMoreMenu();
+  }
+});
 
 
 click('more-settings', openSettings);

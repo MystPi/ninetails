@@ -133,12 +133,11 @@ function createTab(url) {
 /** Toggle the visibility of the 'more' menu */
 function toggleMoreMenu() {
   const menu = byId('more-menu');
-  if (menu.classList.contains('block')) {
-    menu.classList.remove('block')
-    menu.classList.add('hidden')
+  if (menu.style.display === 'block') {
+    menu.style.display = 'none';
   } else {
-    menu.classList.remove('hidden')
-    menu.classList.add('block')
+    menu.style.display = 'block';
+    cover.style.display = 'block';
   }
 }
 
