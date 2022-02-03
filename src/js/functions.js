@@ -135,6 +135,7 @@ function toggleMoreMenu() {
   const menu = byId('more-menu');
   if (menu.style.display === 'block') {
     menu.style.display = 'none';
+    cover.style.display = 'none';
   } else {
     menu.style.display = 'block';
     cover.style.display = 'block';
