@@ -2,17 +2,15 @@ fetch('../package.json')
   .then(res => res.json())
   .then(res => {
     version = res.version;
-    const homepageValue = localStorage.getItem('homepage');
-    if (homepageValue) {
-      createTab(homepageValue);
-    } else {
-      const searchurlValue = localStorage.getItem('searchurl');
-      if (searchurlValue) { 
-        createTab(defaultHome + '?v=' + version + '&e=' + searchurlValue); 
-      } else { 
-        createTab(defaultHome + '?v=' + version); 
-      }
-    }
+    createTab();
+    fetch('https://api.github.com/repos/MystPi/ninetails/releases/latest')
+      .then(res => res.json())
+      .then(res => {
+        if (res.tag_name !== 'v' + version) {
+          byId('update-available-version').innerText = res.tag_name.slice(1);
+          byId('update-available').style.display = 'block';
+        }
+      });
   });
 
 

@@ -8,6 +8,9 @@
   </head>
   <body class="m-0 p-0 h-[100vh]">
 
+    <!-- Update available alert -->
+    <div id="update-available" data-link="https://mystpi.github.io/ninetails/download" class="fixed z-20 hidden max-w-xl px-4 py-2 text-yellow-800 transition bg-yellow-100 border border-yellow-200 rounded-lg cursor-pointer top-24 left-6 right-6 sm:left-0 sm:right-0 sm:mx-auto"><span class="font-bold text-yellow-600">Version <span id="update-available-version"></span> of Ninetails is out!</span> Click here to download the latest version.</div>
+
     <!-- Right-click menu -->
     <div id="menu" class="fixed z-20 flex flex-col hidden w-32 py-2 bg-white border border-gray-100 rounded shadow">
       <button id="menu-inspect" class="w-full p-1 pl-6 text-sm text-left text-gray-700 cursor-default hover:bg-gray-100">Inspect</button>
@@ -23,7 +26,7 @@
     <div id="target" class="fixed bottom-0 max-w-md px-1 overflow-hidden text-sm text-gray-500 transition bg-gray-200 rounded-tr opacity-0 whitespace-nowrap text-ellipsis sm:max-w-[75%]"></div>
 
     <!-- Settings menu -->
-    <div id="settings" class="hidden w-full h-full bg-black/10 fixed z-[110]">
+    <div id="settings" class="fixed z-30 hidden w-full h-full bg-black/10">
       <div class="relative px-8 py-8 mx-8 -translate-y-1/2 bg-white rounded-lg sm:max-w-xl sm:mx-auto top-1/2 max-h-[calc(100vh-4rem)] overflow-auto no-scrollbar">
         <h2 class="mb-8 text-4xl font-black text-gray-700">Ninetails <span class="text-indigo-500">Settings</span></h2>
 
@@ -63,7 +66,7 @@
     </div>
 
     <!-- Bookmarks menu -->
-    <div id="bookmarks" class="hidden w-full h-full bg-black/10 fixed z-[110]">
+    <div id="bookmarks" class="fixed z-30 hidden w-full h-full bg-black/10">
       <div class="relative px-8 py-8 mx-8 -translate-y-1/2 bg-white rounded-lg sm:max-w-xl sm:mx-auto top-1/2 max-h-[calc(100vh-4rem)] overflow-auto no-scrollbar">
         <h2 class="mb-8 text-4xl font-black text-gray-700">Your <span class="text-indigo-500">Bookmarks</span></h2>
         <div class="mb-6" id="bookmarks-container"></div>
@@ -72,7 +75,7 @@
     </div>
 
     <!-- No internet popup -->
-    <div id="offline" class="hidden w-full h-full bg-black/10 fixed z-[110]">
+    <div id="offline" class="fixed z-30 hidden w-full h-full bg-black/10">
       <div class="relative px-8 py-8 mx-8 -translate-y-1/2 bg-white rounded-lg sm:max-w-xl sm:mx-auto top-1/2 max-h-[calc(100vh-4rem)] overflow-auto no-scrollbar">
         <h2 class="mb-8 text-4xl font-black text-gray-700">No <span class="text-indigo-500">internet</span> :(</h2>
         <button id="offline-retry" class="flex-1 w-full px-4 py-2 font-bold text-white transition bg-indigo-500 rounded-md hover:bg-indigo-600">Retry</button>
@@ -83,13 +86,13 @@
 
       <!-- Tab bar with the "create tab" and "more menu" buttons -->
       <div class="flex items-center px-4 mt-4">
-        <div id="tabbar" class="flex items-center flex-1 space-x-2 overflow-auto no-scrollbar"></div>
+        <div id="tabbar" class="flex items-center flex-1 space-x-2 overflow-auto list-group no-scrollbar"></div>
         <button id="newtab-button" class="flex items-center justify-center ml-3 mr-3 transition rounded-full cursor-default w-7 h-7 hoverable"><img class="light-img" src="./icons/add.png" width="20" height="20"></button>
         <button id="more-button" class="flex items-center justify-center transition rounded-full cursor-default w-7 h-7 hoverable"><img class="light-img" src="./icons/more.png" width="20" height="20"></button>
       </div>
 
       <!-- Dropdown "more menu" -->
-      <div id="more-menu" class="absolute z-50 hidden my-4 text-base list-none bg-white border border-gray-100 divide-y divide-gray-100 rounded shadow right-2 top-8">
+      <div id="more-menu" class="absolute z-20 hidden my-4 text-base list-none bg-white border border-gray-100 divide-y divide-gray-100 rounded shadow right-2 top-8">
         <ul class="py-1" aria-labelledby="dropdown">
           <li>
             <button id="more-settings" class="block w-full px-4 py-2 text-sm text-left text-gray-700 cursor-default hover:bg-gray-100">Settings</button>

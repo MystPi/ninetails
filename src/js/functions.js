@@ -90,6 +90,8 @@ function createTab(url) {
   };
   span.innerText = 'New Tab';
   icon.src = './icons/favicon.png';
+  icon.width = '16';
+  icon.height = '16';
   tab.appendChild(icon);
   tab.appendChild(span);
 
@@ -116,9 +118,9 @@ function createTab(url) {
     } else {
       const searchurlValue = localStorage.getItem('searchurl');
       if (searchurlValue) { 
-        view.src = defaultHome + '?v=' + version + '&e=' + searchurlValue;
+        view.src = defaultHome + '?v=false&e=' + searchurlValue;
       } else { 
-        view.src = defaultHome + '?v=' + version;
+        view.src = defaultHome + '?v=false';
       }
     }
   }

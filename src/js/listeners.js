@@ -44,6 +44,11 @@ addEventListener('keydown', (e) => {
 });
 
 
+click('update-available', () => {
+  byId('update-available').style.display = 'none';
+});
+
+
 click('newtab-button', () => {
   createTab();
 });
