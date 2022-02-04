@@ -7,6 +7,10 @@
     <link rel="stylesheet" href="tailwind.css">
   </head>
   <body class="m-0 p-0 h-[100vh]">
+    <!-- Loading screen -->
+    <div id="loading" class="fixed z-40 flex items-center justify-center w-full h-full transition duration-500 bg-indigo-500">
+      <img src="../appicons/ninetails.png" alt="Ninetails logo" class="h-1/2 aspect-square">
+    </div>
 
     <!-- Update available alert -->
     <div id="update-available" data-link="https://mystpi.github.io/ninetails/download" class="fixed z-20 hidden max-w-xl px-4 py-2 text-yellow-800 transition bg-yellow-100 border border-yellow-200 rounded-lg cursor-pointer top-24 left-6 right-6 sm:left-0 sm:right-0 sm:mx-auto"><span class="font-bold text-yellow-600">Version <span id="update-available-version"></span> of Ninetails is out!</span> Click here to download the latest version.</div>
@@ -86,7 +90,7 @@
 
       <!-- Tab bar with the "create tab" and "more menu" buttons -->
       <div class="flex items-center px-4 mt-4">
-        <div id="tabbar" class="flex items-center flex-1 space-x-2 overflow-auto list-group no-scrollbar"></div>
+        <div id="tabbar" class="flex items-center flex-1 space-x-2 overflow-auto no-scrollbar"></div>
         <button id="newtab-button" class="flex items-center justify-center ml-3 mr-3 transition rounded-full cursor-default w-7 h-7 hoverable"><img class="light-img" src="./icons/add.png" width="20" height="20"></button>
         <button id="more-button" class="flex items-center justify-center transition rounded-full cursor-default w-7 h-7 hoverable"><img class="light-img" src="./icons/more.png" width="20" height="20"></button>
       </div>
