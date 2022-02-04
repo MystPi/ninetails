@@ -3,7 +3,7 @@
 @tailwind utilities;
 
 @layer base {
-  *, *::after, *::before {
+  *:not(#tabbar>button), *::after, *::before, {
     @apply select-none;
     -webkit-user-drag: none;
     -webkit-app-region: no-drag;

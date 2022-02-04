@@ -14,6 +14,11 @@ fetch('../package.json')
   });
 
 
+const sortable = Sortable.create(byId('tabbar'), {
+  animation: 150
+});
+
+
 setTimeout(() => {
   byId('loading').classList.add('opacity-0');
   setTimeout(() => {
