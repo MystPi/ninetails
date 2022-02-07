@@ -1,7 +1,35 @@
 omnibox.addEventListener('keydown', (e) => {
   if (e.keyCode === 13) {
     omnibox.blur();
-    let val = omnibox.value;
+    let val = omnibox.value.trim();
+
+    if (val.startsWith('about:')) {
+      switch (val) {
+        case 'about:blank':
+          view.loadURL('about:blank');
+          break;
+        case 'about:settings':
+          openSettings();
+          break;
+        case 'about:bookmarks':
+          openBookmarks();
+          break;
+        case 'about:newtab':
+          createTab();
+          break;
+        case 'about:download':
+          view.loadURL(defaultHome + 'download');
+          break;
+        case 'about:github':
+          view.loadURL('https://github.com/mystpi/ninetails');
+          break;
+        case 'about:feedback':
+          view.loadURL('https://github.com/mystpi/ninetails/issues/new');
+          break;
+      }
+      return;
+    }
+
     if (/((https?:\/\/)?(?:www\.|(?!www))[a-zA-Z0-9][a-zA-Z0-9-]+[a-zA-Z0-9]\.[^\s]{2,}|www\.[a-zA-Z0-9][a-zA-Z0-9-]+[a-zA-Z0-9]\.[^\s]{2,}|https?:\/\/(?:www\.|(?!www))[a-zA-Z0-9]+\.[^\s]{2,}|www\.[a-zA-Z0-9]+\.[^\s]{2,})/.exec(val)) {
       if (val.startsWith('http://') || val.startsWith('https://')) {
         view.loadURL(val);

@@ -146,7 +146,7 @@ function toggleMoreMenu() {
 
 
 /** Open the settings menu */
-function openSettings(e) {
+function openSettings() {
   const searchurlElement = byId('settings-searchurl');
   const homepageElement = byId('settings-homepage');
   const uaElement = byId('settings-ua');
