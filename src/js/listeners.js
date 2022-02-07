@@ -21,10 +21,10 @@ omnibox.addEventListener('keydown', (e) => {
           view.loadURL(defaultHome + 'download');
           break;
         case 'about:github':
-          view.loadURL('https://github.com/mystpi/ninetails');
+          view.loadURL(githubRepo);
           break;
         case 'about:feedback':
-          view.loadURL('https://github.com/mystpi/ninetails/issues/new');
+          view.loadURL(githubRepo + 'issues/new');
           break;
       }
       return;
@@ -156,7 +156,18 @@ document.querySelectorAll('#more-menu>ul>li>button').forEach((button) => {
 
 document.querySelectorAll('[data-link]').forEach((link) => {
   link.addEventListener('click', (e) => {
-    createTab(e.target.dataset.link);
+    let prefix = '';
+    if (e.target.hasAttribute('data-link-prefix')) {
+      switch (e.target.dataset.linkPrefix) {
+        case 'home':
+          prefix = defaultHome;
+          break;
+        case 'github':
+          prefix = githubRepo;
+          break;
+      }
+    }
+    createTab(prefix + e.target.dataset.link);
   });
 });
 
