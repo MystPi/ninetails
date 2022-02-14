@@ -28,6 +28,9 @@ omnibox.addEventListener('keydown', (e) => {
           break;
       }
       return;
+    } else if (startsWithScheme(val)) {
+      view.loadURL(val);
+      return;
     }
 
     if (/((https?:\/\/)?(?:www\.|(?!www))[a-zA-Z0-9][a-zA-Z0-9-]+[a-zA-Z0-9]\.[^\s]{2,}|www\.[a-zA-Z0-9][a-zA-Z0-9-]+[a-zA-Z0-9]\.[^\s]{2,}|https?:\/\/(?:www\.|(?!www))[a-zA-Z0-9]+\.[^\s]{2,}|www\.[a-zA-Z0-9]+\.[^\s]{2,})/.exec(val)) {
