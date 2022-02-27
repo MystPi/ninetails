@@ -66,7 +66,7 @@ byId('settings-presets').addEventListener('change', () => {
 });
 
 
-addEventListener('keydown', (e) => {     
+addEventListener('keydown', (e) => {
   if (e.ctrlKey && e.key == 't') {
     createTab();
   } else if (e.ctrlKey && e.key == 'y') {
@@ -149,7 +149,7 @@ click('cover', () => {
 click('more-settings', openSettings);
 
 
-click('more-bookmarks', openBookmarks);
+click('bookmarks-button', openBookmarks);
 
 
 document.querySelectorAll('#more-menu>ul>li>button').forEach((button) => {
@@ -222,7 +222,7 @@ click('bookmark', () => {
  */
 function addListenersToView(view, hash) {
   let tab = byId('tab-' + hash);
-  
+
   view.addEventListener('did-stop-loading', () => {
     if (hash === activeHash) {
       setOmnibox(view.getURL());
@@ -268,7 +268,7 @@ function addListenersToView(view, hash) {
   view.addEventListener('new-window', (e) => {
     createTab(e.url);
   });
-  
+
 
   view.addEventListener('update-target-url', (e) => {
     if (e.url) {
@@ -281,7 +281,7 @@ function addListenersToView(view, hash) {
     }
   });
 
-  
+
   view.addEventListener('page-favicon-updated', (e) => {
     if (e.favicons.length > 0) {
       let icon = e.favicons[0];
