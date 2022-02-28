@@ -29,7 +29,7 @@ function setOmnibox(text) {
 /**
  * Switch the active tab
  * @param {string} tab - The hash of the tab to switch to
- */ 
+ */
 function switchTabs(tab) {
   let currentTab = document.querySelector('.active-tab');
   if (currentTab) {
@@ -117,9 +117,9 @@ function createTab(url) {
       view.src = homepageValue;
     } else {
       const searchurlValue = localStorage.getItem('searchurl');
-      if (searchurlValue) { 
+      if (searchurlValue) {
         view.src = defaultHome + '?v=false&e=' + searchurlValue;
-      } else { 
+      } else {
         view.src = defaultHome + '?v=false';
       }
     }
@@ -161,7 +161,7 @@ function openSettings() {
   uaElement.value = uaValue;
   uaElement.placeholder = 'Ninetails/' + version;
   openInNewTabElement.checked = openInNewTab === 'true';
-  
+
   settings.style.display = 'block';
 }
 
@@ -175,7 +175,7 @@ function hideSettings() {
 /** Save any changed settings to localStorage */
 function saveSettings() {
   hideSettings();
-  
+
   const searchurlElement = byId('settings-searchurl');
   const homepageElement = byId('settings-homepage');
   const uaElement = byId('settings-ua');
@@ -270,7 +270,7 @@ function closeTab() {
  * @param {string} hash - The hash of the tab
  */
 function checkForDelTab(e, hash) {
-  if (e.ctrlKey) {
+  if (e.ctrlKey || e.metaKey || e.button === 1) {
     closeTab(hash)
   }
 }

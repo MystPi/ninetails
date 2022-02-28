@@ -185,7 +185,7 @@ click('offline-retry', () => {
   if (window.navigator.onLine) {
     byId('offline').style.display = 'none';
   }
-})
+});
 
 
 click('bookmarks-close', () => {
@@ -212,7 +212,7 @@ click('bookmark', () => {
   bookmarks.push([favicon, view.getURL()]);
   localStorage.setItem('bookmarks', JSON.stringify(bookmarks));
   fillHeart(view.getURL());
-})
+});
 
 
 /**
