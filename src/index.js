@@ -13,7 +13,6 @@ const createWindow = () => {
     height: 600,
     minHeight: 450,
     minWidth: 450,
-    icon: path.join(__dirname, '../appicons/ninetails-32x32.png'),
     webPreferences: {
       webviewTag: true
     }
