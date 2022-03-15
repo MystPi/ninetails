@@ -23,7 +23,7 @@ jobs:
       with:
         node-version: 14
     - name: install dependencies
-      run: npm install -f
+      run: npm ci
     - name: build
       run: npm run make
     - name: Upload binaries to release
