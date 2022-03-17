@@ -49,4 +49,5 @@ npm run make
 # Eg. `./out/make/deb/arm64/ninetails_1.0.0_arm64.deb`
 ```
 
-## The Android app has moved [here](https://github.com/MystPi/ninetails-android)
+## The Android app has been discontinued
+You can still download the last version, but Ninetails desktop is recommended.
