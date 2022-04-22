@@ -7,7 +7,8 @@
   "scripts": {
     "start": "electron-forge start",
     "package": "electron-forge package",
-    "make": "npx tailwindcss -i ./src/index.css -o ./src/tailwind.css --minify && electron-forge make",
+    "premake": "npx tailwindcss -i ./src/index.css -o ./src/tailwind.css --minify",
+    "make": "electron-forge make",
     "publish": "electron-forge publish",
     "lint": "echo \"No linting configured\"",
     "dev": "concurrently -k npm:start npm:tailwind",
