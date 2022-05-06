@@ -26,6 +26,8 @@ window.ipc.on('platform', (data) => {
   winControls.style.display = 'none';
   macControls.style.display = 'none';
 
+  titlebar.classList.add('px-4');
+
   // ignore if not on a supported platform
   if (platform === 'win32' || platform === 'darwin') {
     // get prefix for controls
@@ -33,11 +35,10 @@ window.ipc.on('platform', (data) => {
 
     if (platform === 'darwin') {
       macControls.style.display = 'flex';
+      titlebar.classList.add('pl-0');
     } else {
       winControls.style.display = 'flex';
-
-      // add padding on windows
-      titlebar.classList.add('px-4', 'pr-0');
+      titlebar.classList.add('pr-0');
     }
 
     // get control buttons
@@ -69,9 +70,6 @@ window.ipc.on('platform', (data) => {
         svg.innerHTML = maximized ? winRestoreSvg : winMaximizeSvg;
       }
     });
-  } else {
-    // add padding if on unsupported platform
-    titlebar.classList.add('px-4');
   }
 });
 
