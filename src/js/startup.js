@@ -17,27 +17,27 @@ window.ipc.send('toMain', 'platform');
 window.ipc.on('platform', (data) => {
   const platform = data.platform;
 
+  // get control containers so they can be hidden or shown based on platform
+  const winControls = byId('window-controls-win');
+  const macControls = byId('window-controls-mac');
+
+  const titlebar = byId('titlebar');
+
+  winControls.style.display = 'none';
+  macControls.style.display = 'none';
+
   // ignore if not on a supported platform
   if (platform === 'win32' || platform === 'darwin') {
     // get prefix for controls
     const prefix = platform === 'darwin' ? 'mac' : 'win';
-    const titlebar = byId('titlebar');
-
-    // add padding if on windows
-    if (platform === 'win32') {
-      titlebar.classList.add('pl-4');
-    }
-
-    // get control containers so they can be hidden or shown based on platform
-    const winControls = byId('window-controls-win');
-    const macControls = byId('window-controls-mac');
 
     if (platform === 'darwin') {
-      winControls.style.display = 'none';
       macControls.style.display = 'flex';
     } else {
       winControls.style.display = 'flex';
-      macControls.style.display = 'none';
+
+      // add padding on windows
+      titlebar.classList.add('px-4', 'pr-0');
     }
 
     // get control buttons
@@ -69,6 +69,9 @@ window.ipc.on('platform', (data) => {
         svg.innerHTML = maximized ? winRestoreSvg : winMaximizeSvg;
       }
     });
+  } else {
+    // add padding if on unsupported platform
+    titlebar.classList.add('px-4');
   }
 });
 
