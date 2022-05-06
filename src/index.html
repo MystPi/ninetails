@@ -1,132 +1,201 @@
 <!DOCTYPE html>
 <html>
-  <head>
-    <meta charset="UTF-8">
-    <title>Ninetails</title>
-    <link rel="stylesheet" href="./roboto/roboto.css">
-    <link rel="stylesheet" href="./tailwind.css">
-    <script src="./js/sortable.js"></script>
-  </head>
-  <body class="h-screen p-0 m-0">
-    <!-- Loading screen -->
-    <div id="loading" class="fixed z-40 flex items-center justify-center w-full h-full transition duration-500 bg-indigo-500">
-      <img src="../appicons/ninetails.png" alt="Ninetails logo" class="h-1/2 aspect-square">
+
+<head>
+  <meta charset="UTF-8">
+  <title>Ninetails</title>
+  <link rel="stylesheet" href="./roboto/roboto.css">
+  <link rel="stylesheet" href="./tailwind.css">
+  <script src="./js/sortable.js"></script>
+</head>
+
+<body class="h-screen p-0 m-0">
+  <!-- Loading screen -->
+  <div id="loading"
+    class="fixed z-40 flex items-center justify-center w-full h-full transition duration-500 bg-indigo-500">
+    <img src="../appicons/ninetails.png" alt="Ninetails logo" class="h-1/2 aspect-square">
+  </div>
+
+  <!-- Update available alert -->
+  <div id="update-available" data-link-prefix="home" data-link="download"
+    class="fixed z-20 hidden max-w-xl px-4 py-2 text-yellow-800 transition bg-yellow-100 border border-yellow-200 rounded-lg cursor-pointer top-24 left-6 right-6 sm:left-0 sm:right-0 sm:mx-auto">
+    <span class="font-bold text-yellow-600">Version <span id="update-available-version"></span> of Ninetails is
+      out!</span> Click here to download the latest version.</div>
+
+  <!-- Right-click menu -->
+  <div id="menu"
+    class="fixed z-20 flex-col hidden w-32 py-2 bg-white bg-opacity-75 border border-gray-100 rounded shadow backdrop-blur-lg">
+    <button id="menu-inspect"
+      class="w-full p-1 pl-6 text-sm text-left text-gray-700 cursor-default hover:bg-opacity-50 hover:bg-gray-100">Inspect</button>
+    <button id="menu-reload"
+      class="w-full p-1 pl-6 text-sm text-left text-gray-700 cursor-default hover:bg-opacity-50 hover:bg-gray-100">Reload</button>
+    <button id="menu-back"
+      class="w-full p-1 pl-6 text-sm text-left text-gray-700 cursor-default hover:bg-opacity-50 hover:bg-gray-100">Back</button>
+    <button id="menu-forward"
+      class="w-full p-1 pl-6 text-sm text-left text-gray-700 cursor-default hover:bg-opacity-50 hover:bg-gray-100">Forward</button>
+  </div>
+
+  <!-- Right-click menu screen cover -->
+  <div id="cover" class="fixed z-10 hidden w-full h-full"></div>
+
+  <!-- URL target -->
+  <div id="target"
+    class="fixed bottom-0 max-w-md px-1 overflow-hidden text-sm text-gray-500 transition bg-gray-200 rounded-tr opacity-0 whitespace-nowrap text-ellipsis sm:max-w-[75%]">
+  </div>
+
+  <!-- Settings menu -->
+  <div id="settings" class="fixed z-30 hidden w-full h-full bg-black/10">
+    <div
+      class="relative px-8 py-8 mx-8 -translate-y-1/2 bg-white bg-opacity-75 backdrop-blur-lg rounded-lg sm:max-w-xl sm:mx-auto top-1/2 max-h-[calc(100vh-4rem)] overflow-auto no-scrollbar">
+      <h2 class="mb-8 text-4xl font-black text-gray-700">Ninetails <span class="text-indigo-500">Settings</span></h2>
+
+      <!-- Search Engine -->
+      <p class="mb-2 font-bold text-gray-700">Search engine URL</p>
+      <div class="flex items-center mb-8 space-x-2">
+        <input id="settings-searchurl" type="text" placeholder="https://www.startpage.com/sp/search?q= (default)"
+          class="bg-indigo-50 text-indigo-500 rounded-full outline-none text-sm px-4 py-0.5 transition hover:bg-indigo-100 placeholder:text-indigo-400 w-full">
+        <select id="settings-presets"
+          class="appearance-none px-4 py-0.5 rounded-full bg-indigo-500 text-white font-bold outline-none text-sm"
+          name="" id="">
+          <option class="text-sm text-gray-700 bg-white" value="">Default (Startpage)</option>
+          <option class="text-sm text-gray-700 bg-white" value="https://you.com/search?q=">You</option>
+          <option class="text-sm text-gray-700 bg-white" value="https://duckduckgo.com?q=">DuckDuckGo</option>
+          <option class="text-sm text-gray-700 bg-white" value="https://www.bing.com/search?q=">Bing</option>
+          <option class="text-sm text-gray-700 bg-white" value="https://search.yahoo.com/search?p=">Yahoo</option>
+          <option class="text-sm text-gray-700 bg-white" value="https://www.google.com/search?q=">Google</option>
+        </select>
+      </div>
+
+      <!-- Homepage -->
+      <p class="mb-2 font-bold text-gray-700">Homepage</p>
+      <input id="settings-homepage" type="text" placeholder="Leave blank for the default (recommended)"
+        class="bg-indigo-50 text-indigo-500 rounded-full outline-none text-sm px-4 py-0.5 mb-8 transition hover:bg-indigo-100 placeholder:text-indigo-400 w-full">
+
+      <!-- Custom UA -->
+      <p class="mb-2 font-bold text-gray-700">User agent</p>
+      <input id="settings-ua" type="text" placeholder=""
+        class="bg-indigo-50 text-indigo-500 rounded-full outline-none text-sm px-4 py-0.5 mb-8 transition hover:bg-indigo-100 placeholder:text-indigo-400 w-full">
+
+      <!-- Open bookmarks in new tab -->
+      <div class="flex mb-8">
+        <p class="font-bold text-gray-700">Open bookmarks in a new tab</p>
+        <input id="settings-open-in-new-tab" class="ml-auto" type="checkbox" />
+      </div>
+
+      <div class="flex space-x-4">
+        <button id="settings-done"
+          class="flex-1 px-4 py-2 font-bold text-white transition bg-indigo-500 rounded-md hover:bg-indigo-600">Done</button>
+        <button id="settings-cancel"
+          class="flex-1 px-4 py-2 font-bold text-indigo-500 transition rounded-md bg-indigo-50 hover:bg-indigo-100">Cancel</button>
+      </div>
     </div>
+  </div>
 
-    <!-- Update available alert -->
-    <div id="update-available" data-link-prefix="home" data-link="download" class="fixed z-20 hidden max-w-xl px-4 py-2 text-yellow-800 transition bg-yellow-100 border border-yellow-200 rounded-lg cursor-pointer top-24 left-6 right-6 sm:left-0 sm:right-0 sm:mx-auto"><span class="font-bold text-yellow-600">Version <span id="update-available-version"></span> of Ninetails is out!</span> Click here to download the latest version.</div>
-
-    <!-- Right-click menu -->
-    <div id="menu" class="fixed z-20 flex-col hidden w-32 py-2 bg-white bg-opacity-75 border border-gray-100 rounded shadow backdrop-blur-lg">
-      <button id="menu-inspect" class="w-full p-1 pl-6 text-sm text-left text-gray-700 cursor-default hover:bg-opacity-50 hover:bg-gray-100">Inspect</button>
-      <button id="menu-reload" class="w-full p-1 pl-6 text-sm text-left text-gray-700 cursor-default hover:bg-opacity-50 hover:bg-gray-100">Reload</button>
-      <button id="menu-back" class="w-full p-1 pl-6 text-sm text-left text-gray-700 cursor-default hover:bg-opacity-50 hover:bg-gray-100">Back</button>
-      <button id="menu-forward" class="w-full p-1 pl-6 text-sm text-left text-gray-700 cursor-default hover:bg-opacity-50 hover:bg-gray-100">Forward</button>
+  <!-- Bookmarks menu -->
+  <div id="bookmarks" class="fixed z-30 hidden w-full h-full bg-black/10">
+    <div
+      class="relative px-8 py-8 mx-8 -translate-y-1/2 bg-opacity-75 backdrop-blur-lg bg-white rounded-lg sm:max-w-xl sm:mx-auto top-1/2 max-h-[calc(100vh-4rem)] overflow-auto no-scrollbar">
+      <h2 class="mb-8 text-4xl font-black text-gray-700">Your <span class="text-indigo-500">Bookmarks</span></h2>
+      <div class="mb-6" id="bookmarks-container"></div>
+      <button id="bookmarks-close"
+        class="flex-1 w-full px-4 py-2 font-bold text-white transition bg-indigo-500 rounded-md hover:bg-indigo-600">Close</button>
     </div>
+  </div>
 
-    <!-- Right-click menu screen cover -->
-    <div id="cover" class="fixed z-10 hidden w-full h-full"></div>
+  <!-- No internet popup -->
+  <div id="offline" class="fixed z-30 hidden w-full h-full bg-black/10">
+    <div
+      class="relative px-8 py-8 mx-8 -translate-y-1/2 bg-white rounded-lg sm:max-w-xl sm:mx-auto top-1/2 max-h-[calc(100vh-4rem)] overflow-auto no-scrollbar">
+      <h2 class="mb-8 text-4xl font-black text-gray-700">No <span class="text-indigo-500">internet</span> :(</h2>
+      <button id="offline-retry"
+        class="flex-1 w-full px-4 py-2 font-bold text-white transition bg-indigo-500 rounded-md hover:bg-indigo-600">Retry</button>
+    </div>
+  </div>
 
-    <!-- URL target -->
-    <div id="target" class="fixed bottom-0 max-w-md px-1 overflow-hidden text-sm text-gray-500 transition bg-gray-200 rounded-tr opacity-0 whitespace-nowrap text-ellipsis sm:max-w-[75%]"></div>
+  <div id="drag-region" class="flex flex-col h-full">
 
-    <!-- Settings menu -->
-    <div id="settings" class="fixed z-30 hidden w-full h-full bg-black/10">
-      <div class="relative px-8 py-8 mx-8 -translate-y-1/2 bg-white bg-opacity-75 backdrop-blur-lg rounded-lg sm:max-w-xl sm:mx-auto top-1/2 max-h-[calc(100vh-4rem)] overflow-auto no-scrollbar">
-        <h2 class="mb-8 text-4xl font-black text-gray-700">Ninetails <span class="text-indigo-500">Settings</span></h2>
-
-        <!-- Search Engine -->
-        <p class="mb-2 font-bold text-gray-700">Search engine URL</p>
-        <div class="flex items-center mb-8 space-x-2">
-          <input id="settings-searchurl" type="text" placeholder="https://www.startpage.com/sp/search?q= (default)" class="bg-indigo-50 text-indigo-500 rounded-full outline-none text-sm px-4 py-0.5 transition hover:bg-indigo-100 placeholder:text-indigo-400 w-full">
-          <select id="settings-presets" class="appearance-none px-4 py-0.5 rounded-full bg-indigo-500 text-white font-bold outline-none text-sm" name="" id="">
-            <option class="text-sm text-gray-700 bg-white" value="">Default (Startpage)</option>
-            <option class="text-sm text-gray-700 bg-white" value="https://you.com/search?q=">You</option>
-            <option class="text-sm text-gray-700 bg-white" value="https://duckduckgo.com?q=">DuckDuckGo</option>
-            <option class="text-sm text-gray-700 bg-white" value="https://www.bing.com/search?q=">Bing</option>
-            <option class="text-sm text-gray-700 bg-white" value="https://search.yahoo.com/search?p=">Yahoo</option>
-            <option class="text-sm text-gray-700 bg-white" value="https://www.google.com/search?q=">Google</option>
-          </select>
-        </div>
-
-        <!-- Homepage -->
-        <p class="mb-2 font-bold text-gray-700">Homepage</p>
-        <input id="settings-homepage" type="text" placeholder="Leave blank for the default (recommended)" class="bg-indigo-50 text-indigo-500 rounded-full outline-none text-sm px-4 py-0.5 mb-8 transition hover:bg-indigo-100 placeholder:text-indigo-400 w-full">
-
-        <!-- Custom UA -->
-        <p class="mb-2 font-bold text-gray-700">User agent</p>
-        <input id="settings-ua" type="text" placeholder="" class="bg-indigo-50 text-indigo-500 rounded-full outline-none text-sm px-4 py-0.5 mb-8 transition hover:bg-indigo-100 placeholder:text-indigo-400 w-full">
-
-        <!-- Open bookmarks in new tab -->
-        <div class="flex mb-8">
-          <p class="font-bold text-gray-700">Open bookmarks in a new tab</p>
-          <input id="settings-open-in-new-tab" class="ml-auto" type="checkbox" />
-        </div>
-
-        <div class="flex space-x-4">
-          <button id="settings-done" class="flex-1 px-4 py-2 font-bold text-white transition bg-indigo-500 rounded-md hover:bg-indigo-600">Done</button>
-          <button id="settings-cancel" class="flex-1 px-4 py-2 font-bold text-indigo-500 transition rounded-md bg-indigo-50 hover:bg-indigo-100">Cancel</button>
-        </div>
+    <!-- Tab bar with the "create tab" and "more menu" buttons, as well as window controls -->
+    <div id="titlebar" class="flex items-center mt-2 pr-0 h-7">
+      <div id="window-controls-mac" class="window-controls flex items-center mx-2">
+        <button id="mac-close-button" class="flex items-center justify-center cursor-default w-3 h-3 mac-window-control mx-1"></button>
+        <button id="mac-minimize-button" class="flex items-center justify-center cursor-default w-3 h-3 mac-window-control mx-1"></button>
+        <button id="mac-maximize-button" class="flex items-center justify-center cursor-default w-3 h-3 mac-window-control mx-1"></button>
+      </div>
+      <div id="tabbar" class="flex items-center flex-1 space-x-2 overflow-auto no-scrollbar"></div>
+      <button id="newtab-button"
+        class="flex items-center justify-center ml-3 mr-3 transition rounded-full cursor-default w-7 h-7 hoverable"><img
+          class="light-img" src="./icons/add.png" width="20" height="20"></button>
+      <button id="bookmarks-button"
+        class="flex items-center justify-center mr-3 transition rounded-full cursor-default w-7 h-7 hoverable"><img
+          class="light-img" src="./icons/bookmarks.png" width="20" height="20"></button>
+      <button id="more-button"
+        class="flex items-center justify-center transition rounded-full cursor-default w-7 h-7 hoverable"><img
+          class="light-img" src="./icons/more.png" width="20" height="20"></button>
+      <div id="window-controls-win" class="window-controls flex items-center mx-2">
+        <button id="win-minimize-button" class="flex items-center justify-center cursor-default w-11 h-7 win-window-control">
+          <svg viewBox="0 0 12 12" width="12.2" xmlns="http://www.w3.org/2000/svg">
+            <rect width="12" height="1" x="0" y="6" style="stroke-opacity: 0;" />
+          </svg>
+        </button>
+        <button id="win-maximize-button" class="flex items-center justify-center cursor-default w-11 h-7 win-window-control">
+          <svg viewBox="0 0 10.2 10.1" width="12.2" xmlns="http://www.w3.org/2000/svg">
+            <path d="M0,0v10.1h10.2V0H0z M9.2,9.2H1.1V1h8.1V9.2z" style="stroke-opacity: 0;" />
+          </svg>
+        </button>
+        <button id="win-close-button" class="flex items-center justify-center cursor-default w-11 h-7 win-window-control">
+          <svg viewBox="0 0 10.2 10.2" width="12.2" xmlns="http://www.w3.org/2000/svg">
+            <polygon points="10.2,0.7 9.5,0 5.1,4.4 0.7,0 0,0.7 4.4,5.1 0,9.5 0.7,10.2 5.1,5.8 9.5,10.2 10.2,9.5 5.8,5.1" style="stroke-opacity: 0;" />
+          </svg>
+        </button>
       </div>
     </div>
 
-    <!-- Bookmarks menu -->
-    <div id="bookmarks" class="fixed z-30 hidden w-full h-full bg-black/10">
-      <div class="relative px-8 py-8 mx-8 -translate-y-1/2 bg-opacity-75 backdrop-blur-lg bg-white rounded-lg sm:max-w-xl sm:mx-auto top-1/2 max-h-[calc(100vh-4rem)] overflow-auto no-scrollbar">
-        <h2 class="mb-8 text-4xl font-black text-gray-700">Your <span class="text-indigo-500">Bookmarks</span></h2>
-        <div class="mb-6" id="bookmarks-container"></div>
-        <button id="bookmarks-close" class="flex-1 w-full px-4 py-2 font-bold text-white transition bg-indigo-500 rounded-md hover:bg-indigo-600">Close</button>
-      </div>
+    <!-- Dropdown "more menu" -->
+    <div id="more-menu"
+      class="absolute z-20 hidden my-4 text-base list-none bg-white bg-opacity-75 border border-gray-100 divide-y divide-gray-100 rounded shadow backdrop-blur-lg right-2 top-8">
+      <ul class="py-1" aria-labelledby="dropdown">
+        <li>
+          <button id="more-settings"
+            class="block w-full px-4 py-2 text-sm text-left text-gray-700 cursor-default hover:bg-opacity-50 hover:bg-gray-100">Settings</button>
+          <button data-link-prefix="github" data-link
+            class="block w-full px-4 py-2 text-sm text-left text-gray-700 cursor-default hover:bg-opacity-50 hover:bg-gray-100">GitHub</button>
+          <button data-link-prefix="github" data-link="issues/new"
+            class="block w-full px-4 py-2 text-sm text-left text-gray-700 cursor-default hover:bg-opacity-50 hover:bg-gray-100">Give
+            feedback</button>
+        </li>
+      </ul>
     </div>
 
-    <!-- No internet popup -->
-    <div id="offline" class="fixed z-30 hidden w-full h-full bg-black/10">
-      <div class="relative px-8 py-8 mx-8 -translate-y-1/2 bg-white rounded-lg sm:max-w-xl sm:mx-auto top-1/2 max-h-[calc(100vh-4rem)] overflow-auto no-scrollbar">
-        <h2 class="mb-8 text-4xl font-black text-gray-700">No <span class="text-indigo-500">internet</span> :(</h2>
-        <button id="offline-retry" class="flex-1 w-full px-4 py-2 font-bold text-white transition bg-indigo-500 rounded-md hover:bg-indigo-600">Retry</button>
-      </div>
+    <!-- Utility bar (omnibox, back/forward buttons, etc.) -->
+    <div class="flex items-center flex-none px-4 py-2 space-x-3">
+      <button id="back" class="flex items-center justify-center transition rounded-full cursor-default w-7 h-7"><img
+          class="light-img" src="./icons/back-ios.png" width="20" height="20"></button>
+      <button id="forward" class="flex items-center justify-center transition rounded-full cursor-default w-7 h-7"><img
+          class="light-img" src="./icons/forward-ios.png" width="20" height="20"></button>
+      <input id="omnibox" type="text"
+        class="rounded outline-none text-gray-700 pl-4 pr-7 py-0.5 flex-1 text-sm hover:transition bg-gray-100 box-border h-7 hover:bg-gray-200 focus:transition-none focus:outline focus:outline-gray-200 focus:outline-1 focus:outline-offset-[-1px] focus:bg-white"
+        onfocus="this.select()" />
+      <button id="reload" class="flex items-center justify-center cursor-default w-7 h-7"
+        style="margin-left: -1.75rem;"><img class="light-img" src="./icons/reload.png" width="20" height="20"></button>
+      <button class="flex items-center justify-center cursor-default w-7 h-7"><img class="light-img"
+          src="./icons/lock-closed.png" id="ssl" width="20" height="20"></button>
+      <button id="bookmark"
+        class="flex items-center justify-center transition rounded-full cursor-default w-7 h-7 hoverable"><img
+          class="light-img" src="./icons/heart_empty.png" width="20" height="20"></button>
+      <button id="close"
+        class="flex items-center justify-center transition rounded-full cursor-default w-7 h-7 hoverable"><img
+          class="light-img" src="./icons/close.png" width="20" height="20"></button>
     </div>
 
-    <div class="flex flex-col h-full">
+    <!-- View container -->
+    <div id="views" class="flex-1"></div>
 
-      <!-- Tab bar with the "create tab" and "more menu" buttons -->
-      <div class="flex items-center px-4 mt-4">
-        <div id="tabbar" class="flex items-center flex-1 space-x-2 overflow-auto no-scrollbar"></div>
-        <button id="newtab-button" class="flex items-center justify-center ml-3 mr-3 transition rounded-full cursor-default w-7 h-7 hoverable"><img class="light-img" src="./icons/add.png" width="20" height="20"></button>
-        <button id="bookmarks-button" class="flex items-center justify-center mr-3 transition rounded-full cursor-default w-7 h-7 hoverable"><img class="light-img" src="./icons/bookmarks.png" width="20" height="20"></button>
-        <button id="more-button" class="flex items-center justify-center transition rounded-full cursor-default w-7 h-7 hoverable"><img class="light-img" src="./icons/more.png" width="20" height="20"></button>
-      </div>
+  </div>
+  <script src="./js/globals.js"></script>
+  <script src="./js/uriSchemes.js"></script>
+  <script src="./js/functions.js"></script>
+  <script src="./js/listeners.js"></script>
+  <script src="./js/startup.js"></script>
+</body>
 
-      <!-- Dropdown "more menu" -->
-      <div id="more-menu" class="absolute z-20 hidden my-4 text-base list-none bg-white bg-opacity-75 border border-gray-100 divide-y divide-gray-100 rounded shadow backdrop-blur-lg right-2 top-8">
-        <ul class="py-1" aria-labelledby="dropdown">
-          <li>
-            <button id="more-settings" class="block w-full px-4 py-2 text-sm text-left text-gray-700 cursor-default hover:bg-opacity-50 hover:bg-gray-100">Settings</button>
-            <button data-link-prefix="github" data-link class="block w-full px-4 py-2 text-sm text-left text-gray-700 cursor-default hover:bg-opacity-50 hover:bg-gray-100">GitHub</button>
-            <button data-link-prefix="github" data-link="issues/new" class="block w-full px-4 py-2 text-sm text-left text-gray-700 cursor-default hover:bg-opacity-50 hover:bg-gray-100">Give feedback</button>
-          </li>
-        </ul>
-      </div>
-
-      <!-- Utility bar (omnibox, back/forward buttons, etc.) -->
-      <div class="flex items-center flex-none px-4 py-2 space-x-3">
-        <button id="back" class="flex items-center justify-center transition rounded-full cursor-default w-7 h-7"><img class="light-img" src="./icons/back-ios.png" width="20" height="20"></button>
-        <button id="forward" class="flex items-center justify-center transition rounded-full cursor-default w-7 h-7"><img class="light-img" src="./icons/forward-ios.png" width="20" height="20"></button>
-        <input id="omnibox" type="text" class="rounded outline-none text-gray-700 pl-4 pr-7 py-0.5 flex-1 text-sm hover:transition bg-gray-100 box-border h-7 hover:bg-gray-200 focus:transition-none focus:outline focus:outline-gray-200 focus:outline-1 focus:outline-offset-[-1px] focus:bg-white" onfocus="this.select()"/>
-        <button id="reload" class="flex items-center justify-center cursor-default w-7 h-7" style="margin-left: -1.75rem;"><img class="light-img" src="./icons/reload.png" width="20" height="20"></button>
-        <button class="flex items-center justify-center cursor-default w-7 h-7"><img class="light-img" src="./icons/lock-closed.png" id="ssl" width="20" height="20"></button>
-        <button id="bookmark" class="flex items-center justify-center transition rounded-full cursor-default w-7 h-7 hoverable"><img class="light-img" src="./icons/heart_empty.png" width="20" height="20"></button>
-        <button id="close" class="flex items-center justify-center transition rounded-full cursor-default w-7 h-7 hoverable"><img class="light-img" src="./icons/close.png" width="20" height="20"></button>
-      </div>
-
-      <!-- View container -->
-      <div id="views" class="flex-1"></div>
-
-    </div>
-    <script src="./js/globals.js"></script>
-    <script src="./js/uriSchemes.js"></script>
-    <script src="./js/functions.js"></script>
-    <script src="./js/listeners.js"></script>
-    <script src="./js/startup.js"></script>
-  </body>
 </html>

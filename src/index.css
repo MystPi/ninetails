@@ -3,9 +3,23 @@
 @tailwind utilities;
 
 @layer base {
-  *:not(#tabbar>button), *::after, *::before, {
-    @apply select-none;
+  * {
     -webkit-user-drag: none;
+  }
+
+  #drag-region {
+    -webkit-app-region: drag;
+  }
+
+  #drag-region * {
+    -webkit-app-region: no-drag;
+  }
+
+  #tabbar {
+    -webkit-app-region: drag;
+  }
+
+  #tabbar * {
     -webkit-app-region: no-drag;
   }
 
@@ -19,6 +33,53 @@
 
   ::selection {
     @apply text-white bg-indigo-500;
+  }
+
+  :focus {
+    outline: none;
+  }
+
+  .window-controls {
+    border-radius: 5px;
+    overflow: hidden;
+  }
+
+  .win-window-control {
+    background-color: transparent;
+    transition-duration: 0.2s;
+  }
+
+  .win-window-control * {
+    transition-duration: 0.2s;
+  }
+
+  .win-window-control:hover {
+    background-color: rgba(0, 0, 0, 0.1);
+  }
+
+  .win-window-control#win-close-button:hover {
+    background-color: rgba(255, 90, 82, 1);
+  }
+
+  .win-window-control#win-close-button:hover > svg > polygon {
+    fill: #f5f5f5;
+  }
+
+  .mac-window-control {
+    border-radius: 50%;
+    overflow: hidden;
+  }
+
+  .mac-window-control#mac-close-button {
+    background-color: rgba(255, 90, 82, 1);
+  }
+
+  .mac-window-control#mac-minimize-button {
+    background-color: rgba(231, 192, 57, 1);
+  }
+
+  .mac-window-control#mac-maximize-button {
+    background-color: rgba(81, 194, 58, 1);
   }
 }
 
@@ -40,6 +101,7 @@
   .hoverable:hover {
     @apply bg-gray-200;
   }
+
   .no-scrollbar::-webkit-scrollbar {
     display: none;
   }

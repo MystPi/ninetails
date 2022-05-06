@@ -1,4 +1,6 @@
-const { app, BrowserWindow } = require('electron');
+const { app,
+        BrowserWindow,
+        ipcMain } = require('electron');
 const path = require('path');
 
 // Handle creating/removing shortcuts on Windows when installing/uninstalling.
@@ -7,20 +9,81 @@ if (require('electron-squirrel-startup')) { // eslint-disable-line global-requir
 }
 
 const createWindow = () => {
+  // Remove the border on MacOS and Windows
+  const border = !(process.platform === 'darwin' || process.platform == 'win32')
+
   // Create the browser window.
   const mainWindow = new BrowserWindow({
     width: 800,
     height: 600,
     minHeight: 450,
     minWidth: 450,
+    frame: border,
+    show: false,
     webPreferences: {
-      webviewTag: true
+      webviewTag: true,
+      preload: path.join(__dirname, 'js/preload.js'),
+      contextIsolation: true,
+      nodeIntegration: false,
+      nodeIntegrationInWorker: false
     }
   });
 
-  // and load the index.html of the app.
+  // Handle ipc messages
+  ipcMain.on('toMain', (event, arg) => {
+    switch (arg) {
+      // Send OS info to renderer
+      case 'platform': {
+        event.sender.send('platform', {
+          platform: process.platform,
+          chromium: process.versions.chrome,
+          electron: process.versions.electron
+        });
+
+        event.sender.send('maximized', mainWindow.isMaximized());
+        break;
+      }
+      // Close the window
+      case 'close': {
+        mainWindow.close();
+        break;
+      }
+      // Minimize the window
+      case 'minimize': {
+        mainWindow.minimize();
+        break;
+      }
+      // Maximize the window
+      case 'maximize': {
+        if (!mainWindow.isMaximized()) {
+          mainWindow.maximize();
+        } else {
+          mainWindow.unmaximize();
+        }
+        break;
+      }
+      // Handle unknown messages
+      default: {
+        console.error(`Unknown event: ${arg}`);
+      }
+    }
+  });
+
+  mainWindow.on('unmaximize', () => {
+    mainWindow.webContents.send('maximized', false);
+  });
+
+  mainWindow.on('maximize', () => {
+    mainWindow.webContents.send('maximized', true);
+  });
+
+  // Load the index.html of the app.
   mainWindow.loadFile(path.join(__dirname, 'index.html'));
   mainWindow.setMenuBarVisibility(false);
+  // Show the window when it's ready
+  mainWindow.on('ready-to-show', () => {
+    mainWindow.show();
+  });
 };
 
 // This method will be called when Electron has finished
@@ -61,4 +124,4 @@ app.on('web-contents-created', function (event, contents) {
 // Auto reload the app on files changes
 try {
   require('electron-reloader')(module)
-} catch (_) {}
+} catch (_) { }
