@@ -257,7 +257,10 @@ function hideMenu() {
 /** Close the active tab and switch to a new one */
 function closeTab() {
   let tabbar = byId('tabbar');
-  if (tabbar.children.length === 1) return;
+  if (tabbar.children.length === 1) {
+    window.ipc.send('toMain', 'close');
+    return
+  };
   byId('view-' + activeHash).remove();
   byId('tab-' + activeHash).remove();
   switchTabs(tabbar.lastChild.id.slice(4));
