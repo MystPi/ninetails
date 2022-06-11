@@ -15,10 +15,7 @@
     "tailwind": "npx tailwindcss -i ./src/index.css -o ./src/tailwind.css --minify --watch"
   },
   "keywords": [],
-  "author": {
-    "name": "MystPi",
-    "email": "feedback@myst.eml.monster"
-  },
+  "author": "MystPi",
   "license": "MIT",
   "config": {
     "forge": {
