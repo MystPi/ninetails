@@ -17,7 +17,7 @@
     <div id="update-available" data-link-prefix="home" data-link="download" class="fixed z-20 hidden max-w-xl px-4 py-2 text-yellow-800 transition bg-yellow-100 border border-yellow-200 rounded-lg cursor-pointer top-24 left-6 right-6 sm:left-0 sm:right-0 sm:mx-auto"><span class="font-bold text-yellow-600">Version <span id="update-available-version"></span> of Ninetails is out!</span> Click here to download the latest version.</div>
 
     <!-- Right-click menu -->
-    <div id="menu" class="fixed z-20 flex-col hidden w-32 py-2 bg-white bg-opacity-75 border border-gray-100 rounded shadow backdrop-blur-lg">
+    <div id="menu" class="fixed z-20 flex-col hidden w-32 py-2 bg-white border border-gray-100 rounded shadow glass">
       <button id="menu-inspect" class="w-full p-1 pl-6 text-sm text-left text-gray-700 cursor-default hover:bg-opacity-50 hover:bg-gray-100">Inspect</button>
       <button id="menu-reload" class="w-full p-1 pl-6 text-sm text-left text-gray-700 cursor-default hover:bg-opacity-50 hover:bg-gray-100">Reload</button>
       <button id="menu-back" class="w-full p-1 pl-6 text-sm text-left text-gray-700 cursor-default hover:bg-opacity-50 hover:bg-gray-100">Back</button>
@@ -32,7 +32,7 @@
 
     <!-- Settings menu -->
     <div id="settings" class="fixed z-30 hidden w-full h-full bg-black/10">
-      <div class="relative px-8 py-8 mx-8 -translate-y-1/2 bg-white bg-opacity-75 backdrop-blur-lg rounded-lg sm:max-w-xl sm:mx-auto top-1/2 max-h-[calc(100vh-4rem)] overflow-auto no-scrollbar">
+      <div class="relative px-8 py-8 mx-8 -translate-y-1/2 bg-white glass rounded-lg sm:max-w-xl sm:mx-auto top-1/2 max-h-[calc(100vh-4rem)] overflow-auto no-scrollbar">
         <h2 class="mb-8 text-4xl font-black text-gray-700">Ninetails <span class="text-indigo-500">Settings</span></h2>
 
         <!-- Search Engine -->
@@ -72,7 +72,7 @@
 
     <!-- Bookmarks menu -->
     <div id="bookmarks" class="fixed z-30 hidden w-full h-full bg-black/10">
-      <div class="relative px-8 py-8 mx-8 -translate-y-1/2 bg-opacity-75 backdrop-blur-lg bg-white rounded-lg sm:max-w-xl sm:mx-auto top-1/2 max-h-[calc(100vh-4rem)] overflow-auto no-scrollbar">
+      <div class="relative px-8 py-8 mx-8 -translate-y-1/e glass bg-white rounded-lg sm:max-w-xl sm:mx-auto top-1/2 max-h-[calc(100vh-4rem)] overflow-auto no-scrollbar">
         <h2 class="mb-8 text-4xl font-black text-gray-700">Your <span class="text-indigo-500">Bookmarks</span></h2>
         <div class="mb-6" id="bookmarks-container"></div>
         <button id="bookmarks-close" class="flex-1 w-full px-4 py-2 font-bold text-white transition bg-indigo-500 rounded-md hover:bg-indigo-600">Close</button>
@@ -98,7 +98,7 @@
       </div>
 
       <!-- Dropdown "more menu" -->
-      <div id="more-menu" class="absolute z-20 hidden my-4 text-base list-none bg-white bg-opacity-75 border border-gray-100 divide-y divide-gray-100 rounded shadow backdrop-blur-lg right-2 top-8">
+      <div id="more-menu" class="absolute z-20 hidden my-4 text-base list-none bg-white border border-gray-100 divide-y divide-gray-100 rounded shadow glass right-2 top-8">
         <ul class="py-1" aria-labelledby="dropdown">
           <li>
             <button id="more-settings" class="block w-full px-4 py-2 text-sm text-left text-gray-700 cursor-default hover:bg-opacity-50 hover:bg-gray-100">Settings</button>
@@ -113,7 +113,7 @@
         <button id="back" class="flex items-center justify-center transition rounded-full cursor-default w-7 h-7"><img class="light-img" src="./icons/back-ios.png" width="20" height="20"></button>
         <button id="forward" class="flex items-center justify-center transition rounded-full cursor-default w-7 h-7"><img class="light-img" src="./icons/forward-ios.png" width="20" height="20"></button>
         <input id="omnibox" type="text" class="rounded outline-none text-gray-700 pl-4 pr-7 py-0.5 flex-1 text-sm hover:transition bg-gray-100 box-border h-7 hover:bg-gray-200 focus:transition-none focus:outline focus:outline-gray-200 focus:outline-1 focus:outline-offset-[-1px] focus:bg-white" onfocus="this.select()"/>
-        <button id="reload" class="flex items-center justify-center cursor-default w-7 h-7" style="margin-left: -1.75rem;"><img class="light-img" src="./icons/reload.png" width="20" height="20"></button>
+        <button id="reload" class="flex items-center justify-center transition rounded-r cursor-default w-7 h-7 hoverable" style="margin-left: -1.75rem;"><img class="light-img" src="./icons/reload.png" width="20" height="20"></button>
         <button class="flex items-center justify-center cursor-default w-7 h-7"><img class="light-img" src="./icons/lock-closed.png" id="ssl" width="20" height="20"></button>
         <button id="bookmark" class="flex items-center justify-center transition rounded-full cursor-default w-7 h-7 hoverable"><img class="light-img" src="./icons/heart_empty.png" width="20" height="20"></button>
         <button id="close" class="flex items-center justify-center transition rounded-full cursor-default w-7 h-7 hoverable"><img class="light-img" src="./icons/close.png" width="20" height="20"></button>

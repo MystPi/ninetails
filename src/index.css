@@ -40,7 +40,12 @@
   .hoverable:hover {
     @apply bg-gray-200;
   }
+
   .no-scrollbar::-webkit-scrollbar {
     display: none;
+  }
+
+  .glass {
+    @apply bg-opacity-75 backdrop-blur-lg;
   }
 }
