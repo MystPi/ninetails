@@ -1,3 +1,5 @@
+# Ninetails has been archived. [Learn more here.](https://scratch.mit.edu/discuss/post/6397247/)
+
 <img width="1500" alt="Ninetails' banner" src="https://user-images.githubusercontent.com/86574651/147876286-e0f179a9-b456-4c82-b672-380c0a30da3f.png">
 
 <p align="center">
@@ -48,6 +50,3 @@ npm run make
 # The built app should be located at `./out/make/{filetype}/{architecture}/{filename}.{filetype}`
 # Eg. `./out/make/deb/arm64/ninetails_1.0.0_arm64.deb`
 ```
-
-## The Android app has been discontinued
-You can still download the last version, but Ninetails desktop is recommended.
